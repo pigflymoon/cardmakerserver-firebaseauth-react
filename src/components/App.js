@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Navigation from './Navigation';
+import UploadPage from './UploadPage';
 import LandingPage from './Landing';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
@@ -20,7 +21,7 @@ const App = () =>
             <Navigation />
 
             <hr/>
-
+            <Route exact path={routes.UPLOAD} component={() => <UploadPage />} />
             <Route exact path={routes.LANDING} component={() => <LandingPage />} />
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
             <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />

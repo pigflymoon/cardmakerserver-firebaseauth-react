@@ -19,6 +19,7 @@ Navigation.contextTypes = {
 
 const NavigationAuth = () =>
     <ul>
+        <li><Link to={routes.UPLOAD}>Upload</Link></li>
         <li><Link to={routes.LANDING}>Landing</Link></li>
         <li><Link to={routes.HOME}>Home</Link></li>
         <li><Link to={routes.ACCOUNT}>Account</Link></li>
