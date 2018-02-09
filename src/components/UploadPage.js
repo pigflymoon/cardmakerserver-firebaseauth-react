@@ -15,7 +15,7 @@ import AddToPhotos from 'material-ui-icons/AddToPhotos';
 
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
-import DoneIcon from 'material-ui-icons/Done';
+import {CircularProgress} from 'material-ui/Progress';
 import pic1 from '../images/1.jpg';
 
 import {
@@ -24,6 +24,7 @@ import {
 import withRoot from './withRoot';
 import saveImage from '../utils/saveImage';
 
+import SimpleSnackbar from '../widgets/snackBar';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -84,7 +85,10 @@ const styles = theme => ({
     file: {
         margin: 4,
         fontSize: 14,
-    }
+    },
+    progress: {
+        margin: `0 ${theme.spacing.unit * 2}px`,
+    },
 
 });
 
@@ -97,6 +101,7 @@ class UploadPage extends Component {
             users: null,
             file: null,
             fileName: '',
+            uploading: false,
         };
     }
 
@@ -123,12 +128,49 @@ class UploadPage extends Component {
         e.preventDefault();
         console.log('submit', this.state.file);
         // this.fileUpload(this.state.file);
+        this.setState({uploading: true});
         this.filesUpload(this.state.choseFiles);
     }
 
+    getDownloadUrl = (uploadImagesRef, snapshot) => {
+        if (snapshot.downloadURL !== null) {
+            var downloadUrl = snapshot.downloadURL;
+            var newImageKey = uploadImagesRef.push().key;
+            var saveFilename = snapshot.metadata.name;
+            uploadImagesRef.child(newImageKey + '_image').set({
+                downloadUrl: downloadUrl,
+                Name: saveFilename
+            });
+        } else {
+            console.log('download url is not ready!')
+        }
+    }
+
+    fileUpload = (file, imagesRef, uploadImagesRef) => {
+        var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
+
+        var task = saveImage(file, filename, imagesRef)
+        console.log('filename is ', filename);
+        var self = this;
+        // this.setState({fileName: filename})
+        task.then(function (snapshot) {
+            console.log('snapshot', snapshot)
+            console.log('task.snapshot', task.snapshot)
+
+
+            self.getDownloadUrl(uploadImagesRef, snapshot);
+
+        })
+            .then(function () {
+                console.log('upload is finished!')
+                self.setState({uploading: false, choseFiles: []});
+            })
+            .catch(function (error) {
+                console.error('error', error);
+            });
+    }
+
     filesUpload = (files) => {
-
-
         var imagesRef = storage.getImages();
         var uploadImagesRef = db.getUploadImages();
 
@@ -136,75 +178,12 @@ class UploadPage extends Component {
 
         if (files) {
             for (let file of files) {
-
-                var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
-
-                var task = saveImage(file, filename, imagesRef)
-                console.log('filename is ', filename);
-                // this.setState({fileName: filename})
-                task.then(function (snapshot) {
-                    console.log('snapshot', snapshot)
-                    console.log('task.snapshot', task.snapshot)
-
-
-
-                    if (snapshot.downloadURL!== null) {
-                        var downloadUrl = snapshot.downloadURL;
-                        var newImageKey = uploadImagesRef.push().key;
-                        var saveFilename = snapshot.metadata.name;
-                        uploadImagesRef.child(newImageKey + '_image').set({
-                            downloadUrl: downloadUrl,
-                            Name: saveFilename
-                        });
-                    } else {
-                        console.log('download url is not ready!')
-                    }
-
-
-                })
-                    .catch(function (error) {
-                        console.error('error', error);
-                    });
+                this.fileUpload(file, imagesRef, uploadImagesRef);
             }
         } else {
             console.log('no file')
         }
-
-
     }
-    fileUpload = (file) => {
-
-        var imagesRef = storage.getImages();
-        var uploadImagesRef = db.getUploadImages();
-        var newImageKey = uploadImagesRef.push().key;
-
-        // var newPostKey = firebaseApp.database().ref().child('images').push().key;
-
-        if (file) {
-            var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
-
-            var task = saveImage(file, filename, imagesRef)
-            console.log('filename is ', filename);
-            this.setState({fileName: filename})
-            task.then(function (snapshot) {
-                var downloadUrl = task.snapshot.downloadURL;
-
-                uploadImagesRef.child(newImageKey + '_image').set({
-                    downloadUrl: downloadUrl,
-                    Name: filename
-                });
-
-                console.log('download url is: ', downloadUrl)
-            })
-                .catch(function (error) {
-                    console.error('error', error);
-                });
-        } else {
-            console.log('no file')
-        }
-
-    }
-
 
     componentDidMount() {
         db.onceGetUsers().then(snapshot =>
@@ -239,9 +218,7 @@ class UploadPage extends Component {
 
                     </Drawer>
                     <main className={classes.content}>
-                        <Link to={'http://www.google.com/'}>
-                            <Button label="Ok">OK</Button>
-                        </Link>
+                        <SimpleSnackbar show={this.state.uploading}/>
                         <input
                             accept="image/*"
                             className={classes.input}
@@ -279,9 +256,10 @@ class UploadPage extends Component {
 
                                 )) : null}
 
-                            <Typography>{'Choose files.'}</Typography>
 
                         </div>
+                        {this.state.uploading ? <CircularProgress className={classes.progress}/>
+                            : <Typography>{'Finished! Please choose files to upload.'}</Typography>}
 
                     </main>
                 </div>
