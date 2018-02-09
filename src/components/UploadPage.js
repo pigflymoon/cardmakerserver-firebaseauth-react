@@ -15,6 +15,7 @@ import AddToPhotos from 'material-ui-icons/AddToPhotos';
 
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
+import DoneIcon from 'material-ui-icons/Done';
 import pic1 from '../images/1.jpg';
 
 import {
@@ -102,20 +103,75 @@ class UploadPage extends Component {
     handleAddImage = (e) => {
         console.log('filename is :', e.target.files)
         var choseFiles = e.target.files;
-        var choseFilesName = [];
+        var files = [];
         for (var file of choseFiles) {
             console.log('name is ', file.name);
-            choseFilesName.push(file.name)
+            files.push(file)
         }
-        this.setState({file: e.target.files[0], filesName: choseFilesName});
+        this.setState({file: e.target.files[0], choseFiles: files});
+    }
+
+    handleUnChoose = (file) => {
+        console.log('handleUnChoose', file)
+        const filesData = [...this.state.choseFiles];
+        const fileToDelete = filesData.indexOf(file);
+        filesData.splice(fileToDelete, 1);
+        this.setState({choseFiles: filesData});
     }
 
     handleUpload = (e) => {
         e.preventDefault();
         console.log('submit', this.state.file);
-        this.fileUpload(this.state.file);
+        // this.fileUpload(this.state.file);
+        this.filesUpload(this.state.choseFiles);
     }
 
+    filesUpload = (files) => {
+
+
+        var imagesRef = storage.getImages();
+        var uploadImagesRef = db.getUploadImages();
+
+        // var newPostKey = firebaseApp.database().ref().child('images').push().key;
+
+        if (files) {
+            for (let file of files) {
+
+                var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
+
+                var task = saveImage(file, filename, imagesRef)
+                console.log('filename is ', filename);
+                // this.setState({fileName: filename})
+                task.then(function (snapshot) {
+                    console.log('snapshot', snapshot)
+                    console.log('task.snapshot', task.snapshot)
+
+
+
+                    if (snapshot.downloadURL!== null) {
+                        var downloadUrl = snapshot.downloadURL;
+                        var newImageKey = uploadImagesRef.push().key;
+                        var saveFilename = snapshot.metadata.name;
+                        uploadImagesRef.child(newImageKey + '_image').set({
+                            downloadUrl: downloadUrl,
+                            Name: saveFilename
+                        });
+                    } else {
+                        console.log('download url is not ready!')
+                    }
+
+
+                })
+                    .catch(function (error) {
+                        console.error('error', error);
+                    });
+            }
+        } else {
+            console.log('no file')
+        }
+
+
+    }
     fileUpload = (file) => {
 
         var imagesRef = storage.getImages();
@@ -148,6 +204,7 @@ class UploadPage extends Component {
         }
 
     }
+
 
     componentDidMount() {
         db.onceGetUsers().then(snapshot =>
@@ -209,13 +266,15 @@ class UploadPage extends Component {
                         <Typography>{'You think water moves fast? You should see ice.'}</Typography>
 
                         <div className={classes.filesWrapper}>
-                            {this.state.filesName ? this.state.filesName.map((fileName,index) => (
+                            {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => (
 
                                     <Chip
-                                        label={fileName}
+                                        label={file.name}
                                         avatar={<Avatar src={pic1}/>}
                                         className={classes.file}
                                         key={index}
+                                        onDelete={this.handleUnChoose}
+
                                     />
 
                                 )) : null}
