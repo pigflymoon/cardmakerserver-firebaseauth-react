@@ -12,4 +12,7 @@ export const onceGetUsers = () =>
     db.ref('users').once('value');
 
 export const getUploadImages = () =>
-    db.ref().child("uploadImages")
+    db.ref().child("uploadImages");
+
+export const onceGetImages = () =>
+    db.ref('uploadImages').once('value');
