@@ -93,7 +93,7 @@ const styles = theme => ({
 });
 
 
-class UploadPage extends Component {
+class UploadDefaultImagesPage extends Component {
     constructor(props) {
         super(props);
 
@@ -102,48 +102,18 @@ class UploadPage extends Component {
             file: null,
             fileName: '',
             uploading: false,
-            imagePreviewUrl: '',
-            imagePreviewUrls: [],
         };
     }
-
 
     handleAddImage = (e) => {
         console.log('filename is :', e.target.files)
         var choseFiles = e.target.files;
-        var files = [], imagePreviewUrls = [];
-        // let previewfile = e.target.files[0];
+        var files = [];
         for (var file of choseFiles) {
-            // console.log('name is ', file.name);
-            files.push(file);
-            let reader = new FileReader();
-            reader.onloadend = () => {
-                // console.log('reader.result',reader.result)
-                imagePreviewUrls.push(reader.result)
-                this.setState({
-                    file: file,
-                });
-                // this.setState({ imagePreviewUrls: imagePreviewUrls})
-            }
-            reader.readAsDataURL(file)
+            console.log('name is ', file.name);
+            files.push(file)
         }
-
-        this.setState({choseFiles: files, imagePreviewUrls: imagePreviewUrls});
-        //
-
-        // let reader = new FileReader();
-        // let previewfile = e.target.files[0];
-        //
-        // reader.onloadend = () => {
-        //     this.setState({
-        //         file: previewfile,
-        //         imagePreviewUrl: reader.result,
-        //         choseFiles: files
-        //     });
-        // }
-        //
-        // reader.readAsDataURL(previewfile)
-        //
+        this.setState({file: e.target.files[0], choseFiles: files});
     }
 
     handleUnChoose = (file) => {
@@ -151,7 +121,7 @@ class UploadPage extends Component {
         const filesData = [...this.state.choseFiles];
         const fileToDelete = filesData.indexOf(file);
         filesData.splice(fileToDelete, 1);
-        this.setState({choseFiles: filesData, imagePreviewUrl: ''});
+        this.setState({choseFiles: filesData});
     }
 
     handleUpload = (e) => {
@@ -224,7 +194,7 @@ class UploadPage extends Component {
     render() {
         // const {users} = this.state;
         const {classes} = this.props;
-        const {anchor, imagePreviewUrls} = this.state;
+        const {anchor} = this.state;
         return (
             <div className={classes.root}>
 
@@ -232,7 +202,7 @@ class UploadPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload for paid user
+                               Upload for default user
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -270,47 +240,24 @@ class UploadPage extends Component {
                                 <FileUpload className={classes.rightIcon}/>
                             </Button>
                         </label>
+                        <Typography>{'You think water moves fast? You should see ice.'}</Typography>
+
                         <div className={classes.filesWrapper}>
-                            {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => {
-                                    console.log('file', file)
+                            {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => (
 
-                                    return (
+                                    <Chip
+                                        label={file.name}
+                                        avatar={<Avatar src={pic1}/>}
+                                        className={classes.file}
+                                        key={index}
+                                        onDelete={this.handleUnChoose}
 
+                                    />
 
-                                        <Chip
-                                            label={file.name}
-                                            className={classes.file}
-                                            key={index}
-                                            onDelete={this.handleUnChoose}
-
-                                        />
-
-
-                                    )
-                                }) : null}
+                                )) : null}
 
 
                         </div>
-
-                        <div className="imgPreview">
-                            <div>
-                                {this.state.imagePreviewUrls ? (this.state.imagePreviewUrls).map((image, index) => {
-                                        console.log('imagePreview url, ', image)
-
-                                        return (
-
-                                            <div key={index}><img src={image} width={50}/></div>
-
-
-
-
-                                        )
-                                    }) : null}
-                            </div>
-
-                        </div>
-
-
                         {this.state.uploading ? <CircularProgress className={classes.progress}/>
                             : <Typography>{'Finished! Please choose files to upload.'}</Typography>}
 
@@ -333,5 +280,5 @@ class UploadPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadPage = withRoot(withStyles(styles)(UploadPage));
-export default withAuthorization(authCondition)(UploadPage);
+UploadDefaultImagesPage = withRoot(withStyles(styles)(UploadDefaultImagesPage));
+export default withAuthorization(authCondition)(UploadDefaultImagesPage);

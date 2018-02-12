@@ -6,6 +6,7 @@ import {
 
 import Navigation from './Navigation';
 import UploadPage from './UploadPage';
+import UploadDefaultPage from './UploadDefaultImagesPage';
 import LandingPage from './Landing';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
@@ -21,6 +22,8 @@ const App = () =>
             <Navigation />
 
             <hr/>
+            <Route exact path={routes.UPLOADDEFAULT} component={() => <UploadDefaultPage />} />
+
             <Route exact path={routes.UPLOAD} component={() => <UploadPage />} />
             <Route exact path={routes.LANDING} component={() => <LandingPage />} />
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
