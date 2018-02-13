@@ -3,7 +3,7 @@ import withAuthorization from './withAuthorization';
 import {db} from '../firebase';
 
 
-class HomePage extends Component {
+class PaidImagesPage extends Component {
     constructor(props) {
         super(props);
 
@@ -64,4 +64,4 @@ const ImagesList = ({images}) => {
 
 const authCondition = (authUser) => !!authUser;
 
-export default withAuthorization(authCondition)(HomePage);
+export default withAuthorization(authCondition)(PaidImagesPage);

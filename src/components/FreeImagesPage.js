@@ -3,7 +3,7 @@ import withAuthorization from './withAuthorization';
 import {db} from '../firebase';
 
 
-class LandingPage extends Component {
+class FreeImagesPage extends Component {
     constructor(props) {
         super(props);
 
@@ -14,8 +14,7 @@ class LandingPage extends Component {
 
     componentDidMount() {
         console.log('Home is mounted')
-        db.onceGetDefaultImages().then(snapshot => {
-            console.log('snapshot', snapshot.val());
+        db.onceGetFreeImages().then(snapshot => {
             this.setState(() => ({images: snapshot.val()}));
         })
 
@@ -64,4 +63,4 @@ const ImagesList = ({images}) => {
 
 const authCondition = (authUser) => !!authUser;
 
-export default withAuthorization(authCondition)(LandingPage);
+export default withAuthorization(authCondition)(FreeImagesPage);

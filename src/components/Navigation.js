@@ -19,17 +19,17 @@ Navigation.contextTypes = {
 
 const NavigationAuth = () =>
     <ul>
-        <li><Link to={routes.UPLOADDEFAULT}>Upload for default user</Link></li>
+        <li><Link to={routes.UPLOADFREE}>Upload for free user</Link></li>
         <li><Link to={routes.UPLOAD}>Upload for paid user</Link></li>
-        <li><Link to={routes.LANDING}>Landing</Link></li>
-        <li><Link to={routes.HOME}>Home</Link></li>
+        <li><Link to={routes.FREE_IMAGES}>Free images list</Link></li>
+        <li><Link to={routes.PAID_IMAGES}>Paid images list</Link></li>
         <li><Link to={routes.ACCOUNT}>Account</Link></li>
         <li><SignOutButton /></li>
     </ul>
 
 const NavigationNonAuth = () =>
     <ul>
-        <li><Link to={routes.LANDING}>Landing</Link></li>
+        <li><Link to={routes.LANDING}>Welcome</Link></li>
         <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
     </ul>
 

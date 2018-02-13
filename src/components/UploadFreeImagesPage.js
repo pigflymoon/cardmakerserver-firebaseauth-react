@@ -91,7 +91,7 @@ const styles = theme => ({
 });
 
 
-class UploadDefaultImagesPage extends Component {
+class UploadFreeImagesPage extends Component {
     constructor(props) {
         super(props);
 
@@ -189,7 +189,7 @@ class UploadDefaultImagesPage extends Component {
 
     filesUpload = (files) => {
         var imagesRef = storage.getDefaultImages();
-        var uploadImagesRef = db.getDefaultUploadImages();
+        var uploadImagesRef = db.getFreeUploadImages();
 
         // var newPostKey = firebaseApp.database().ref().child('images').push().key;
 
@@ -219,7 +219,7 @@ class UploadDefaultImagesPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload for default user
+                                Upload for free user
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -295,5 +295,5 @@ class UploadDefaultImagesPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadDefaultImagesPage = withRoot(withStyles(styles)(UploadDefaultImagesPage));
-export default withAuthorization(authCondition)(UploadDefaultImagesPage);
+UploadFreeImagesPage = withRoot(withStyles(styles)(UploadFreeImagesPage));
+export default withAuthorization(authCondition)(UploadFreeImagesPage);

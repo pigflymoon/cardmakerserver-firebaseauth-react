@@ -6,4 +6,4 @@ export const getImages = () =>
     storage.ref().child('images');
 
 export const getDefaultImages = () =>
-    storage.ref().child('defaultImages');
+    storage.ref().child('freeImages');

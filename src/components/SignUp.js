@@ -50,7 +50,7 @@ class SignUpForm extends Component {
                     //Can only update a mounted or mounting component. This usually means you called setState
                         // replaceState, or forceUpdate on an unmounted component.
                         this.setState(() => ({ ...INITIAL_STATE }));
-                        history.push(routes.HOME);
+                        history.push(routes.PAID_IMAGES);
                     })
                     .catch(error => {
                         this.setState(byPropKey('error', error));

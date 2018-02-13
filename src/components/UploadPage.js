@@ -189,7 +189,7 @@ class UploadPage extends Component {
 
     filesUpload = (files) => {
         var imagesRef = storage.getImages();
-        var uploadImagesRef = db.getUploadImages();
+        var uploadImagesRef = db.getPaidUploadImages();
 
         // var newPostKey = firebaseApp.database().ref().child('images').push().key;
 
