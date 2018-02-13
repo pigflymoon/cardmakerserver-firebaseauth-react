@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import withAuthorization from './withAuthorization';
 import {db, storage} from '../firebase';
-// import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
@@ -14,13 +13,8 @@ import FileUpload from 'material-ui-icons/FileUpload';
 import AddToPhotos from 'material-ui-icons/AddToPhotos';
 
 import Chip from 'material-ui/Chip';
-import Avatar from 'material-ui/Avatar';
 import {CircularProgress} from 'material-ui/Progress';
-import pic1 from '../images/1.jpg';
 
-import {
-    Link,
-} from 'react-router-dom'
 import withRoot from './withRoot';
 import saveImage from '../utils/saveImage';
 
@@ -30,7 +24,8 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         width: '100%',
-        height: 430,
+        // height: 430,
+        minHeight: 430,
         marginTop: theme.spacing.unit * 3,
         zIndex: 1,
         overflow: 'hidden',
@@ -53,7 +48,7 @@ const styles = theme => ({
     },
     drawerPaper: {
         position: 'relative',
-        height: '100%',
+        // height: '100%',
         width: drawerWidth,
     },
     drawerHeader: theme.mixins.toolbar,
@@ -89,6 +84,9 @@ const styles = theme => ({
     progress: {
         margin: `0 ${theme.spacing.unit * 2}px`,
     },
+    imgPreview: {
+        height: 'auto',
+    }
 
 });
 
@@ -109,54 +107,43 @@ class UploadPage extends Component {
 
 
     handleAddImage = (e) => {
-        console.log('filename is :', e.target.files)
+        e.preventDefault();
+
+
         var choseFiles = e.target.files;
+
+        console.log('choseFiles :', choseFiles)
         var files = [], imagePreviewUrls = [];
-        // let previewfile = e.target.files[0];
         for (var file of choseFiles) {
-            // console.log('name is ', file.name);
             files.push(file);
             let reader = new FileReader();
             reader.onloadend = () => {
-                // console.log('reader.result',reader.result)
                 imagePreviewUrls.push(reader.result)
                 this.setState({
                     file: file,
                 });
-                // this.setState({ imagePreviewUrls: imagePreviewUrls})
             }
             reader.readAsDataURL(file)
         }
 
         this.setState({choseFiles: files, imagePreviewUrls: imagePreviewUrls});
-        //
-
-        // let reader = new FileReader();
-        // let previewfile = e.target.files[0];
-        //
-        // reader.onloadend = () => {
-        //     this.setState({
-        //         file: previewfile,
-        //         imagePreviewUrl: reader.result,
-        //         choseFiles: files
-        //     });
-        // }
-        //
-        // reader.readAsDataURL(previewfile)
-        //
+        e.target.value = '';
     }
 
-    handleUnChoose = (file) => {
-        console.log('handleUnChoose', file)
+    handleUnChoose = data => () => {
         const filesData = [...this.state.choseFiles];
-        const fileToDelete = filesData.indexOf(file);
+        const imagesData = [...this.state.imagePreviewUrls];
+
+        const fileToDelete = filesData.indexOf(data);
+
         filesData.splice(fileToDelete, 1);
-        this.setState({choseFiles: filesData, imagePreviewUrl: ''});
+        imagesData.splice(fileToDelete, 1);
+        this.setState({choseFiles: filesData, imagePreviewUrls: imagesData});
     }
 
     handleUpload = (e) => {
         e.preventDefault();
-        console.log('submit', this.state.file);
+        // console.log('submit', this.state.file);
         // this.fileUpload(this.state.file);
         this.setState({uploading: true});
         this.filesUpload(this.state.choseFiles);
@@ -272,42 +259,25 @@ class UploadPage extends Component {
                         </label>
                         <div className={classes.filesWrapper}>
                             {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => {
-                                    console.log('file', file)
-
                                     return (
-
-
                                         <Chip
                                             label={file.name}
                                             className={classes.file}
                                             key={index}
-                                            onDelete={this.handleUnChoose}
+                                            onDelete={ this.handleUnChoose(file)}
 
                                         />
-
-
                                     )
                                 }) : null}
-
-
                         </div>
 
                         <div className="imgPreview">
-                            <div>
-                                {this.state.imagePreviewUrls ? (this.state.imagePreviewUrls).map((image, index) => {
-                                        console.log('imagePreview url, ', image)
 
-                                        return (
-
-                                            <div key={index}><img src={image} width={50}/></div>
-
-
-
-
-                                        )
-                                    }) : null}
-                            </div>
-
+                            {this.state.imagePreviewUrls ? (this.state.imagePreviewUrls).map((image, index) => {
+                                    return (
+                                        <div key={index}><img src={image} width={50}/></div>
+                                    )
+                                }) : null}
                         </div>
 
 
