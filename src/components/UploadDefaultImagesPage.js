@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import withAuthorization from './withAuthorization';
 import {db, storage} from '../firebase';
-// import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
@@ -14,13 +13,8 @@ import FileUpload from 'material-ui-icons/FileUpload';
 import AddToPhotos from 'material-ui-icons/AddToPhotos';
 
 import Chip from 'material-ui/Chip';
-import Avatar from 'material-ui/Avatar';
 import {CircularProgress} from 'material-ui/Progress';
-import pic1 from '../images/1.jpg';
 
-import {
-    Link,
-} from 'react-router-dom'
 import withRoot from './withRoot';
 import saveImage from '../utils/saveImage';
 
@@ -30,7 +24,8 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         width: '100%',
-        height: 430,
+        // height: 430,
+        minHeight: 430,
         marginTop: theme.spacing.unit * 3,
         zIndex: 1,
         overflow: 'hidden',
@@ -53,7 +48,7 @@ const styles = theme => ({
     },
     drawerPaper: {
         position: 'relative',
-        height: '100%',
+        // height: '100%',
         width: drawerWidth,
     },
     drawerHeader: theme.mixins.toolbar,
@@ -89,6 +84,9 @@ const styles = theme => ({
     progress: {
         margin: `0 ${theme.spacing.unit * 2}px`,
     },
+    imgPreview: {
+        height: 'auto',
+    }
 
 });
 
@@ -102,31 +100,50 @@ class UploadDefaultImagesPage extends Component {
             file: null,
             fileName: '',
             uploading: false,
+            imagePreviewUrl: '',
+            imagePreviewUrls: [],
         };
     }
 
+
     handleAddImage = (e) => {
-        console.log('filename is :', e.target.files)
+        e.preventDefault();
+
+
         var choseFiles = e.target.files;
-        var files = [];
+
+        console.log('choseFiles :', choseFiles)
+        var files = [], imagePreviewUrls = [];
         for (var file of choseFiles) {
-            console.log('name is ', file.name);
-            files.push(file)
+            files.push(file);
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                imagePreviewUrls.push(reader.result)
+                this.setState({
+                    file: file,
+                });
+            }
+            reader.readAsDataURL(file)
         }
-        this.setState({file: e.target.files[0], choseFiles: files});
+
+        this.setState({choseFiles: files, imagePreviewUrls: imagePreviewUrls});
+        e.target.value = '';
     }
 
-    handleUnChoose = (file) => {
-        console.log('handleUnChoose', file)
+    handleUnChoose = data => () => {
         const filesData = [...this.state.choseFiles];
-        const fileToDelete = filesData.indexOf(file);
+        const imagesData = [...this.state.imagePreviewUrls];
+
+        const fileToDelete = filesData.indexOf(data);
+
         filesData.splice(fileToDelete, 1);
-        this.setState({choseFiles: filesData});
+        imagesData.splice(fileToDelete, 1);
+        this.setState({choseFiles: filesData, imagePreviewUrls: imagesData});
     }
 
     handleUpload = (e) => {
         e.preventDefault();
-        console.log('submit', this.state.file);
+        // console.log('submit', this.state.file);
         // this.fileUpload(this.state.file);
         this.setState({uploading: true});
         this.filesUpload(this.state.choseFiles);
@@ -194,7 +211,7 @@ class UploadDefaultImagesPage extends Component {
     render() {
         // const {users} = this.state;
         const {classes} = this.props;
-        const {anchor} = this.state;
+        const {anchor, imagePreviewUrls} = this.state;
         return (
             <div className={classes.root}>
 
@@ -202,7 +219,7 @@ class UploadDefaultImagesPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                               Upload for default user
+                                Upload for default user
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -240,24 +257,30 @@ class UploadDefaultImagesPage extends Component {
                                 <FileUpload className={classes.rightIcon}/>
                             </Button>
                         </label>
-                        <Typography>{'You think water moves fast? You should see ice.'}</Typography>
-
                         <div className={classes.filesWrapper}>
-                            {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => (
+                            {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => {
+                                    return (
+                                        <Chip
+                                            label={file.name}
+                                            className={classes.file}
+                                            key={index}
+                                            onDelete={ this.handleUnChoose(file)}
 
-                                    <Chip
-                                        label={file.name}
-                                        avatar={<Avatar src={pic1}/>}
-                                        className={classes.file}
-                                        key={index}
-                                        onDelete={this.handleUnChoose}
-
-                                    />
-
-                                )) : null}
-
-
+                                        />
+                                    )
+                                }) : null}
                         </div>
+
+                        <div className="imgPreview">
+
+                            {this.state.imagePreviewUrls ? (this.state.imagePreviewUrls).map((image, index) => {
+                                    return (
+                                        <div key={index}><img src={image} width={50}/></div>
+                                    )
+                                }) : null}
+                        </div>
+
+
                         {this.state.uploading ? <CircularProgress className={classes.progress}/>
                             : <Typography>{'Finished! Please choose files to upload.'}</Typography>}
 
@@ -268,14 +291,6 @@ class UploadDefaultImagesPage extends Component {
     }
 }
 
-
-// const UserList = ({users}) =>
-//     <div>
-//         <h2>List of Usernames of Users</h2>
-//         <p>(Save on Sign up in Firebase Database)</p>
-//         {Object.keys(users).map(key =>
-//             <div key={key}>{users[key].username}</div>)}
-//     </div>
 
 const authCondition = (authUser) => !!authUser;
 
