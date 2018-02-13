@@ -169,7 +169,7 @@ class UploadDefaultImagesPage extends Component {
         var task = saveImage(file, filename, imagesRef)
         console.log('filename is ', filename);
         var self = this;
-        // this.setState({fileName: filename})
+
         task.then(function (snapshot) {
             console.log('snapshot', snapshot)
             console.log('task.snapshot', task.snapshot)
@@ -188,8 +188,8 @@ class UploadDefaultImagesPage extends Component {
     }
 
     filesUpload = (files) => {
-        var imagesRef = storage.getImages();
-        var uploadImagesRef = db.getUploadImages();
+        var imagesRef = storage.getDefaultImages();
+        var uploadImagesRef = db.getDefaultUploadImages();
 
         // var newPostKey = firebaseApp.database().ref().child('images').push().key;
 

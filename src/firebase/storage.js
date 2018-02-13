@@ -5,3 +5,5 @@ import {storage} from './firebase';
 export const getImages = () =>
     storage.ref().child('images');
 
+export const getDefaultImages = () =>
+    storage.ref().child('defaultImages');

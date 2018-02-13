@@ -16,3 +16,11 @@ export const getUploadImages = () =>
 
 export const onceGetImages = () =>
     db.ref('uploadImages').once('value');
+
+
+
+export const getDefaultUploadImages = () =>
+    db.ref().child("defaultUploadImages");
+
+export const onceGetDefaultImages = () =>
+    db.ref('defaultUploadImages').once('value');
