@@ -19,6 +19,8 @@ import withRoot from './withRoot';
 import saveImage from '../utils/saveImage';
 
 import SimpleSnackbar from '../widgets/snackBar';
+import AlertDialog from '../widgets/alert';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -102,6 +104,8 @@ class UploadPage extends Component {
             uploading: false,
             imagePreviewUrl: '',
             imagePreviewUrls: [],
+            open:false,
+
         };
     }
 
@@ -184,6 +188,8 @@ class UploadPage extends Component {
             })
             .catch(function (error) {
                 console.error('error', error);
+                self.setState({open:true});
+                self.setState({uploading: false, choseFiles: []});
             });
     }
 
@@ -236,6 +242,7 @@ class UploadPage extends Component {
                     </Drawer>
                     <main className={classes.content}>
                         <SimpleSnackbar show={this.state.uploading}/>
+                        <AlertDialog open={this.state.open}/>
                         <input
                             accept="image/*"
                             className={classes.input}

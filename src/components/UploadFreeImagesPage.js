@@ -11,6 +11,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import FileUpload from 'material-ui-icons/FileUpload';
 import AddToPhotos from 'material-ui-icons/AddToPhotos';
+import {firebase} from '../firebase';
 
 import Chip from 'material-ui/Chip';
 import {CircularProgress} from 'material-ui/Progress';
@@ -19,6 +20,7 @@ import withRoot from './withRoot';
 import saveImage from '../utils/saveImage';
 
 import SimpleSnackbar from '../widgets/snackBar';
+import AlertDialog from '../widgets/alert';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -96,23 +98,23 @@ class UploadFreeImagesPage extends Component {
         super(props);
 
         this.state = {
-            users: null,
+            // users: null,
             file: null,
             fileName: '',
             uploading: false,
             imagePreviewUrl: '',
             imagePreviewUrls: [],
+            showUpload: false,
+            open:false,
         };
+
     }
 
 
     handleAddImage = (e) => {
         e.preventDefault();
-
-
         var choseFiles = e.target.files;
 
-        console.log('choseFiles :', choseFiles)
         var files = [], imagePreviewUrls = [];
         for (var file of choseFiles) {
             files.push(file);
@@ -143,8 +145,6 @@ class UploadFreeImagesPage extends Component {
 
     handleUpload = (e) => {
         e.preventDefault();
-        // console.log('submit', this.state.file);
-        // this.fileUpload(this.state.file);
         this.setState({uploading: true});
         this.filesUpload(this.state.choseFiles);
     }
@@ -167,7 +167,7 @@ class UploadFreeImagesPage extends Component {
         var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
 
         var task = saveImage(file, filename, imagesRef)
-        console.log('filename is ', filename);
+        // console.log('filename is ', filename);
         var self = this;
 
         task.then(function (snapshot) {
@@ -183,7 +183,10 @@ class UploadFreeImagesPage extends Component {
                 self.setState({uploading: false, choseFiles: []});
             })
             .catch(function (error) {
-                console.error('error', error);
+                console.error('error is', error);
+                self.setState({open:true});
+                self.setState({uploading: false, choseFiles: []});
+
             });
     }
 
@@ -202,16 +205,51 @@ class UploadFreeImagesPage extends Component {
         }
     }
 
-    componentDidMount() {
-        db.onceGetUsers().then(snapshot =>
-            this.setState(() => ({users: snapshot.val()}))
+    componentWillMount() {
+        db.onceGetUsers().then(snapshot => {
+                var users = snapshot.val();
+
+                firebase.auth.onAuthStateChanged(authUser => {
+                    if (authUser) {
+                        console.log('authUSer ,', authUser.email);
+                        this.setState({email: authUser.email,});
+
+                    }
+                    /*
+                     if (users) {
+                     Object.keys(users).map(key => {
+                     console.log('is admin?  ', users[key].email)
+                     if (users[key].email === authUser.email) {
+                     console.log('users role is ,', users[key].role.admin)
+                     if (users[key].role.admin) {
+                     this.setState({showUpload: true})
+                     }
+
+
+                     }
+                     }
+                     )
+                     }
+                     */
+                });
+            }
+            // this.setState(() => ({users: snapshot.val()}))
         );
+
+    }
+
+    componentDidMount() {
+
+
     }
 
     render() {
-        // const {users} = this.state;
+        const {showUpload, email} = this.state;
+        // console.log('props is ?????', this.props)
+
         const {classes} = this.props;
-        const {anchor, imagePreviewUrls} = this.state;
+        const {anchor} = this.state;
+        // if (showUpload) {
         return (
             <div className={classes.root}>
 
@@ -236,6 +274,7 @@ class UploadFreeImagesPage extends Component {
                     </Drawer>
                     <main className={classes.content}>
                         <SimpleSnackbar show={this.state.uploading}/>
+                        <AlertDialog open={this.state.open}/>
                         <input
                             accept="image/*"
                             className={classes.input}
@@ -288,6 +327,16 @@ class UploadFreeImagesPage extends Component {
                 </div>
             </div>
         );
+        // } else {
+        //     return (
+        //         <div>
+        //             <Typography variant="title" color="inherit" noWrap>
+        //                 404
+        //             </Typography>
+        //         </div>
+        //     )
+        // }
+
     }
 }
 
