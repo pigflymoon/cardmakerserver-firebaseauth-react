@@ -13,6 +13,7 @@ const withAuthentication = (AuthComponent) => {
         }
 
         getChildContext() {
+            console.log('get child context,',this.state)
             return {
                 authUser: this.state.authUser,
             }
@@ -20,6 +21,7 @@ const withAuthentication = (AuthComponent) => {
 
         componentDidMount() {
             firebase.auth.onAuthStateChanged(authUser => {
+                console.log('authentication authuser:',authUser)
                 authUser
                     ? this.setState(() => ({authUser}))
                     : this.setState(() => ({authUser: null}));

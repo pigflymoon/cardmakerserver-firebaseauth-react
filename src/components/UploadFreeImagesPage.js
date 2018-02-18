@@ -167,14 +167,9 @@ class UploadFreeImagesPage extends Component {
         var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
 
         var task = saveImage(file, filename, imagesRef)
-        // console.log('filename is ', filename);
         var self = this;
 
         task.then(function (snapshot) {
-            console.log('snapshot', snapshot)
-            console.log('task.snapshot', task.snapshot)
-
-
             self.getDownloadUrl(uploadImagesRef, snapshot);
 
         })
@@ -183,7 +178,7 @@ class UploadFreeImagesPage extends Component {
                 self.setState({uploading: false, choseFiles: []});
             })
             .catch(function (error) {
-                console.error('error is', error);
+                // console.error('error is', error);
                 self.setState({open:true});
                 self.setState({uploading: false, choseFiles: []});
 
@@ -205,48 +200,8 @@ class UploadFreeImagesPage extends Component {
         }
     }
 
-    componentWillMount() {
-        db.onceGetUsers().then(snapshot => {
-                var users = snapshot.val();
-
-                firebase.auth.onAuthStateChanged(authUser => {
-                    if (authUser) {
-                        console.log('authUSer ,', authUser.email);
-                        this.setState({email: authUser.email,});
-
-                    }
-                    /*
-                     if (users) {
-                     Object.keys(users).map(key => {
-                     console.log('is admin?  ', users[key].email)
-                     if (users[key].email === authUser.email) {
-                     console.log('users role is ,', users[key].role.admin)
-                     if (users[key].role.admin) {
-                     this.setState({showUpload: true})
-                     }
-
-
-                     }
-                     }
-                     )
-                     }
-                     */
-                });
-            }
-            // this.setState(() => ({users: snapshot.val()}))
-        );
-
-    }
-
-    componentDidMount() {
-
-
-    }
 
     render() {
-        const {showUpload, email} = this.state;
-        // console.log('props is ?????', this.props)
-
         const {classes} = this.props;
         const {anchor} = this.state;
         // if (showUpload) {

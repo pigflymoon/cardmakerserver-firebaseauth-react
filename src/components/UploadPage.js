@@ -187,7 +187,7 @@ class UploadPage extends Component {
                 self.setState({uploading: false, choseFiles: []});
             })
             .catch(function (error) {
-                console.error('error', error);
+                // console.error('error', error);
                 self.setState({open:true});
                 self.setState({uploading: false, choseFiles: []});
             });
@@ -209,9 +209,9 @@ class UploadPage extends Component {
     }
 
     componentDidMount() {
-        db.onceGetUsers().then(snapshot =>
-            this.setState(() => ({users: snapshot.val()}))
-        );
+        // db.onceGetUsers().then(snapshot =>
+        //     this.setState(() => ({users: snapshot.val()}))
+        // );
     }
 
     render() {
@@ -307,7 +307,10 @@ class UploadPage extends Component {
 //             <div key={key}>{users[key].username}</div>)}
 //     </div>
 
-const authCondition = (authUser) => !!authUser;
+const authCondition = (authUser) => {
+    console.log('authcondition authuser:',authUser)
+    return !!authUser;
+}//!!authUser;
 
 
 UploadPage = withRoot(withStyles(styles)(UploadPage));
