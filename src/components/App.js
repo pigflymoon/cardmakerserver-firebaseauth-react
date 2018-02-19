@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Navigation from './Navigation';
-import UploadPage from './UploadPage';
+import UploadPaidImagesPage from './UploadPaidImagesPage';
 import UploadFreePage from './UploadFreeImagesPage';
 import FreeImagesPage from './FreeImagesPage';
 import SignUpPage from './SignUp';
@@ -25,7 +25,7 @@ const App = () =>
             <hr/>
             <Route exact path={routes.LANDING} component={() => <LandingPage />}/>
             <Route exact path={routes.UPLOADFREE} component={() => <UploadFreePage />} {...this.props} />
-            <Route exact path={routes.UPLOAD} component={() => <UploadPage />}/>
+            <Route exact path={routes.UPLOADPAID} component={() => <UploadPaidImagesPage />}/>
             <Route exact path={routes.FREE_IMAGES} component={() => <FreeImagesPage />}/>
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />}/>
             <Route exact path={routes.SIGN_IN} component={() => <SignInPage />}/>

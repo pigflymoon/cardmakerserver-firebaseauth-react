@@ -30,7 +30,7 @@ const NavigationAuth = (authUser) =>{
     return(
         <ul>
             <li><Link to={routes.UPLOADFREE}>Upload for free user</Link></li>
-            <li><Link to={routes.UPLOAD}>Upload for paid user</Link></li>
+            <li><Link to={routes.UPLOADPAID}>Upload for paid user</Link></li>
             <li><Link to={routes.FREE_IMAGES}>Free images list</Link></li>
             <li><Link to={routes.PAID_IMAGES}>Paid images list</Link></li>
             <li><Link to={routes.ACCOUNT}>Account</Link></li>

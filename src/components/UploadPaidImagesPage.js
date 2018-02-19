@@ -93,7 +93,7 @@ const styles = theme => ({
 });
 
 
-class UploadPage extends Component {
+class UploadPaidImagesPage extends Component {
     constructor(props) {
         super(props);
 
@@ -313,5 +313,5 @@ const authCondition = (authUser) => {
 }//!!authUser;
 
 
-UploadPage = withRoot(withStyles(styles)(UploadPage));
-export default withAuthorization(authCondition)(UploadPage);
+UploadPaidImagesPage = withRoot(withStyles(styles)(UploadPaidImagesPage));
+export default withAuthorization(authCondition)(UploadPaidImagesPage);

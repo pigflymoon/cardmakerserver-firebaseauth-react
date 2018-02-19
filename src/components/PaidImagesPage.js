@@ -9,32 +9,46 @@ class PaidImagesPage extends Component {
 
         this.state = {
             images: null,
+            error: false,
         };
     }
 
     componentDidMount() {
-        console.log('Home is mounted')
+        console.log('Home is mounted');
+        var self = this;
         db.onceGetImages().then(snapshot => {
-            console.log('snapshot', snapshot.val());
-            this.setState(() => ({images: snapshot.val()}));
-        })
+            if (snapshot) {
+                console.log('snapshot', snapshot.val());
+                this.setState(() => ({images: snapshot.val()}));
+            }
+
+        }, function (error) {
+            self.setState({error: true});
+            // console.error('get images erros,', error);
+
+        });
+
 
     }
 
     render() {
-        const {images} = this.state;
+        const {images, error} = this.state;
+        console.log('state,', this.state);
         return (
             <div>
-                <h1>Home</h1>
-                <p>The Home Page is accessible by every signed in user.</p>
-                <p>Images :</p>
-                {!!images && <ImagesList images={images} />}
+                {error ?
+                    <h1>404</h1>
+                    : <div>
+                        <h1>Paid images list</h1>
+                        <p>This Page is accessible by paid-user signed in user.</p>
+                        <p>Images :</p>
+                        {!!images && <ImagesList images={images}/>}
 
+                    </div> }
             </div>
         );
     }
 }
-
 
 
 const ImagesList = ({images}) => {
@@ -50,10 +64,10 @@ const ImagesList = ({images}) => {
             {Object.keys(images).map(key =>
                 <div key={key}>
 
-                        <ul>
-                            <li><img src={images[key].downloadUrl} alt={images[key].Name} width="50"/></li>
+                    <ul>
+                        <li><img src={images[key].downloadUrl} alt={images[key].Name} width="50"/></li>
 
-                        </ul>
+                    </ul>
 
                 </div>
             )}
