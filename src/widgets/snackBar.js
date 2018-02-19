@@ -41,7 +41,6 @@ class SimpleSnackbar extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <Button onClick={this.handleClick}>Open simple snackbar</Button>
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',

@@ -40,7 +40,6 @@ class AlertDialog extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.handleClickOpen}>Open alert dialog</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
