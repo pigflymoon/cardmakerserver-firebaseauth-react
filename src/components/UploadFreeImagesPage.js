@@ -107,6 +107,7 @@ class UploadFreeImagesPage extends Component {
             showUpload: false,
             open:false,
         };
+        console.log('this props&&&&&&&&&&&&,',this.props)
 
     }
 
@@ -204,6 +205,7 @@ class UploadFreeImagesPage extends Component {
     render() {
         const {classes} = this.props;
         const {anchor} = this.state;
+
         // if (showUpload) {
         return (
             <div className={classes.root}>

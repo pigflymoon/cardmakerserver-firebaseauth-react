@@ -14,7 +14,7 @@ class PaidImagesPage extends Component {
     }
 
     componentDidMount() {
-        console.log('Home is mounted');
+        console.log('props is!!!!!! ',this.props);
         var self = this;
         db.onceGetImages().then(snapshot => {
             if (snapshot) {
