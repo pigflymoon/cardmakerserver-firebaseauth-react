@@ -9,22 +9,36 @@ const withAuthentication = (AuthComponent) => {
             super(props);
             this.state = {
                 authUser: null,
+                userrole: null,
             }
         }
 
         getChildContext() {
-            console.log('get child context,',this.state)
+            console.log('get child context,', this.state)
             return {
-                authUser: this.state.authUser,
+                authUser:{
+                    user: this.state.authUser,
+                    role: this.state.userrole,
+                }
+
             }
         }
 
         componentDidMount() {
+
             firebase.auth.onAuthStateChanged(authUser => {
-                console.log('authentication authuser:',authUser)
-                authUser
-                    ? this.setState(() => ({authUser}))
-                    : this.setState(() => ({authUser: null}));
+                var userId = firebase.auth.currentUser.uid, self = this;
+                console.log('current userid,', userId);
+                firebase.db.ref('/users/' + userId).once('value').then(function (snapshot) {
+                    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+                    var userrole = (snapshot.val() && snapshot.val().role) || 'free_user';
+                    console.log('username is: ', username, 'role is: ', userrole)
+                    authUser
+                        ? self.setState(() => ({authUser, userrole: userrole}))
+                        : self.setState(() => ({authUser: null}));
+                    // ...
+                });
+
             })
         }
 
@@ -37,6 +51,7 @@ const withAuthentication = (AuthComponent) => {
 
     WithAuthentication.childContextTypes = {
         authUser: PropTypes.object,
+        userrole: PropTypes.object,
     };
 
     return WithAuthentication;

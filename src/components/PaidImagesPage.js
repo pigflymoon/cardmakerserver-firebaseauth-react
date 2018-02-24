@@ -33,7 +33,7 @@ class PaidImagesPage extends Component {
 
     render() {
         const {images, error} = this.state;
-        console.log('state,', this.state);
+        console.log('paid state,', this.state);
         return (
             <div>
                 {error ?
