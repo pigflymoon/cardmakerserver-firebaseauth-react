@@ -51,7 +51,7 @@ const withAuthentication = (AuthComponent) => {
 
     WithAuthentication.childContextTypes = {
         authUser: PropTypes.object,
-        userrole: PropTypes.object,
+        role: PropTypes.object,
     };
 
     return WithAuthentication;

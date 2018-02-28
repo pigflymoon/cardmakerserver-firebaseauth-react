@@ -150,7 +150,7 @@ class UploadFreeImagesPage extends Component {
         this.filesUpload(this.state.choseFiles);
     }
 
-    getDownloadUrl = (uploadImagesRef, snapshot) => {
+    getDownloadUrl = (uploadImagesRef, snapshot) => {//db,
         if (snapshot.downloadURL !== null) {
             var downloadUrl = snapshot.downloadURL;
             var newImageKey = uploadImagesRef.push().key;
@@ -164,14 +164,14 @@ class UploadFreeImagesPage extends Component {
         }
     }
 
-    fileUpload = (file, imagesRef, uploadImagesRef) => {
+    fileUpload = (file, imagesRef, uploadImagesRef) => {//file,storage,db
         var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
 
         var task = saveImage(file, filename, imagesRef)
         var self = this;
 
         task.then(function (snapshot) {
-            self.getDownloadUrl(uploadImagesRef, snapshot);
+            self.getDownloadUrl(uploadImagesRef, snapshot);//db
 
         })
             .then(function () {
@@ -187,14 +187,14 @@ class UploadFreeImagesPage extends Component {
     }
 
     filesUpload = (files) => {
-        var imagesRef = storage.getDefaultImages();
-        var uploadImagesRef = db.getFreeUploadImages();
+        var imagesRef = storage.getDefaultImages();//storage
+        var uploadImagesRef = db.getFreeUploadImages();//db
 
         // var newPostKey = firebaseApp.database().ref().child('images').push().key;
 
         if (files) {
             for (let file of files) {
-                this.fileUpload(file, imagesRef, uploadImagesRef);
+                this.fileUpload(file, imagesRef, uploadImagesRef);//every file
             }
         } else {
             console.log('no file')
