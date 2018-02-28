@@ -24,7 +24,7 @@ const App = () =>
             <Navigation />
 
             <hr/>
-            <Route exact path={routes.STORAGE} component={() => <ImagesListPage />}/>
+            <Route exact path={routes.STORAGE} component={() => <ImagesListPage />} {...this.props} />
             <Route exact path={routes.LANDING} component={() => <LandingPage />}/>
             <Route exact path={routes.UPLOADFREE} component={() => <UploadFreePage />} {...this.props} />
             <Route exact path={routes.UPLOADPAID} component={() => <UploadPaidImagesPage />}/>

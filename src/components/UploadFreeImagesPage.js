@@ -205,7 +205,7 @@ class UploadFreeImagesPage extends Component {
     render() {
         const {classes} = this.props;
         const {anchor} = this.state;
-
+        console.log('classes props',classes)
         // if (showUpload) {
         return (
             <div className={classes.root}>
