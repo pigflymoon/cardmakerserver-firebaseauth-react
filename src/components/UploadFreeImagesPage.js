@@ -179,7 +179,7 @@ class UploadFreeImagesPage extends Component {
                 self.setState({uploading: false, choseFiles: []});
             })
             .catch(function (error) {
-                // console.error('error is', error);
+                console.error('error is', error);
                 self.setState({open:true});
                 self.setState({uploading: false, choseFiles: []});
 

@@ -99,11 +99,11 @@ class ImagesListPage extends Component {
 const ImagesList = ({images, classes}) => {
 
     // const { classes } = this.props;
-    // console.log('images', images, 'classes,', classes);
+    console.log('images', images);
 
     return (
         <div>
-            <h2>List of Usernames of Users</h2>
+            <h2>List of images in databse</h2>
             <p>(Save on Sign up in Firebase Database)</p>
 
             {Object.keys(images).map(key =>

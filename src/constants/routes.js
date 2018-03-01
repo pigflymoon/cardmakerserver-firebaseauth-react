@@ -7,4 +7,5 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const UPLOADPAID = '/upload-paid';
 export const UPLOADFREE = '/upload-free'
 export const LANDING = '/welcome'
-export const STORAGE = '/images-list'
+export const DATABASE = '/images-list'
+export const STORAGE = '/storage-images-list'

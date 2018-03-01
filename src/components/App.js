@@ -14,7 +14,7 @@ import PasswordForgetPage from './PasswordForget';
 import PaidImagesPage from './PaidImagesPage';
 import AccountPage from './Account';
 import LandingPage from './LandingPage';
-import ImagesListPage from './StorageImages';
+import ImagesListPage from './DeleteImages';
 import withAuthentication from './withAuthentication';
 import * as routes from '../constants/routes';
 
@@ -24,7 +24,7 @@ const App = () =>
             <Navigation />
 
             <hr/>
-            <Route exact path={routes.STORAGE} component={() => <ImagesListPage />} {...this.props} />
+            <Route exact path={routes.DATABASE} component={() => <ImagesListPage />} {...this.props} />
             <Route exact path={routes.LANDING} component={() => <LandingPage />}/>
             <Route exact path={routes.UPLOADFREE} component={() => <UploadFreePage />} {...this.props} />
             <Route exact path={routes.UPLOADPAID} component={() => <UploadPaidImagesPage />}/>
