@@ -71,7 +71,7 @@ class ImagesListPage extends Component {
     }
 
     componentDidMount() {
-        console.log('Home is mounted')
+        // console.log('Home is mounted')
         db.onceGetFreeImages().then(snapshot => {
             this.setState(() => ({images: snapshot.val()}));
         })
@@ -80,7 +80,7 @@ class ImagesListPage extends Component {
 
     render() {
         const {classes} = this.props;
-        console.log('classes props', classes)
+        // console.log('classes props', classes)
         const {images} = this.state;
         return (
             <div>
@@ -99,7 +99,7 @@ class ImagesListPage extends Component {
 const ImagesList = ({images, classes}) => {
 
     // const { classes } = this.props;
-    console.log('images', images, 'classes,', classes);
+    // console.log('images', images, 'classes,', classes);
 
     return (
         <div>
@@ -111,7 +111,7 @@ const ImagesList = ({images, classes}) => {
 
                     <ul>
                         <li>
-                            <ImageItem pic={images[key].downloadUrl} name ={images[key].Name}/>
+                            <ImageItem pic={images[key].downloadUrl} name ={images[key].Name} imageId={key}/>
 
                         </li>
 
