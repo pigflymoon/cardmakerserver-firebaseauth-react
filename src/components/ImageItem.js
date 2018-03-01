@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import DoneIcon from 'material-ui-icons/Done';
 import {db} from '../firebase';
 
 export default class ImageItem extends Component {
@@ -18,7 +17,6 @@ export default class ImageItem extends Component {
         var uploadFreeImagesRef = db.getFreeUploadImages();//db
         var self = this;
         uploadFreeImagesRef.child(imageId).remove().then(function () {
-            // console.log('res is ' + res);
             alert('The picture of ' + name + ', id is ' + imageId + ' is deleted!');
             self.setState({isDeleted: ' is Deleted'})
         });
