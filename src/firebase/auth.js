@@ -1,4 +1,5 @@
 import {auth} from './firebase';
+import * as routes from '../constants/routes';
 
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
@@ -11,6 +12,7 @@ export const doSignInWithEmailAndPassword = (email, password) =>
 // Sign out
 export const doSignOut = () =>
     auth.signOut();
+
 
 // Password Reset
 export const doPasswordReset = (email) =>

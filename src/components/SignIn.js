@@ -6,13 +6,17 @@ import {PasswordForgetLink} from './PasswordForget';
 import {auth} from '../firebase';
 import * as routes from '../constants/routes';
 
-const SignInPage = ({history}) =>
-    <div>
-        <h1>SignIn</h1>
-        <SignInForm history={history}/>
-        <PasswordForgetLink/>
-        <SignUpLink />
-    </div>
+const SignInPage = ({history}) => {
+    return (
+        <div>
+            <h1>SignIn</h1>
+            <SignInForm history={history}/>
+            <PasswordForgetLink/>
+            <SignUpLink />
+        </div>
+    )
+}
+
 
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,

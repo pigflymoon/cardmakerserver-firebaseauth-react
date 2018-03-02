@@ -8,4 +8,3 @@ export const UPLOADPAID = '/upload-paid';
 export const UPLOADFREE = '/upload-free'
 export const LANDING = '/welcome'
 export const DATABASE = '/images-list'
-export const STORAGE = '/storage-images-list'

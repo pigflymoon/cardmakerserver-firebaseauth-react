@@ -14,7 +14,6 @@ class PaidImagesPage extends Component {
     }
 
     componentDidMount() {
-        console.log('props is!!!!!! ',this.props);
         var self = this;
         db.onceGetImages().then(snapshot => {
             if (snapshot) {
@@ -33,7 +32,7 @@ class PaidImagesPage extends Component {
 
     render() {
         const {images, error} = this.state;
-        console.log('paid state,', this.state);
+
         return (
             <div>
                 {error ?
@@ -52,30 +51,36 @@ class PaidImagesPage extends Component {
 
 
 const ImagesList = ({images}) => {
+        if (images) {
+        return (
+            <div>
+                <h2>List of Usernames of Users</h2>
+                <p>(Save on Sign up in Firebase Database)</p>
 
-    // const { classes } = this.props;
-    console.log('images', images);
+                {Object.keys(images).map(key =>
+                    <div key={key}>
 
-    return (
-        <div>
-            <h2>List of Usernames of Users</h2>
-            <p>(Save on Sign up in Firebase Database)</p>
+                        <ul>
+                            <li><img src={images[key].downloadUrl} alt={images[key].Name} width="50"/></li>
 
-            {Object.keys(images).map(key =>
-                <div key={key}>
+                        </ul>
 
-                    <ul>
-                        <li><img src={images[key].downloadUrl} alt={images[key].Name} width="50"/></li>
+                    </div>
+                )}
+            </div>
+        )
+    } else {
+        return (
+            <div><h2>NO IMAGES</h2></div>
+        )
+    }
 
-                    </ul>
-
-                </div>
-            )}
-        </div>
-    )
 }
 
 
-const authCondition = (authUser) => !!authUser;
+const authCondition = (authUser) => {
+
+    return (!!authUser)
+};
 
 export default withAuthorization(authCondition)(PaidImagesPage);
