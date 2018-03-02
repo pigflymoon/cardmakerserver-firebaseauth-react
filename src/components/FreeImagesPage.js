@@ -14,9 +14,18 @@ class FreeImagesPage extends Component {
 
     componentDidMount() {
         console.log('Home is mounted')
+        var self = this;
+
         db.onceGetFreeImages().then(snapshot => {
-            this.setState(() => ({images: snapshot.val()}));
-        })
+            if (snapshot) {
+                self.setState(() => ({images: snapshot.val()}));
+            }
+
+        }, function (error) {
+            self.setState({error: true});
+            // console.error('get images erros,', error);
+
+        });
 
     }
 
@@ -27,7 +36,7 @@ class FreeImagesPage extends Component {
                 <h1>Home</h1>
                 <p>The Home Page is accessible by every signed in user.</p>
                 <p>Images :</p>
-                {!!images && <ImagesList images={images} />}
+                {!!images && <ImagesList images={images}/>}
 
             </div>
         );
@@ -35,29 +44,34 @@ class FreeImagesPage extends Component {
 }
 
 
-
 const ImagesList = ({images}) => {
 
     // const { classes } = this.props;
     console.log('images', images);
+    if (images) {
+        return (
+            <div>
+                <h2>List of Usernames of Users</h2>
+                <p>(Save on Sign up in Firebase Database)</p>
 
-    return (
-        <div>
-            <h2>List of Usernames of Users</h2>
-            <p>(Save on Sign up in Firebase Database)</p>
+                {Object.keys(images).map(key =>
+                    <div key={key}>
 
-            {Object.keys(images).map(key =>
-                <div key={key}>
+                        <ul>
+                            <li><img src={images[key].downloadUrl} alt={images[key].Name} width="50"/></li>
 
-                    <ul>
-                        <li><img src={images[key].downloadUrl} alt={images[key].Name} width="50"/></li>
+                        </ul>
 
-                    </ul>
+                    </div>
+                )}
+            </div>
+        )
+    } else {
+        return (
+            <div><h2>NO IMAGES</h2></div>
+        )
+    }
 
-                </div>
-            )}
-        </div>
-    )
 }
 
 

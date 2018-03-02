@@ -67,14 +67,25 @@ class ImagesListPage extends Component {
 
         this.state = {
             images: null,
+            error: false,
+
         };
     }
 
     componentDidMount() {
         // console.log('Home is mounted')
+        var self = this;
+
         db.onceGetFreeImages().then(snapshot => {
-            this.setState(() => ({images: snapshot.val()}));
-        })
+            if (snapshot) {
+                self.setState(() => ({images: snapshot.val()}));
+
+            }
+        }, function (error) {
+            self.setState({error: true});
+            // console.error('get images erros,', error);
+
+        });
 
     }
 
@@ -89,7 +100,6 @@ class ImagesListPage extends Component {
                 {!!images && <ImagesList images={images} classes={classes}/>}
 
 
-
             </div>
         );
     }
@@ -100,27 +110,33 @@ const ImagesList = ({images, classes}) => {
 
     // const { classes } = this.props;
     console.log('images', images);
+    if (images) {
+        return (
+            <div>
+                <h2>List of images in databse</h2>
+                <p>(Save on Sign up in Firebase Database)</p>
 
-    return (
-        <div>
-            <h2>List of images in databse</h2>
-            <p>(Save on Sign up in Firebase Database)</p>
+                {Object.keys(images).map(key =>
+                    <div key={key}>
 
-            {Object.keys(images).map(key =>
-                <div key={key}>
+                        <ul>
+                            <li>
+                                <ImageItem pic={images[key].downloadUrl} name={images[key].Name} imageId={key}/>
 
-                    <ul>
-                        <li>
-                            <ImageItem pic={images[key].downloadUrl} name ={images[key].Name} imageId={key}/>
+                            </li>
 
-                        </li>
+                        </ul>
 
-                    </ul>
+                    </div>
+                )}
+            </div>
+        )
+    } else {
+        return (
+            <div><h2>NO IMAGES</h2></div>
+        )
+    }
 
-                </div>
-            )}
-        </div>
-    )
 }
 
 
