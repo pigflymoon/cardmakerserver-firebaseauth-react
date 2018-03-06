@@ -66,7 +66,8 @@ class ImagesListPage extends Component {
         super(props);
 
         this.state = {
-            images: null,
+            freeImages: null,
+            paidImages: null,
             error: false,
 
         };
@@ -78,7 +79,18 @@ class ImagesListPage extends Component {
 
         db.onceGetFreeImages().then(snapshot => {
             if (snapshot) {
-                self.setState(() => ({images: snapshot.val()}));
+                self.setState(() => ({freeImages: snapshot.val()}));
+
+            }
+        }, function (error) {
+            self.setState({error: true});
+            // console.error('get images erros,', error);
+
+        });
+
+        db.onceGetImages().then(snapshot => {
+            if (snapshot) {
+                self.setState(() => ({paidImages: snapshot.val()}));
 
             }
         }, function (error) {
@@ -92,12 +104,20 @@ class ImagesListPage extends Component {
     render() {
         const {classes} = this.props;
         // console.log('classes props', classes)
-        const {images} = this.state;
+        const {freeImages,paidImages} = this.state;
         return (
             <div>
+
                 <h1>Free Images from storage</h1>
                 <p>Images :</p>
-                {!!images && <ImagesList images={images} classes={classes}/>}
+                <div>
+                    {!!freeImages && <ImagesList type="free" images={freeImages} classes={classes}/>}
+
+                </div>
+                <div>
+                    {!!paidImages && <ImagesList type="paid" images={paidImages} classes={classes}/>}
+
+                </div>
 
 
             </div>
@@ -106,14 +126,14 @@ class ImagesListPage extends Component {
 }
 
 
-const ImagesList = ({images, classes}) => {
+const ImagesList = ({images, type,classes}) => {
 
     // const { classes } = this.props;
     console.log('images', images);
     if (images) {
         return (
             <div>
-                <h2>List of images in databse</h2>
+                <h2>List of {type} images in databse</h2>
                 <p>(Save on Sign up in Firebase Database)</p>
 
                 {Object.keys(images).map(key =>
@@ -121,7 +141,7 @@ const ImagesList = ({images, classes}) => {
 
                         <ul>
                             <li>
-                                <ImageItem pic={images[key].downloadUrl} name={images[key].Name} imageId={key}/>
+                                <ImageItem type={type} pic={images[key].downloadUrl} name={images[key].Name} imageId={key}/>
 
                             </li>
 
