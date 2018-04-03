@@ -31,3 +31,33 @@ export const getUploadImages = () =>
 
 export const onceGetImages = () =>
     db.ref('uploadImages').once('value');
+
+// category
+// birthday
+
+export const getBirthdayImages = () =>
+    db.ref().child("birthdayImages");
+
+export const onceGetBirthdayImages = () =>
+    db.ref('birthdayImages').once('value');
+// holiday
+
+export const getHolidayImages = () =>
+    db.ref().child("holidayImages");
+
+export const onceGetHolidaydayImages = () =>
+    db.ref('holidayImages').once('value');
+
+// wedding
+export const getWeddingImages = () =>
+    db.ref().child("weddingImages");
+
+export const onceGetWeddingImages = () =>
+    db.ref('weddingImages').once('value');
+
+// others
+export const getOtherImages = () =>
+    db.ref().child("otherImages");
+
+export const onceGetOtherImages = () =>
+    db.ref('otherImages').once('value');

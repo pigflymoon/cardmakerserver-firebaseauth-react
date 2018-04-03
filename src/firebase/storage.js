@@ -10,3 +10,17 @@ export const getDefaultImages = () =>
 
 export const getImages = () =>
     storage.ref().child('uploadImages');
+
+// category
+// birthday
+export const getBirthdayImages = () =>
+    storage.ref().child('birthdayImages');
+// holiday
+export const getHolidayImages = () =>
+    storage.ref().child('holidayImages');
+// wedding
+export const getWeddingImages = () =>
+    storage.ref().child('weddingImages');
+// others
+export const getOtherImages = () =>
+    storage.ref().child('otherImages');

@@ -31,12 +31,18 @@ const NavigationAuth = (userAndrole) => {
     return (
         <ul>
             <li><Link to={routes.DATABASE}>Database Images list</Link></li>
-            <li><Link to={routes.UPLOADIMAGES}>Upload images for user</Link></li>
+            <li><Link to={routes.UPLOADBIRTHDAY}>Upload images for birthday</Link></li>
+            <li><Link to={routes.UPLOADHOLIDAY}>Upload images for holiday</Link></li>
+            <li><Link to={routes.UPLOADWEDDING}>Upload images for wedding</Link></li>
+            <li><Link to={routes.UPLOADOTHERS}>Upload images for others</Link></li>
 
-            <li><Link to={routes.UPLOADFREE}>Upload for free user</Link></li>
-            <li><Link to={routes.UPLOADPAID}>Upload for paid user</Link></li>
-            <li><Link to={routes.FREE_IMAGES}>Free images list</Link></li>
-            <li><Link to={routes.PAID_IMAGES}>Paid images list</Link></li>
+
+            {/*<li><Link to={routes.UPLOADIMAGES}>Upload images for user</Link></li>*/}
+
+            {/*<li><Link to={routes.UPLOADFREE}>Upload for free user</Link></li>*/}
+            {/*<li><Link to={routes.UPLOADPAID}>Upload for paid user</Link></li>*/}
+            {/*<li><Link to={routes.FREE_IMAGES}>Free images list</Link></li>*/}
+            {/*<li><Link to={routes.PAID_IMAGES}>Paid images list</Link></li>*/}
             <li><Link to={routes.ACCOUNT}>Account</Link></li>
             <li><SignOutButton email={userAndrole.email} role={userAndrole.role}/></li>
         </ul>

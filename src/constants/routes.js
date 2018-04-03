@@ -7,5 +7,13 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const UPLOADPAID = '/upload-paid';
 export const UPLOADFREE = '/upload-free';
 export const UPLOADIMAGES = '/upload';
+
+
+export const UPLOADBIRTHDAY = '/upload-birthday';
+export const UPLOADHOLIDAY = '/upload-holiday';
+export const UPLOADWEDDING= '/upload-wedding';
+export const UPLOADOTHERS= '/upload-others';
+
+
 export const LANDING = '/welcome';
 export const DATABASE = '/images-list';
