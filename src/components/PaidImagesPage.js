@@ -15,7 +15,7 @@ class PaidImagesPage extends Component {
 
     componentDidMount() {
         var self = this;
-        db.onceGetImages().then(snapshot => {
+        db.onceGetPaidImages().then(snapshot => {
             if (snapshot) {
                 console.log('snapshot', snapshot.val());
                 this.setState(() => ({images: snapshot.val()}));

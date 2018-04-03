@@ -11,6 +11,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import FileUpload from 'material-ui-icons/FileUpload';
 import AddToPhotos from 'material-ui-icons/AddToPhotos';
+import {firebase} from '../firebase';
 
 import Chip from 'material-ui/Chip';
 import {CircularProgress} from 'material-ui/Progress';
@@ -20,7 +21,6 @@ import saveImage from '../utils/saveImage';
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert';
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -93,30 +93,29 @@ const styles = theme => ({
 });
 
 
-class UploadPaidImagesPage extends Component {
+class UploadImagesPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            users: null,
+            // users: null,
             file: null,
             fileName: '',
             uploading: false,
             imagePreviewUrl: '',
             imagePreviewUrls: [],
+            showUpload: false,
             open:false,
-
         };
+        console.log('this props&&&&&&&&&&&&,',this.props)
+
     }
 
 
     handleAddImage = (e) => {
         e.preventDefault();
-
-
         var choseFiles = e.target.files;
 
-        console.log('choseFiles :', choseFiles)
         var files = [], imagePreviewUrls = [];
         for (var file of choseFiles) {
             files.push(file);
@@ -147,13 +146,11 @@ class UploadPaidImagesPage extends Component {
 
     handleUpload = (e) => {
         e.preventDefault();
-        // console.log('submit', this.state.file);
-        // this.fileUpload(this.state.file);
         this.setState({uploading: true});
         this.filesUpload(this.state.choseFiles);
     }
 
-    getDownloadUrl = (uploadImagesRef, snapshot) => {
+    getDownloadUrl = (uploadImagesRef, snapshot) => {//db,
         if (snapshot.downloadURL !== null) {
             var downloadUrl = snapshot.downloadURL;
             var newImageKey = uploadImagesRef.push().key;
@@ -167,19 +164,14 @@ class UploadPaidImagesPage extends Component {
         }
     }
 
-    fileUpload = (file, imagesRef, uploadImagesRef) => {
+    fileUpload = (file, imagesRef, uploadImagesRef) => {//file,storage,db
         var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
 
         var task = saveImage(file, filename, imagesRef)
-        console.log('filename is ', filename);
         var self = this;
-        // this.setState({fileName: filename})
+
         task.then(function (snapshot) {
-            console.log('snapshot', snapshot)
-            console.log('task.snapshot', task.snapshot)
-
-
-            self.getDownloadUrl(uploadImagesRef, snapshot);
+            self.getDownloadUrl(uploadImagesRef, snapshot);//db
 
         })
             .then(function () {
@@ -187,37 +179,34 @@ class UploadPaidImagesPage extends Component {
                 self.setState({uploading: false, choseFiles: []});
             })
             .catch(function (error) {
-                // console.error('error', error);
+                console.error('error is', error);
                 self.setState({open:true});
                 self.setState({uploading: false, choseFiles: []});
+
             });
     }
 
     filesUpload = (files) => {
-        var imagesRef = storage.getPaidImages();
-        var uploadImagesRef = db.getPaidUploadImages();
+        var imagesRef = storage.getImages();//storage
+        var uploadImagesRef = db.getUploadImages();//db
 
         // var newPostKey = firebaseApp.database().ref().child('images').push().key;
 
         if (files) {
             for (let file of files) {
-                this.fileUpload(file, imagesRef, uploadImagesRef);
+                this.fileUpload(file, imagesRef, uploadImagesRef);//every file
             }
         } else {
             console.log('no file')
         }
     }
 
-    componentDidMount() {
-        // db.onceGetUsers().then(snapshot =>
-        //     this.setState(() => ({users: snapshot.val()}))
-        // );
-    }
 
     render() {
-        // const {users} = this.state;
         const {classes} = this.props;
-        const {anchor, imagePreviewUrls} = this.state;
+        const {anchor} = this.state;
+        console.log('classes props',classes)
+        // if (showUpload) {
         return (
             <div className={classes.root}>
 
@@ -225,7 +214,7 @@ class UploadPaidImagesPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload for paid user
+                                Upload  images for  user
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -295,23 +284,22 @@ class UploadPaidImagesPage extends Component {
                 </div>
             </div>
         );
+        // } else {
+        //     return (
+        //         <div>
+        //             <Typography variant="title" color="inherit" noWrap>
+        //                 404
+        //             </Typography>
+        //         </div>
+        //     )
+        // }
+
     }
 }
 
 
-// const UserList = ({users}) =>
-//     <div>
-//         <h2>List of Usernames of Users</h2>
-//         <p>(Save on Sign up in Firebase Database)</p>
-//         {Object.keys(users).map(key =>
-//             <div key={key}>{users[key].username}</div>)}
-//     </div>
-
-const authCondition = (authUser) => {
-    console.log('authcondition authuser:',authUser)
-    return !!authUser;
-}//!!authUser;
+const authCondition = (authUser) => !!authUser;
 
 
-UploadPaidImagesPage = withRoot(withStyles(styles)(UploadPaidImagesPage));
-export default withAuthorization(authCondition)(UploadPaidImagesPage);
+UploadImagesPage = withRoot(withStyles(styles)(UploadImagesPage));
+export default withAuthorization(authCondition)(UploadImagesPage);

@@ -15,7 +15,7 @@ export const onceGetUsers = () =>
 export const getPaidUploadImages = () =>
     db.ref().child("paidUploadImages");
 
-export const onceGetImages = () =>
+export const onceGetPaidImages = () =>
     db.ref('paidUploadImages').once('value');
 
 
@@ -24,3 +24,10 @@ export const getFreeUploadImages = () =>
 
 export const onceGetFreeImages = () =>
     db.ref('freeUploadImages').once('value');
+
+
+export const getUploadImages = () =>
+    db.ref().child("uploadImages");
+
+export const onceGetImages = () =>
+    db.ref('uploadImages').once('value');

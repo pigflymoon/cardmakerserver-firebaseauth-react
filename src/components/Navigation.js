@@ -31,6 +31,8 @@ const NavigationAuth = (userAndrole) => {
     return (
         <ul>
             <li><Link to={routes.DATABASE}>Database Images list</Link></li>
+            <li><Link to={routes.UPLOADIMAGES}>Upload images for user</Link></li>
+
             <li><Link to={routes.UPLOADFREE}>Upload for free user</Link></li>
             <li><Link to={routes.UPLOADPAID}>Upload for paid user</Link></li>
             <li><Link to={routes.FREE_IMAGES}>Free images list</Link></li>

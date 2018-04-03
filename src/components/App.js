@@ -7,6 +7,8 @@ import {
 import Navigation from './Navigation';
 import UploadPaidImagesPage from './UploadPaidImagesPage';
 import UploadFreePage from './UploadFreeImagesPage';
+import UploadImagesPage from './UploadImagesPage';
+
 import FreeImagesPage from './FreeImagesPage';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
@@ -26,9 +28,13 @@ const App = () =>
             <hr/>
             <Route exact path={routes.DATABASE} component={() => <ImagesListPage />} {...this.props} />
             <Route exact path={routes.LANDING} component={() => <LandingPage />}/>
+
+            <Route exact path={routes.UPLOADIMAGES} component={() => <UploadImagesPage />}/>
             <Route exact path={routes.UPLOADFREE} component={() => <UploadFreePage />} {...this.props} />
             <Route exact path={routes.UPLOADPAID} component={() => <UploadPaidImagesPage />}/>
+
             <Route exact path={routes.FREE_IMAGES} component={() => <FreeImagesPage />}/>
+
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />}/>
             <Route exact path={routes.SIGN_IN} component={() => <SignInPage />}/>
             <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />}/>

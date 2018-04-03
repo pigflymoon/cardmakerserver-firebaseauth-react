@@ -68,6 +68,7 @@ class ImagesListPage extends Component {
         this.state = {
             freeImages: null,
             paidImages: null,
+            images: null,
             error: false,
 
         };
@@ -88,9 +89,21 @@ class ImagesListPage extends Component {
 
         });
 
-        db.onceGetImages().then(snapshot => {
+        db.onceGetPaidImages().then(snapshot => {
             if (snapshot) {
                 self.setState(() => ({paidImages: snapshot.val()}));
+
+            }
+        }, function (error) {
+            self.setState({error: true});
+            // console.error('get images erros,', error);
+
+        });
+
+
+        db.onceGetImages().then(snapshot => {
+            if (snapshot) {
+                self.setState(() => ({images: snapshot.val()}));
 
             }
         }, function (error) {
@@ -104,12 +117,16 @@ class ImagesListPage extends Component {
     render() {
         const {classes} = this.props;
         // console.log('classes props', classes)
-        const {freeImages,paidImages} = this.state;
+        const {freeImages, paidImages, images} = this.state;
         return (
             <div>
 
                 <h1>Free Images from storage</h1>
                 <p>Images :</p>
+                <div>
+                    {!!images && <ImagesList type="images" images={images} classes={classes}/>}
+
+                </div>
                 <div>
                     {!!freeImages && <ImagesList type="free" images={freeImages} classes={classes}/>}
 
@@ -126,7 +143,7 @@ class ImagesListPage extends Component {
 }
 
 
-const ImagesList = ({images, type,classes}) => {
+const ImagesList = ({images, type, classes}) => {
 
     // const { classes } = this.props;
     console.log('images', images);
@@ -141,7 +158,8 @@ const ImagesList = ({images, type,classes}) => {
 
                         <ul>
                             <li>
-                                <ImageItem type={type} pic={images[key].downloadUrl} name={images[key].Name} imageId={key}/>
+                                <ImageItem type={type} pic={images[key].downloadUrl} name={images[key].Name}
+                                           imageId={key}/>
 
                             </li>
 

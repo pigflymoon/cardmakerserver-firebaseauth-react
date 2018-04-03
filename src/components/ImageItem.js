@@ -35,7 +35,7 @@ export default class ImageItem extends Component {
             uploadPaidImagesRef.child(imageId).remove().then(function () {//delete image node from database
                 alert('The picture of ' + name + ', id is ' + imageId + ' is deleted!');
                 // Create a reference to the file to delete
-                var desertRef = storage.getImages().child(name);//delete image from storage as well.
+                var desertRef = storage.getPaidImages().child(name);//delete image from storage as well.
                 // Delete the file
                 desertRef.delete().then(function () {
                     // File deleted successfully
