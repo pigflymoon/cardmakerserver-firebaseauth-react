@@ -157,7 +157,7 @@ class UploadWeddingPage extends Component {
             var saveFilename = snapshot.metadata.name;
             uploadImagesRef.child(newImageKey + '_image').set({
                 downloadUrl: downloadUrl,
-                Name: saveFilename
+                name: saveFilename
             });
         } else {
             console.log('download url is not ready!')
@@ -165,7 +165,7 @@ class UploadWeddingPage extends Component {
     }
 
     fileUpload = (file, imagesRef, uploadImagesRef) => {//file,storage,db
-        var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1] + '_poster';
+        var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1];
 
         var task = saveImage(file, filename, imagesRef)
         var self = this;

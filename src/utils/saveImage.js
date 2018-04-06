@@ -11,7 +11,7 @@ const saveImage = (file, filename, ref) => {
         };
 
         // Upload file and metadata to the object
-        var uploadTask = ref.child(filename + '.' + mimes[file.type].extensions[0]).put(file, metadata);
+        var uploadTask = ref.child(filename).put(file, metadata);
 
         return uploadTask;
     }
