@@ -66,8 +66,10 @@ class ImagesListPage extends Component {
         super(props);
 
         this.state = {
-            freeImages: null,
-            paidImages: null,
+            birthdayImages: null,
+            holidayImages: null,
+            weddingImages: null,
+            otherImages: null,
             images: null,
             error: false,
 
@@ -78,9 +80,9 @@ class ImagesListPage extends Component {
         // console.log('Home is mounted')
         var self = this;
 
-        db.onceGetFreeImages().then(snapshot => {
+        db.onceGetBirthdayImages().then(snapshot => {
             if (snapshot) {
-                self.setState(() => ({freeImages: snapshot.val()}));
+                self.setState(() => ({birthdayImages: snapshot.val()}));
 
             }
         }, function (error) {
@@ -89,9 +91,9 @@ class ImagesListPage extends Component {
 
         });
 
-        db.onceGetPaidImages().then(snapshot => {
+        db.onceGetHolidaydayImages().then(snapshot => {
             if (snapshot) {
-                self.setState(() => ({paidImages: snapshot.val()}));
+                self.setState(() => ({holidayImages: snapshot.val()}));
 
             }
         }, function (error) {
@@ -101,9 +103,19 @@ class ImagesListPage extends Component {
         });
 
 
-        db.onceGetImages().then(snapshot => {
+        db.onceGetWeddingImages().then(snapshot => {
             if (snapshot) {
-                self.setState(() => ({images: snapshot.val()}));
+                self.setState(() => ({weddingImages: snapshot.val()}));
+
+            }
+        }, function (error) {
+            self.setState({error: true});
+            // console.error('get images erros,', error);
+
+        });
+        db.onceGetOtherImages().then(snapshot => {
+            if (snapshot) {
+                self.setState(() => ({otherImages: snapshot.val()}));
 
             }
         }, function (error) {
@@ -117,25 +129,24 @@ class ImagesListPage extends Component {
     render() {
         const {classes} = this.props;
         // console.log('classes props', classes)
-        const {freeImages, paidImages, images} = this.state;
+        const {birthdayImages, holidayImages,weddingImages,otherImages} = this.state;
         return (
             <div>
 
                 <h1>Free Images from storage</h1>
                 <p>Images :</p>
                 <div>
-                    {!!images && <ImagesList type="images" images={images} classes={classes}/>}
-
+                    {!!birthdayImages && <ImagesList type="birthday" images={birthdayImages} classes={classes}/>}
                 </div>
                 <div>
-                    {!!freeImages && <ImagesList type="free" images={freeImages} classes={classes}/>}
-
+                    {!!holidayImages && <ImagesList type="holidays" images={holidayImages} classes={classes}/>}
                 </div>
                 <div>
-                    {!!paidImages && <ImagesList type="paid" images={paidImages} classes={classes}/>}
-
+                    {!!weddingImages && <ImagesList type="wedding" images={weddingImages} classes={classes}/>}
                 </div>
-
+                <div>
+                    {!!otherImages && <ImagesList type="others" images={otherImages} classes={classes}/>}
+                </div>
 
             </div>
         );
@@ -158,7 +169,7 @@ const ImagesList = ({images, type, classes}) => {
 
                         <ul>
                             <li>
-                                <ImageItem type={type} pic={images[key].downloadUrl} name={images[key].Name}
+                                <ImageItem type={type} pic={images[key].downloadUrl} name={images[key].name}
                                            imageId={key}/>
 
                             </li>

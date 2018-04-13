@@ -18,7 +18,7 @@ import UploadOthersPage from './UploadOthersPage';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';
-import PaidImagesPage from './PaidImagesPage';
+// import PaidImagesPage from './PaidImagesPage';
 import AccountPage from './Account';
 // import LandingPage from './LandingPage';
 import ImagesListPage from './DeleteImages';
@@ -53,7 +53,7 @@ const App = () =>
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />}/>
             <Route exact path={routes.SIGN_IN} component={() => <SignInPage />}/>
             <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />}/>
-            <Route exact path={routes.PAID_IMAGES} component={() => <PaidImagesPage />}/>
+            {/*<Route exact path={routes.PAID_IMAGES} component={() => <PaidImagesPage />}/>*/}
             <Route exact path={routes.ACCOUNT} component={() => <AccountPage />}/>
         </div>
     </Router>
