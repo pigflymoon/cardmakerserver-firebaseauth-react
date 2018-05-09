@@ -180,7 +180,7 @@ class UploadBirthdayPage extends Component {
             })
             .catch(function (error) {
                 console.error('error is', error);
-                self.setState({open:true});
+                self.setState({open: true});
                 self.setState({uploading: false, choseFiles: []});
 
             });
@@ -205,7 +205,7 @@ class UploadBirthdayPage extends Component {
     render() {
         const {classes} = this.props;
         const {anchor} = this.state;
-        console.log('classes props',classes)
+        console.log('classes props', classes)
         // if (showUpload) {
         return (
             <div className={classes.root}>
@@ -214,7 +214,7 @@ class UploadBirthdayPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload  images for  birthday
+                                Upload images for birthday
                             </Typography>
                         </Toolbar>
                     </AppBar>
