@@ -9,11 +9,11 @@ import Navigation from './Navigation';
 // import UploadFreePage from './UploadFreeImagesPage';
 // import UploadImagesPage from './UploadImagesPage';
 // import FreeImagesPage from './FreeImagesPage';
-import UploadBirthdayPage from './UploadBirthdayPage';
-import UploadHolidayPage from './UploadHolidayPage';
-import UploadWeddingPage from './UploadWeddingPage';
-import UploadOthersPage from './UploadOthersPage';
-
+// import UploadBirthdayPage from './UploadBirthdayPage';
+// import UploadHolidayPage from './UploadHolidayPage';
+// import UploadWeddingPage from './UploadWeddingPage';
+// import UploadOthersPage from './UploadOthersPage';
+import UploadCardsPage from './UploadCardsPage';
 
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
@@ -32,10 +32,11 @@ const App = () =>
 
             <hr/>
             <Route exact path={routes.DATABASE} component={() => <ImagesListPage />} {...this.props} />
-            <Route exact path={routes.UPLOADBIRTHDAY} component={() => <UploadBirthdayPage />}/>
-            <Route exact path={routes.UPLOADHOLIDAY} component={() => <UploadHolidayPage />}/>
-            <Route exact path={routes.UPLOADWEDDING} component={() => <UploadWeddingPage />}/>
-            <Route exact path={routes.UPLOADOTHERS} component={() => <UploadOthersPage />}/>
+            <Route exact path={routes.UPLOADCARDS} component={() => <UploadCardsPage />} />
+            {/*<Route exact path={routes.UPLOADBIRTHDAY} component={() => <UploadBirthdayPage />}/>*/}
+            {/*<Route exact path={routes.UPLOADHOLIDAY} component={() => <UploadHolidayPage />}/>*/}
+            {/*<Route exact path={routes.UPLOADWEDDING} component={() => <UploadWeddingPage />}/>*/}
+            {/*<Route exact path={routes.UPLOADOTHERS} component={() => <UploadOthersPage />}/>*/}
 
             {/*<Route exact path={routes.UPLOADBIRTHDAY} component={() => <UploadBirthdayPage />}/>*/}
 

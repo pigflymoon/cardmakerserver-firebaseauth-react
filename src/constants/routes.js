@@ -14,6 +14,10 @@ export const UPLOADHOLIDAY = '/upload-holiday';
 export const UPLOADWEDDING= '/upload-wedding';
 export const UPLOADOTHERS= '/upload-others';
 
+//upload cards and invitations
+export const UPLOADCARDS='/upload-cards';
+export const UPLOADINVITATIONS='/upload-invitations';
+
 
 export const LANDING = '/welcome';
 export const DATABASE = '/images-list';
