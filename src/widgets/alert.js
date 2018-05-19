@@ -25,7 +25,7 @@ class AlertDialog extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('nextProps.open', nextProps.open)
-        this.setState({open: nextProps.open})
+        this.setState({open: nextProps.open, error: nextProps.error})
     }
 
 
@@ -49,7 +49,7 @@ class AlertDialog extends Component {
                     <DialogTitle id="alert-dialog-title">{"Upload failure"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Make sure you have the permission.
+                            {this.state.error}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

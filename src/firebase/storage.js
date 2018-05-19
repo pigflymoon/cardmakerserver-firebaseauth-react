@@ -24,3 +24,10 @@ export const getWeddingImages = () =>
 // others
 export const getOtherImages = () =>
     storage.ref().child('otherImages');
+
+//image by type
+
+export const getCardsImagesByType = (imageType)=>{
+    console.log('imageType',imageType)
+    return storage.ref().child('cards/'+imageType)
+}

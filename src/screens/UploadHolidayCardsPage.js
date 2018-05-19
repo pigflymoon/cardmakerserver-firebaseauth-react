@@ -11,15 +11,23 @@ import Paper from 'material-ui/Paper';
 import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import List from 'material-ui/List';
+import Button from 'material-ui/Button';
+import FileUpload from 'material-ui-icons/FileUpload';
+import AddToPhotos from 'material-ui-icons/AddToPhotos';
+import Chip from 'material-ui/Chip';
+import {CircularProgress} from 'material-ui/Progress';
+
 // import IconButton from 'material-ui/core/IconButton';
 import Hidden from 'material-ui/Hidden';
 
 import withAuthorization from '../components/withAuthorization';
-import withRoot from '../components/withRoot';import saveImage from '../utils/saveImage';
+import withRoot from '../components/withRoot';
+import saveImage from '../utils/saveImage';
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert'
-import { mailFolderListItems, otherMailFolderListItems } from '../components/tileData';;
+import {mailFolderListItems, otherMailFolderListItems} from '../components/tileData';
+;
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -99,6 +107,9 @@ const styles = theme => ({
             position: 'relative',
         },
     },
+    paperContainer: {
+        padding: 20,
+    }
 
 
 });
@@ -116,17 +127,22 @@ class UploadHolidayCardsPage extends Component {
             imagePreviewUrl: '',
             imagePreviewUrls: [],
             showUpload: false,
-            open:false,
-            value: 0,
+            open: false,
+            activeTabIndex: 0,
+            activeTab: 'christmas',
             mobileOpen: false,
+            choseFiles: null,
+            uploadStatus:'Please choose file to upload',
         };
-        console.log('this props&&&&&&&&&&&&,',this.props)
+        console.log('this props&&&&&&&&&&&&,', this.props)
 
     }
 
 
-    handleAddImage = (e) => {
+    handleAddImage = (e, imageType) => {
         e.preventDefault();
+        var uploadImageType = imageType;
+        console.log('imageType is for ', uploadImageType);
         var choseFiles = e.target.files;
 
         var files = [], imagePreviewUrls = [];
@@ -157,10 +173,17 @@ class UploadHolidayCardsPage extends Component {
         this.setState({choseFiles: filesData, imagePreviewUrls: imagesData});
     }
 
-    handleUpload = (e) => {
+    handleUpload = (e, imageType) => {
         e.preventDefault();
-        this.setState({uploading: true});
-        this.filesUpload(this.state.choseFiles);
+        console.log('choseFiles length', this.state.choseFiles)
+        if (!(this.state.choseFiles) || this.state.choseFiles.length < 1) {
+            this.setState({open: true, error: 'Please choose file', uploading: false, choseFiles: []});
+        } else {
+            this.setState({uploading: true});
+            this.filesUpload(this.state.choseFiles, imageType);
+        }
+
+
     }
 
     getDownloadUrl = (uploadImagesRef, snapshot) => {//db,
@@ -184,24 +207,25 @@ class UploadHolidayCardsPage extends Component {
         var self = this;
 
         task.then(function (snapshot) {
+            console.log('snapshot is ',snapshot)
             self.getDownloadUrl(uploadImagesRef, snapshot);//db
 
         })
             .then(function () {
-                console.log('upload is finished!')
-                self.setState({uploading: false, choseFiles: []});
+                self.setState({uploading: false,uploadStatus:'Upload is Finished!', choseFiles: []});
             })
             .catch(function (error) {
                 console.error('error is', error);
-                self.setState({open: true});
-                self.setState({uploading: false, choseFiles: []});
+                self.setState({open: true, error: error, uploading: false, choseFiles: []});
 
             });
     }
 
-    filesUpload = (files) => {
-        var imagesRef = storage.getBirthdayImages();//storage
-        var uploadImagesRef = db.getBirthdayImages();//db
+    filesUpload = (files, imageType) => {
+        var imagesRef = storage.getCardsImagesByType(imageType);
+        var uploadImagesRef = db.getCardsImagesByType(imageType);
+        // var imagesRef = storage.getBirthdayImages();//storage
+        // var uploadImagesRef = db.getBirthdayImages();//db
 
         // var newPostKey = firebaseApp.database().ref().child('images').push().key;
 
@@ -216,11 +240,20 @@ class UploadHolidayCardsPage extends Component {
 
 
     handleChange = (event, value) => {
-        this.setState({ value });
+        let tabs = ["christmas", "newYear", "easter"];
+        for (let tab of tabs) {
+            let tabValue = tabs[value];
+            if (tab == tabValue) {
+                console.log('tab is ',tab)
+                this.setState({activeTabIndex: value, activeTab: tab})
+            }
+
+        }
+        this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
-        this.setState({ mobileOpen: !this.state.mobileOpen });
+        this.setState({mobileOpen: !this.state.mobileOpen});
     };
 
     render() {
@@ -229,7 +262,7 @@ class UploadHolidayCardsPage extends Component {
 
         const drawer = (
             <div>
-                <div className={classes.toolbar} />
+                <div className={classes.toolbar}/>
                 <Divider />
                 <List>{mailFolderListItems}</List>
                 <Divider />
@@ -276,20 +309,75 @@ class UploadHolidayCardsPage extends Component {
                     </Hidden>
                     <main className={classes.content}>
                         <SimpleSnackbar show={this.state.uploading}/>
-                        <AlertDialog open={this.state.open}/>
+                        <AlertDialog open={this.state.open} error={this.state.error}/>
                         <Paper>
                             <Tabs
-                                value={this.state.value}
+                                value={this.state.activeTabIndex}
                                 indicatorColor="primary"
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Active" />
-                                <Tab label="Disabled"  />
-                                <Tab label="Active" />
+                                <Tab label="Christmas"/>
+                                <Tab label="New Year"/>
+                                <Tab label="Easter"/>
                             </Tabs>
-                        </Paper>
 
+                        </Paper>
+                        <Paper className={classes.paperContainer}>
+                            <div className="content">
+                                Content for the tab: {this.state.activeTabIndex}
+                                --{this.state.activeTab}
+                            </div>
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="raised-button-file"
+                                multiple
+                                type="file"
+                                onChange={(e) => this.handleAddImage(e, this.state.activeTab)}
+                            />
+                            <label htmlFor="raised-button-file">
+                                <Button component="span" className={classes.button} color="default">
+                                    Choose Image for {this.state.activeTab}
+                                    <AddToPhotos className={classes.rightIcon}/>
+                                </Button>
+                            </label>
+                            <label htmlFor="raised-button-file">
+                                <Button type="submit" onClick={(e) => this.handleUpload(e, this.state.activeTab)}
+                                        className={classes.button}
+                                        color="default">
+                                    Upload-{this.state.activeTab}
+                                    <FileUpload className={classes.rightIcon}/>
+                                </Button>
+                            </label>
+                            <div className={classes.filesWrapper}>
+                                {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => {
+                                        return (
+                                            <Chip
+                                                label={file.name}
+                                                className={classes.file}
+                                                key={index}
+                                                onDelete={ this.handleUnChoose(file)}
+
+                                            />
+                                        )
+                                    }) : null}
+                            </div>
+
+                            <div className="imgPreview">
+
+                                {this.state.imagePreviewUrls ? (this.state.imagePreviewUrls).map((image, index) => {
+                                        return (
+                                            <div key={index}><img src={image} width={50}/></div>
+                                        )
+                                    }) : null}
+                            </div>
+
+
+                            {this.state.uploading ? <CircularProgress className={classes.progress}/>
+                                : <Typography>{this.state.uploadStatus}</Typography>}
+
+                        </Paper>
                     </main>
                 </div>
             </div>

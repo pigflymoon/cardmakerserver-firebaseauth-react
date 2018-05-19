@@ -61,3 +61,10 @@ export const getOtherImages = () =>
 
 export const onceGetOtherImages = () =>
     db.ref('otherImages').once('value');
+
+//image type
+
+export const getCardsImagesByType = (imageType) => {
+    console.log('db imageType is ',imageType)
+   return db.ref().child('cards/' + imageType)
+}
