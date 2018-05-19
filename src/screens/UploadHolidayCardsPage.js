@@ -196,7 +196,7 @@ class UploadHolidayCardsPage extends Component {
                 name: saveFilename
             });
         } else {
-            console.log('download url is not ready!')
+            this.setState({uploading: false,uploadStatus:'Download url is not ready!'});
         }
     }
 
@@ -212,7 +212,7 @@ class UploadHolidayCardsPage extends Component {
 
         })
             .then(function () {
-                self.setState({uploading: false,uploadStatus:'Upload is Finished!', choseFiles: []});
+                self.setState({uploading: false,uploadStatus:'Upload is Finished! And save to the database ', choseFiles: []});
             })
             .catch(function (error) {
                 console.error('error is', error);
@@ -277,7 +277,7 @@ class UploadHolidayCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images for Holiday Cards
+                                Upload images for {this.state.activeTab} Cards
                             </Typography>
                         </Toolbar>
                     </AppBar>
