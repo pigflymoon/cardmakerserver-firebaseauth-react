@@ -112,7 +112,7 @@ const styles = theme => ({
 });
 
 
-class UploadCardsPage extends Component {
+class UploadHolidayCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -252,7 +252,7 @@ class UploadCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images for Cards
+                                Upload images for Holiday Cards
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -311,5 +311,5 @@ class UploadCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadCardsPage = withRoot(withStyles(styles)(UploadCardsPage));
-export default withAuthorization(authCondition)(UploadCardsPage);
+UploadHolidayCardsPage = withRoot(withStyles(styles)(UploadHolidayCardsPage));
+export default withAuthorization(authCondition)(UploadHolidayCardsPage);

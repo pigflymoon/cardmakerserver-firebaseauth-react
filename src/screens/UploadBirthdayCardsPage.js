@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import withAuthorization from './withAuthorization';
 import {db, storage} from '../firebase';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
@@ -8,13 +7,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-// import Button from 'material-ui/Button';
-// import FileUpload from 'material-ui-icons/FileUpload';
-// import AddToPhotos from 'material-ui-icons/AddToPhotos';
-// import {firebase} from '../firebase';
-//
-// import Chip from 'material-ui/Chip';
-// import {CircularProgress} from 'material-ui/Progress';
 import Paper from 'material-ui/Paper';
 import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
@@ -22,12 +14,13 @@ import List from 'material-ui/List';
 // import IconButton from 'material-ui/core/IconButton';
 import Hidden from 'material-ui/Hidden';
 
-import withRoot from './withRoot';
+import withAuthorization from '../components/withAuthorization';
+import withRoot from '../components/withRoot';
 import saveImage from '../utils/saveImage';
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert'
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';;
+import { mailFolderListItems, otherMailFolderListItems } from '../components/tileData';;
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -112,7 +105,7 @@ const styles = theme => ({
 });
 
 
-class UploadCardsPage extends Component {
+class UploadBirthdayCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -252,7 +245,7 @@ class UploadCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images for Cards
+                                Upload images for Birthday Cards
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -311,5 +304,5 @@ class UploadCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadCardsPage = withRoot(withStyles(styles)(UploadCardsPage));
-export default withAuthorization(authCondition)(UploadCardsPage);
+UploadBirthdayCardsPage = withRoot(withStyles(styles)(UploadBirthdayCardsPage));
+export default withAuthorization(authCondition)(UploadBirthdayCardsPage);

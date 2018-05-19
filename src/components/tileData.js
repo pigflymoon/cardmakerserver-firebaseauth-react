@@ -17,30 +17,25 @@ import ReportIcon from 'material-ui-icons/Report';
 
 export const mailFolderListItems = (
     <div>
-        <ListItem component={Link} to="upload-invitations" button>
+        <ListItem component={Link} to="upload-holidayCards" button>
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Inbox"/>
+            <ListItemText primary="Holiday"/>
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="upload-birthdayCards" button>
             <ListItemIcon>
                 <StarIcon />
             </ListItemIcon>
-            <ListItemText primary="Starred"/>
+            <ListItemText primary="Birthday"/>
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="upload-thankyouCards" button>
             <ListItemIcon>
                 <SendIcon />
             </ListItemIcon>
-            <ListItemText primary="Send mail"/>
+            <ListItemText primary="Thank You"/>
         </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Drafts"/>
-        </ListItem>
+
     </div>
 );
 
@@ -50,19 +45,19 @@ export const otherMailFolderListItems = (
             <ListItemIcon>
                 <MailIcon />
             </ListItemIcon>
-            <ListItemText primary="All mail"/>
+            <ListItemText primary=""/>
         </ListItem>
         <ListItem button>
             <ListItemIcon>
                 <DeleteIcon />
             </ListItemIcon>
-            <ListItemText primary="Trash"/>
+            <ListItemText primary=""/>
         </ListItem>
         <ListItem button>
             <ListItemIcon>
                 <ReportIcon />
             </ListItemIcon>
-            <ListItemText primary="Spam"/>
+            <ListItemText primary=""/>
         </ListItem>
     </div>
 );

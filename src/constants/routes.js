@@ -18,6 +18,9 @@ export const UPLOADOTHERS= '/upload-others';
 export const UPLOADCARDS='/upload-cards';
 export const UPLOADINVITATIONS='/upload-invitations';
 
+export const UPLOADHOLIDAYCARDS='/upload-holidayCards';
+export const UPLOADBIRTHDAYCARDS='/upload-birthdayCards';
+export const UPLOADTHANKYOUCARDS='/upload-thankyouCards'
 
 export const LANDING = '/welcome';
 export const DATABASE = '/images-list';
