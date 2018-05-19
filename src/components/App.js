@@ -35,7 +35,7 @@ const App = () =>
             <hr/>
             <Route exact path={routes.DATABASE} component={() => <ImagesListPage />} {...this.props} />
             <Route exact path={routes.UPLOADCARDS} component={() => <UploadCardsPage />}/>
-            <Route exact path={routes.UPLOADHOLIDAYCARDS} component={() => <UploadHolidayCardsPage />}/>
+            <Route exact path={routes.UPLOADHOLIDAYCARDS} component={() => <UploadHolidayCardsPage routeName="holidayCards" />}/>
             <Route exact path={routes.UPLOADBIRTHDAYCARDS} component={() => <UploadBirthdayCardsPage />}/>
             <Route exact path={routes.UPLOADTHANKYOUCARDS} component={() => <UploadThankYouCardsPage/>}/>
             <Route exact path={routes.UPLOADBIRTHDAY} component={() => <UploadBirthdayPage />}/>

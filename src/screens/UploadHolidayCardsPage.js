@@ -259,7 +259,7 @@ class UploadHolidayCardsPage extends Component {
     render() {
         const {classes} = this.props;
         // const {anchor} = this.state;
-
+console.log('props is ',this.props)
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
