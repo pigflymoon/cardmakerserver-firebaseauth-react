@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {db, storage} from '../firebase';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
@@ -12,7 +11,6 @@ import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import List from 'material-ui/List';
 
-// import IconButton from 'material-ui/core/IconButton';
 import Hidden from 'material-ui/Hidden';
 
 import withAuthorization from '../components/withAuthorization';
@@ -166,7 +164,7 @@ class UploadHolidayCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images for {this.state.activeTab} Cards
+                                Upload images of Holiday Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>

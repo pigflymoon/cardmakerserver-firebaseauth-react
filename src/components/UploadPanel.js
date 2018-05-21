@@ -86,6 +86,8 @@ export default class UploadPanel extends Component {
 
         } else {
             this.setState({uploading: true});
+            this.props.onHandleUploadStatus({open:false,uploading: true,error:false});
+
             this.filesUpload(this.state.choseFiles, category, imageType);
         }
 
@@ -123,7 +125,7 @@ export default class UploadPanel extends Component {
                     uploadStatus: 'Upload is Finished! And save to the database ',
                     choseFiles: []
                 });
-                self.props.onHandleUploadStatus({open: true, uploading: false, error: ''});
+                self.props.onHandleUploadStatus({open: true, uploading: false, error: false});
 
             })
             .catch(function (error) {

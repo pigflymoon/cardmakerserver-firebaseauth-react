@@ -46,7 +46,9 @@ class AlertDialog extends Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{"Upload failure"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">
+                        {this.state.error ? 'Upload failure' :'Upload Success'}
+                    </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             {this.state.error}
