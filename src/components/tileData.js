@@ -21,19 +21,19 @@ export const mailFolderListItems = (
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Holiday"/>
+            <ListItemText primary="Holiday Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-birthdayCards" button>
             <ListItemIcon>
                 <StarIcon />
             </ListItemIcon>
-            <ListItemText primary="Birthday"/>
+            <ListItemText primary="Birthday Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-thankyouCards" button>
             <ListItemIcon>
                 <SendIcon />
             </ListItemIcon>
-            <ListItemText primary="Thank You"/>
+            <ListItemText primary="Thank You Cards"/>
         </ListItem>
 
     </div>
@@ -41,23 +41,23 @@ export const mailFolderListItems = (
 
 export const otherMailFolderListItems = (
     <div>
-        <ListItem button>
+        <ListItem component={Link} to="upload-holidayInvitations" button>
             <ListItemIcon>
                 <MailIcon />
             </ListItemIcon>
-            <ListItemText primary=""/>
+            <ListItemText primary="Holiday Invitations"/>
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="upload-birthdayInvitations" button>
             <ListItemIcon>
                 <DeleteIcon />
             </ListItemIcon>
-            <ListItemText primary=""/>
+            <ListItemText primary="birthday Invitations"/>
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="upload-weddingInvitations" button>
             <ListItemIcon>
                 <ReportIcon />
             </ListItemIcon>
-            <ListItemText primary=""/>
+            <ListItemText primary="wedding Invitations"/>
         </ListItem>
     </div>
 );

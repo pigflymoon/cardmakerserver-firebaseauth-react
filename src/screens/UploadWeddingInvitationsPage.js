@@ -22,94 +22,8 @@ import {mailFolderListItems, otherMailFolderListItems} from '../components/tileD
 import {uploadStyles} from '../styles/uploadPage';
 import UploadPanel from '../components/UploadPanel';
 
-const drawerWidth = 240;
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-        // height: 430,
-        minHeight: 430,
-        marginTop: theme.spacing.unit * 3,
-        zIndex: 1,
-        overflow: 'hidden',
-    },
-    appFrame: {
-        position: 'relative',
-        display: 'flex',
-        width: '100%',
-        height: '100%',
-    },
-    appBar: {
-        position: 'absolute',
-        width: `calc(100% - ${drawerWidth}px)`,
-    },
-    'appBar-left': {
-        marginLeft: drawerWidth,
-    },
-    'appBar-right': {
-        marginRight: drawerWidth,
-    },
-    // drawerPaper: {
-    //     position: 'relative',
-    //     // height: '100%',
-    //     width: drawerWidth,
-    // },
-    drawerHeader: theme.mixins.toolbar,
-    content: {
-        backgroundColor: theme.palette.background.default,
-        width: '100%',
-        padding: theme.spacing.unit * 3,
-        height: 'calc(100% - 56px)',
-        marginTop: 56,
-        [theme.breakpoints.up('sm')]: {
-            height: 'calc(100% - 64px)',
-            marginTop: 64,
-        },
-    },
-    button: {
-        margin: theme.spacing.unit,
-    },
-    input: {
-        display: 'none',
-    },
-    rightIcon: {
-        marginLeft: theme.spacing.unit,
-    },
-    filesWrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        marginTop: 20,
-    },
-    file: {
-        margin: 4,
-        fontSize: 14,
-    },
-    progress: {
-        margin: `0 ${theme.spacing.unit * 2}px`,
-    },
-    imgPreview: {
-        height: 'auto',
-    },
-    navIconHide: {
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
-        },
-    },
-    drawerPaper: {
-        width: drawerWidth,
-        [theme.breakpoints.up('md')]: {
-            position: 'relative',
-        },
-    },
-    paperContainer: {
-        padding: 20,
-    }
-
-
-});
-
-
-class UploadHolidayCardsPage extends Component {
+class UploadWeddingInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -117,8 +31,8 @@ class UploadHolidayCardsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'cards',
-            activeTab: 'christmas',
+            imageCategory: 'invitations',
+            activeTab: 'invitation',
             mobileOpen: false,
         };
     }
@@ -126,7 +40,7 @@ class UploadHolidayCardsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["christmas", "newYear", "easter"];
+        let tabs = ["invitation", "saveTheDate", "rsvp"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -207,9 +121,9 @@ class UploadHolidayCardsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Christmas"/>
-                                <Tab label="New Year"/>
-                                <Tab label="Easter"/>
+                                <Tab label="Invitations"/>
+                                <Tab label="Save The Date"/>
+                                <Tab label="RSVP"/>
                             </Tabs>
 
                         </Paper>
@@ -231,5 +145,5 @@ class UploadHolidayCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadHolidayCardsPage = withRoot(withStyles(uploadStyles)(UploadHolidayCardsPage));
-export default withAuthorization(authCondition)(UploadHolidayCardsPage);
+UploadWeddingInvitationsPage = withRoot(withStyles(uploadStyles)(UploadWeddingInvitationsPage));
+export default withAuthorization(authCondition)(UploadWeddingInvitationsPage);

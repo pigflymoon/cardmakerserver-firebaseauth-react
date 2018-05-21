@@ -22,5 +22,9 @@ export const UPLOADHOLIDAYCARDS='/upload-holidayCards';
 export const UPLOADBIRTHDAYCARDS='/upload-birthdayCards';
 export const UPLOADTHANKYOUCARDS='/upload-thankyouCards'
 
+export const UPLOADHOLIDAYINVITATIONS='/upload-holidayInvitations';
+export const UPLOADBIRTHDAYINVITATIONS='/upload-birthdayInvitations';
+export const UPLOADWEDDINGINVITATIONS='/upload-weddingInvitations';
+
 export const LANDING = '/welcome';
 export const DATABASE = '/images-list';
