@@ -31,3 +31,7 @@ export const getCardsImagesByType = (imageType)=>{
     console.log('imageType',imageType)
     return storage.ref().child('cards/'+imageType)
 }
+export const getImagesByCategoryAndType = (category,imageType)=>{
+    console.log('imageType',imageType)
+    return storage.ref().child(`${category}/${imageType}`)
+}

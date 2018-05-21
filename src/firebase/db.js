@@ -65,6 +65,11 @@ export const onceGetOtherImages = () =>
 //image type
 
 export const getCardsImagesByType = (imageType) => {
-    console.log('db imageType is ',imageType)
-   return db.ref().child('cards/' + imageType)
+    console.log('db imageType is ', imageType)
+    return db.ref().child('cards/' + imageType)
+}
+
+export const getImagesByTCategoryAndType = (category, imageType) => {
+    console.log('db imageType is ', imageType)
+    return db.ref().child(`${category}/${imageType}`);
 }
