@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {db, storage} from '../firebase';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
@@ -11,15 +10,18 @@ import Paper from 'material-ui/Paper';
 import Tabs from 'material-ui/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import List from 'material-ui/List';
-// import IconButton from 'material-ui/core/IconButton';
+
 import Hidden from 'material-ui/Hidden';
 
 import withAuthorization from '../components/withAuthorization';
-import withRoot from '../components/withRoot';import saveImage from '../utils/saveImage';
+import withRoot from '../components/withRoot';
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert'
-import { mailFolderListItems, otherMailFolderListItems } from '../components/tileData';;
+import {mailFolderListItems, otherMailFolderListItems} from '../components/tileData';
+import {uploadStyles} from '../styles/uploadPage';
+
+import UploadPanel from '../components/UploadPanel';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -99,6 +101,9 @@ const styles = theme => ({
             position: 'relative',
         },
     },
+    paperContainer: {
+        padding: 20,
+    }
 
 
 });
@@ -109,134 +114,51 @@ class UploadThankYouCardsPage extends Component {
         super(props);
 
         this.state = {
-            // users: null,
-            file: null,
-            fileName: '',
             uploading: false,
-            imagePreviewUrl: '',
-            imagePreviewUrls: [],
-            showUpload: false,
-            open:false,
-            value: 0,
+            open: false,
+            activeTabIndex: 0,
+            imageCategory: 'cards',
+            activeTab: 'generalThankYou',
             mobileOpen: false,
         };
-        console.log('this props&&&&&&&&&&&&,',this.props)
-
     }
-
-
-    handleAddImage = (e) => {
-        e.preventDefault();
-        var choseFiles = e.target.files;
-
-        var files = [], imagePreviewUrls = [];
-        for (var file of choseFiles) {
-            files.push(file);
-            let reader = new FileReader();
-            reader.onloadend = () => {
-                imagePreviewUrls.push(reader.result)
-                this.setState({
-                    file: file,
-                });
-            }
-            reader.readAsDataURL(file)
-        }
-
-        this.setState({choseFiles: files, imagePreviewUrls: imagePreviewUrls});
-        e.target.value = '';
-    }
-
-    handleUnChoose = data => () => {
-        const filesData = [...this.state.choseFiles];
-        const imagesData = [...this.state.imagePreviewUrls];
-
-        const fileToDelete = filesData.indexOf(data);
-
-        filesData.splice(fileToDelete, 1);
-        imagesData.splice(fileToDelete, 1);
-        this.setState({choseFiles: filesData, imagePreviewUrls: imagesData});
-    }
-
-    handleUpload = (e) => {
-        e.preventDefault();
-        this.setState({uploading: true});
-        this.filesUpload(this.state.choseFiles);
-    }
-
-    getDownloadUrl = (uploadImagesRef, snapshot) => {//db,
-        if (snapshot.downloadURL !== null) {
-            var downloadUrl = snapshot.downloadURL;
-            var newImageKey = uploadImagesRef.push().key;
-            var saveFilename = snapshot.metadata.name;
-            uploadImagesRef.child(newImageKey + '_image').set({
-                downloadUrl: downloadUrl,
-                name: saveFilename
-            });
-        } else {
-            console.log('download url is not ready!')
-        }
-    }
-
-    fileUpload = (file, imagesRef, uploadImagesRef) => {//file,storage,db
-        var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1];
-
-        var task = saveImage(file, filename, imagesRef)
-        var self = this;
-
-        task.then(function (snapshot) {
-            self.getDownloadUrl(uploadImagesRef, snapshot);//db
-
-        })
-            .then(function () {
-                console.log('upload is finished!')
-                self.setState({uploading: false, choseFiles: []});
-            })
-            .catch(function (error) {
-                console.error('error is', error);
-                self.setState({open: true});
-                self.setState({uploading: false, choseFiles: []});
-
-            });
-    }
-
-    filesUpload = (files) => {
-        var imagesRef = storage.getBirthdayImages();//storage
-        var uploadImagesRef = db.getBirthdayImages();//db
-
-        // var newPostKey = firebaseApp.database().ref().child('images').push().key;
-
-        if (files) {
-            for (let file of files) {
-                this.fileUpload(file, imagesRef, uploadImagesRef);//every file
-            }
-        } else {
-            console.log('no file')
-        }
-    }
-
 
     handleChange = (event, value) => {
-        this.setState({ value });
+        this.setState({open: false});
+        let tabs = ["generalThankYou", "birthdayThankYou", "weddingThankYou"];
+        for (let tab of tabs) {
+            let tabValue = tabs[value];
+            if (tab == tabValue) {
+                console.log('tab is ', tab)
+                this.setState({activeTabIndex: value, activeTab: tab})
+            }
+
+        }
+        // this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
-        this.setState({ mobileOpen: !this.state.mobileOpen });
+        this.setState({mobileOpen: !this.state.mobileOpen});
     };
+    handleUploadStatus = (status) => {
+        this.setState({open: status.open, uploading: status.uploading, error: status.error});
+    }
 
     render() {
         const {classes} = this.props;
         // const {anchor} = this.state;
-
+        console.log('props is ', this.props)
         const drawer = (
             <div>
-                <div className={classes.toolbar} />
+                <div className={classes.toolbar}/>
                 <Divider />
                 <List>{mailFolderListItems}</List>
                 <Divider />
                 <List>{otherMailFolderListItems}</List>
             </div>
         );
-        // if (showUpload) {
+
+
         return (
             <div className={classes.root}>
 
@@ -244,7 +166,7 @@ class UploadThankYouCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images for Thank You Cards
+                                Upload images of Thank You Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -276,20 +198,25 @@ class UploadThankYouCardsPage extends Component {
                     </Hidden>
                     <main className={classes.content}>
                         <SimpleSnackbar show={this.state.uploading}/>
-                        <AlertDialog open={this.state.open}/>
+                        <AlertDialog open={this.state.open} error={this.state.error}/>
                         <Paper>
                             <Tabs
-                                value={this.state.value}
+                                value={this.state.activeTabIndex}
                                 indicatorColor="primary"
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Active" />
-                                <Tab label="Disabled"  />
-                                <Tab label="Active" />
+                                <Tab label="General"/>
+                                <Tab label="Birthday"/>
+                                <Tab label="Wedding"/>
                             </Tabs>
-                        </Paper>
 
+                        </Paper>
+                        <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
+                                     activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
+
+                                     onHandleUploadStatus={this.handleUploadStatus}
+                        />
                     </main>
                 </div>
             </div>
@@ -303,5 +230,5 @@ class UploadThankYouCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadThankYouCardsPage = withRoot(withStyles(styles)(UploadThankYouCardsPage));
+UploadThankYouCardsPage = withRoot(withStyles(uploadStyles)(UploadThankYouCardsPage));
 export default withAuthorization(authCondition)(UploadThankYouCardsPage);

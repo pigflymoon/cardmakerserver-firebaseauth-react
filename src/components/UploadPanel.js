@@ -34,7 +34,15 @@ export default class UploadPanel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (this.state.activeTab !== nextProps.activeTab) {
+            this.setState({
+                imagePreviewUrls: [],
+                uploadStatus: 'Please choose file to upload',
+            });
+        }
         this.setState({
+            // imagePreviewUrls: [],
+            // uploadStatus: 'Please choose file to upload',
             imageCategory: nextProps.imageCategory,
             activeTab: nextProps.activeTab,
             activeTabIndex: nextProps.activeTabIndex
@@ -86,7 +94,7 @@ export default class UploadPanel extends Component {
 
         } else {
             this.setState({uploading: true});
-            this.props.onHandleUploadStatus({open:false,uploading: true,error:false});
+            this.props.onHandleUploadStatus({open: false, uploading: true, error: false});
 
             this.filesUpload(this.state.choseFiles, category, imageType);
         }
@@ -184,7 +192,7 @@ export default class UploadPanel extends Component {
                             onClick={(e) => this.handleUpload(e, this.state.imageCategory, this.state.activeTab)}
                             className={classes.button}
                             color="default">
-                        Upload-{this.state.activeTab}
+                        Upload for {this.state.activeTab}
                         <FileUpload className={classes.rightIcon}/>
                     </Button>
                 </label>

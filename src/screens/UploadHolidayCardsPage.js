@@ -19,8 +19,9 @@ import withRoot from '../components/withRoot';
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert'
 import {mailFolderListItems, otherMailFolderListItems} from '../components/tileData';
-
+import {uploadStyles} from '../styles/uploadPage';
 import UploadPanel from '../components/UploadPanel';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -123,7 +124,9 @@ class UploadHolidayCardsPage extends Component {
     }
 
     handleChange = (event, value) => {
-        let tabs = ["christmas", "newYear", "easter"];
+        this.setState({open: false});
+
+        let tabs = ["christmasHoliday", "newYearHoliday", "easterHoliday"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -132,7 +135,7 @@ class UploadHolidayCardsPage extends Component {
             }
 
         }
-        this.setState({activeTabIndex: value});
+        // this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
@@ -228,5 +231,5 @@ class UploadHolidayCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadHolidayCardsPage = withRoot(withStyles(styles)(UploadHolidayCardsPage));
+UploadHolidayCardsPage = withRoot(withStyles(uploadStyles)(UploadHolidayCardsPage));
 export default withAuthorization(authCondition)(UploadHolidayCardsPage);

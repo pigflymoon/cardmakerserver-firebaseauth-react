@@ -19,6 +19,7 @@ import withRoot from '../components/withRoot';
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert'
 import {mailFolderListItems, otherMailFolderListItems} from '../components/tileData';
+import {uploadStyles} from '../styles/uploadPage';
 
 import UploadPanel from '../components/UploadPanel';
 const drawerWidth = 240;
@@ -117,13 +118,15 @@ class UploadBirthdayCardsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'cards',
-            activeTab: 'kids',
+            activeTab: 'kidsBirthday',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
-        let tabs = ["kids", "forHer", "forHim"];
+        this.setState({open: false});
+
+        let tabs = ["kidsBirthday", "forHerBirthday", "forHimBirthday"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -132,7 +135,7 @@ class UploadBirthdayCardsPage extends Component {
             }
 
         }
-        this.setState({activeTabIndex: value});
+        // this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
@@ -228,5 +231,5 @@ class UploadBirthdayCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadBirthdayCardsPage = withRoot(withStyles(styles)(UploadBirthdayCardsPage));
+UploadBirthdayCardsPage = withRoot(withStyles(uploadStyles)(UploadBirthdayCardsPage));
 export default withAuthorization(authCondition)(UploadBirthdayCardsPage);
