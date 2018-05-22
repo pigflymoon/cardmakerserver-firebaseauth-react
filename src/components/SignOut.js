@@ -1,7 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-
-import {auth} from '../firebase';
+import {auth} from '../firebase/index';
 
 const SignOutButton = (props) => {
     var roles = props.role;

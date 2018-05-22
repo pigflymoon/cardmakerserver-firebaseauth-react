@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {withStyles} from 'material-ui/styles';
 
-import withAuthorization from './withAuthorization';
-import {db} from '../firebase';
-import ImageItem from './ImageItem';
-import withRoot from './withRoot';
+import withAuthorization from '../components/withAuthorization';
+import {db} from '../firebase/firebase';
+import ImageItem from '../components/ImageItem';
+import withRoot from '../components/withRoot';
 
 const drawerWidth = 240;
 const styles = theme => ({

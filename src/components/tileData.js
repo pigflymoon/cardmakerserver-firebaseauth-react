@@ -1,5 +1,3 @@
-// This file is shared across the demos.
-
 import React  from 'react';
 import {
     Link
@@ -8,7 +6,6 @@ import ListItem from 'material-ui/List/ListItem';
 import ListItemIcon from 'material-ui/List/ListItemIcon';
 import ListItemText from 'material-ui/List/ListItemText';
 import InboxIcon from 'material-ui-icons/MoveToInbox';
-import DraftsIcon from 'material-ui-icons/Drafts';
 import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
 import MailIcon from 'material-ui-icons/Mail';
