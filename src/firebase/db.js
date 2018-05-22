@@ -62,14 +62,15 @@ export const getOtherImages = () =>
 export const onceGetOtherImages = () =>
     db.ref('otherImages').once('value');
 
-//image type
+//get image by category and type
 
-export const getCardsImagesByType = (imageType) => {
-    console.log('db imageType is ', imageType)
-    return db.ref().child('cards/' + imageType)
-}
-
-export const getImagesByTCategoryAndType = (category, imageType) => {
+export const getImagesRefByTCategoryAndType = (category, imageType) => {
     console.log('db imageType is ', imageType)
     return db.ref().child(`${category}/${imageType}`);
+}
+
+
+export const getImagesDataByTCategoryAndType = (category, imageType) => {
+    console.log('db imageType is ', category, imageType)
+    return db.ref().child(`${category}/${imageType}`).once('value');
 }

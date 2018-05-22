@@ -73,79 +73,146 @@ class ImagesListPage extends Component {
             images: null,
             error: false,
 
+            christmasCards: null,
+            newYearCards: null,
+            easterCards: null,
+
         };
     }
 
-    componentDidMount() {
-        // console.log('Home is mounted')
+    getImages = (category = 'cards', imageType = 'christmas') => {
         var self = this;
+        return new Promise(function (resolve, reject) {
+            // some async operation here
+            setTimeout(function () {
+                // resolve the promise with some value
+                return db.ref().child(`${category}/${imageType}`).once("value", function (snapshot) {
+                    console.log('snap shot is ',snapshot)
+                    resolve(snapshot.val())
 
-        db.onceGetBirthdayImages().then(snapshot => {
-            if (snapshot) {
-                self.setState(() => ({birthdayImages: snapshot.val()}));
+                });
 
-            }
-        }, function (error) {
-            self.setState({error: true});
-            // console.error('get images erros,', error);
 
+            }, 500);
         });
+    }
+    fetchImages = (category, cardType) => {
+        console.log('fetch is called!!!!!!!')
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            // some async operation here
+            setTimeout(function () {
+                // resolve the promise with some value
+                self.getImages(category,cardType).then(function (images) {
+                    console.log('images is called!!!!!!!',images)
+                    resolve(images)
+                    // self.setState({[cardType]: images});
 
-        db.onceGetHolidaydayImages().then(snapshot => {
-            if (snapshot) {
-                self.setState(() => ({holidayImages: snapshot.val()}));
+                });
 
-            }
-        }, function (error) {
-            self.setState({error: true});
-            // console.error('get images erros,', error);
 
+            }, 500);
         });
+    }
+
+    componentDidMount() {
+        console.log('Home is mounted!!!!!!!!!!')
+        var self = this;
+        //
+        Promise.all([this.fetchImages('cards', 'christmas'), this.fetchImages('cards', 'newYear'), this.fetchImages('cards', 'easter')])
+            .then(function (results) {
+                let christmasCards = results[0][0];
+                let newYearCards = results[1][0];
+                let easterCards = results[2][0];
+                // let latestotherImages = results[3][0];
+                let latestImages = [];
+                latestImages.push(christmasCards, newYearCards, easterCards);
+                console.log('christmasCards return', christmasCards)
+
+                self.setState(
+                    {
+                        christmasCards: results[0],
+                        newYearCards: results[1],
+                        easterCards: results[2],
+
+                    });
+                // do something with result1 and result2
+                // available as results[0] and results[1] respectively
+            })
+            .catch(function (err) { /* ... */
+            });
 
 
-        db.onceGetWeddingImages().then(snapshot => {
-            if (snapshot) {
-                self.setState(() => ({weddingImages: snapshot.val()}));
+        /*
+         db.onceGetBirthdayImages().then(snapshot => {
+         if (snapshot) {
+         self.setState(() => ({birthdayImages: snapshot.val()}));
 
-            }
-        }, function (error) {
-            self.setState({error: true});
-            // console.error('get images erros,', error);
+         }
+         }, function (error) {
+         self.setState({error: true});
+         // console.error('get images erros,', error);
 
-        });
-        db.onceGetOtherImages().then(snapshot => {
-            if (snapshot) {
-                self.setState(() => ({otherImages: snapshot.val()}));
+         });
 
-            }
-        }, function (error) {
-            self.setState({error: true});
-            // console.error('get images erros,', error);
+         db.onceGetHolidaydayImages().then(snapshot => {
+         if (snapshot) {
+         self.setState(() => ({holidayImages: snapshot.val()}));
 
-        });
+         }
+         }, function (error) {
+         self.setState({error: true});
+         // console.error('get images erros,', error);
+
+         });
+
+
+         db.onceGetWeddingImages().then(snapshot => {
+         if (snapshot) {
+         self.setState(() => ({weddingImages: snapshot.val()}));
+
+         }
+         }, function (error) {
+         self.setState({error: true});
+         // console.error('get images erros,', error);
+
+         });
+         db.onceGetOtherImages().then(snapshot => {
+         if (snapshot) {
+         self.setState(() => ({otherImages: snapshot.val()}));
+
+         }
+         }, function (error) {
+         self.setState({error: true});
+         // console.error('get images erros,', error);
+
+         });
+
+         */
 
     }
 
     render() {
         const {classes} = this.props;
         // console.log('classes props', classes)
-        const {birthdayImages, holidayImages,weddingImages,otherImages} = this.state;
+        const {christmasCards,newYearCards,easterCards} = this.state;
+        console.log('christmasCards', christmasCards)
         return (
             <div>
 
                 <h1>Free Images from storage</h1>
                 <p>Images :</p>
                 <div>
-                    {!!birthdayImages && <ImagesList type="birthday" images={birthdayImages} classes={classes}/>}
+                    {!!christmasCards &&
+                    <ImagesList category="cards" type="christmas" images={christmasCards} classes={classes}/>}
                 </div>
                 <div>
-                    {!!holidayImages && <ImagesList type="holidays" images={holidayImages} classes={classes}/>}
+                    {!!newYearCards &&
+                    <ImagesList category="cards" type="newYear" images={newYearCards} classes={classes}/>}
                 </div>
                 <div>
-                    {!!weddingImages && <ImagesList type="wedding" images={weddingImages} classes={classes}/>}
-                </div>
-                <div>
-                    {!!otherImages && <ImagesList type="others" images={otherImages} classes={classes}/>}
+                    {!!easterCards &&
+                    <ImagesList category="cards" type="easter" images={easterCards} classes={classes}/>}
                 </div>
 
             </div>
@@ -154,14 +221,14 @@ class ImagesListPage extends Component {
 }
 
 
-const ImagesList = ({images, type, classes}) => {
+const ImagesList = ({images, category, type, classes}) => {
 
     // const { classes } = this.props;
-    console.log('images', images);
+    console.log('images', images, 'category ', category);
     if (images) {
         return (
             <div>
-                <h2>List of {type} images in databse</h2>
+                <h2>List of {category} - {type} images in databse</h2>
                 <p>(Save on Sign up in Firebase Database)</p>
 
                 {Object.keys(images).map(key =>
@@ -169,7 +236,8 @@ const ImagesList = ({images, type, classes}) => {
 
                         <ul>
                             <li>
-                                <ImageItem type={type} pic={images[key].downloadUrl} name={images[key].name}
+                                <ImageItem category={category} type={type} pic={images[key].downloadUrl}
+                                           fileName={images[key].name}
                                            imageId={key}/>
 
                             </li>
