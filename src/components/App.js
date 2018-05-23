@@ -15,7 +15,12 @@ import UploadBirthdayInvitationsPage from '../screens/UploadBirthdayInvitationsP
 import UploadWeddingInvitationsPage from '../screens/UploadWeddingInvitationsPage';
 
 import DeleteHolidayCardsPage from '../screens/delete/DeleteHolidayCardsPage';
+import DeleteBirthdayCardsPage from '../screens/delete/DeleteBirthdayCardsPage';
+import DeleteThankYouCardsPage from '../screens/delete/DeleteThankYouCardsPage';
 
+import DeleteHolidayInvitationsPage from '../screens/delete/DeleteHolidayInvitationsPage';
+import DeleteBirthdayInvitationsPage from '../screens/delete/DeleteBirthdayInvitationsPage';
+import DeleteWeddingInvitationsPage from '../screens/delete/DeleteWeddingInvitationsPage';
 
 import SignUpPage from '../screens/SignUp';
 import SignInPage from '../screens/SignIn';
@@ -47,6 +52,12 @@ const App = () =>
 
 
             <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>
+            <Route exact path={routes.DELETEBIRTHDAYCARDS} component={() => <DeleteBirthdayCardsPage />}/>
+            <Route exact path={routes.DELETETHANKYOUCARDS} component={() => <DeleteThankYouCardsPage />}/>
+
+            <Route exact path={routes.DELETEHOLIDAYINVITATIONS} component={() => <DeleteHolidayInvitationsPage />}/>
+            <Route exact path={routes.DELETEBIRTHDAYINVITATIONS} component={() => <DeleteBirthdayInvitationsPage />}/>
+            <Route exact path={routes.DELETEWEDDINGINVITATIONS} component={() => <DeleteWeddingInvitationsPage />}/>
 
 
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />}/>

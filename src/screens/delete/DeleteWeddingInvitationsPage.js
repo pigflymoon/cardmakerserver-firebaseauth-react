@@ -23,7 +23,7 @@ import {uploadStyles} from '../../styles/uploadPage';
 
 import DeletePanel from '../../components/DeletePanel';
 
-class DeleteBirthdayInvitationsPage extends Component {
+class DeleteWeddingInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +32,7 @@ class DeleteBirthdayInvitationsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'invitations',
-            activeTab: 'kids',
+            activeTab: 'invitation',
             mobileOpen: false,
         };
     }
@@ -40,7 +40,7 @@ class DeleteBirthdayInvitationsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["kids", "women", "men"];
+        let tabs = ["invitation", "saveTheDate", "rsvp"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -81,7 +81,7 @@ class DeleteBirthdayInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Delete images of Birthday Invitations for  {this.state.activeTab} from Database and Storage
+                                Delete images of Wedding Invitations for  {this.state.activeTab} from Database and Storage
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,9 +121,9 @@ class DeleteBirthdayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Kids and baby"/>
-                                <Tab label="Women's"/>
-                                <Tab label="Men's"/>
+                                <Tab label="Invitations"/>
+                                <Tab label="Save The Date"/>
+                                <Tab label="RSVP"/>
                             </Tabs>
 
                         </Paper>
@@ -145,5 +145,5 @@ class DeleteBirthdayInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-DeleteBirthdayInvitationsPage = withRoot(withStyles(uploadStyles)(DeleteBirthdayInvitationsPage));
-export default withAuthorization(authCondition)(DeleteBirthdayInvitationsPage);
+DeleteWeddingInvitationsPage = withRoot(withStyles(uploadStyles)(DeleteWeddingInvitationsPage));
+export default withAuthorization(authCondition)(DeleteWeddingInvitationsPage);

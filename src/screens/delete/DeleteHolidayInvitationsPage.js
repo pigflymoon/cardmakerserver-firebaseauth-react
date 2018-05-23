@@ -23,7 +23,7 @@ import {uploadStyles} from '../../styles/uploadPage';
 
 import DeletePanel from '../../components/DeletePanel';
 
-class DeleteBirthdayInvitationsPage extends Component {
+class DeleteHolidayInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +32,7 @@ class DeleteBirthdayInvitationsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'invitations',
-            activeTab: 'kids',
+            activeTab: 'christmas',
             mobileOpen: false,
         };
     }
@@ -81,7 +81,7 @@ class DeleteBirthdayInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Delete images of Birthday Invitations for  {this.state.activeTab} from Database and Storage
+                                Delete images of Holiday Invitations for  {this.state.activeTab} from Database and Storage
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,9 +121,9 @@ class DeleteBirthdayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Kids and baby"/>
-                                <Tab label="Women's"/>
-                                <Tab label="Men's"/>
+                                <Tab label="Christmas"/>
+                                <Tab label="New Year"/>
+                                <Tab label="Easter"/>
                             </Tabs>
 
                         </Paper>
@@ -145,5 +145,5 @@ class DeleteBirthdayInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-DeleteBirthdayInvitationsPage = withRoot(withStyles(uploadStyles)(DeleteBirthdayInvitationsPage));
-export default withAuthorization(authCondition)(DeleteBirthdayInvitationsPage);
+DeleteHolidayInvitationsPage = withRoot(withStyles(uploadStyles)(DeleteHolidayInvitationsPage));
+export default withAuthorization(authCondition)(DeleteHolidayInvitationsPage);
