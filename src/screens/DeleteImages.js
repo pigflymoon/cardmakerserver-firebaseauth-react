@@ -143,53 +143,6 @@ class ImagesListPage extends Component {
             });
 
 
-        /*
-         db.onceGetBirthdayImages().then(snapshot => {
-         if (snapshot) {
-         self.setState(() => ({birthdayImages: snapshot.val()}));
-
-         }
-         }, function (error) {
-         self.setState({error: true});
-         // console.error('get images erros,', error);
-
-         });
-
-         db.onceGetHolidaydayImages().then(snapshot => {
-         if (snapshot) {
-         self.setState(() => ({holidayImages: snapshot.val()}));
-
-         }
-         }, function (error) {
-         self.setState({error: true});
-         // console.error('get images erros,', error);
-
-         });
-
-
-         db.onceGetWeddingImages().then(snapshot => {
-         if (snapshot) {
-         self.setState(() => ({weddingImages: snapshot.val()}));
-
-         }
-         }, function (error) {
-         self.setState({error: true});
-         // console.error('get images erros,', error);
-
-         });
-         db.onceGetOtherImages().then(snapshot => {
-         if (snapshot) {
-         self.setState(() => ({otherImages: snapshot.val()}));
-
-         }
-         }, function (error) {
-         self.setState({error: true});
-         // console.error('get images erros,', error);
-
-         });
-
-         */
-
     }
 
     render() {

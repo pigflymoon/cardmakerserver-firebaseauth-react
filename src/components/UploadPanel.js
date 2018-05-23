@@ -8,7 +8,8 @@ import AddToPhotos from 'material-ui-icons/AddToPhotos';
 import Chip from 'material-ui/Chip';
 import {CircularProgress} from 'material-ui/Progress';
 
-import saveImage from '../utils/saveImage';
+import {saveImage} from '../utils/firebaseImageApi';
+
 
 export default class UploadPanel extends Component {
     constructor(props) {

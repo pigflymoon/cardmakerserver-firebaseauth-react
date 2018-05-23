@@ -23,7 +23,8 @@ import List from 'material-ui/List';
 import Hidden from 'material-ui/Hidden';
 
 import withRoot from './withRoot';
-import saveImage from '../utils/saveImage';
+import {saveImage} from '../utils/firebaseImageApi';
+
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert'

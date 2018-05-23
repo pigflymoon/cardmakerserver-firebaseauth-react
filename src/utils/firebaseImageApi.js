@@ -1,7 +1,9 @@
+import React, {Component} from 'react';
+
 import {storage} from '../firebase/firebase';
 import mimes from './fileTypes';
 
-const saveImage = (file, filename, ref) => {
+export const saveImage = (file, filename, ref) => {
     if (!ref) ref = storage.ref();
     if (mimes[file.type].extensions[0]) {
 
@@ -16,4 +18,4 @@ const saveImage = (file, filename, ref) => {
         return uploadTask;
     }
 }
-export default saveImage;
+

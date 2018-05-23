@@ -14,11 +14,16 @@ import UploadHolidayInvitationsPage from '../screens/UploadHolidayInvitationsPag
 import UploadBirthdayInvitationsPage from '../screens/UploadBirthdayInvitationsPage';
 import UploadWeddingInvitationsPage from '../screens/UploadWeddingInvitationsPage';
 
+import DeleteHolidayCardsPage from '../screens/delete/DeleteHolidayCardsPage';
+
+
 import SignUpPage from '../screens/SignUp';
 import SignInPage from '../screens/SignIn';
 import PasswordForgetPage from '../components/PasswordForget';
 import AccountPage from '../screens/Account';
 import ImagesListPage from '../screens/DeleteImages';
+
+import AllImagesPage from '../screens/AllImagesPage';
 import withAuthentication from './withAuthentication';
 import * as routes from '../constants/routes';
 
@@ -29,6 +34,9 @@ const App = () =>
 
             <hr/>
             <Route exact path={routes.DATABASE} component={() => <ImagesListPage />} {...this.props} />
+
+            <Route exact path={routes.ALLIMAGES} component={() => <AllImagesPage />}/>
+
             <Route exact path={routes.UPLOADHOLIDAYCARDS} component={() => <UploadHolidayCardsPage />}/>
             <Route exact path={routes.UPLOADBIRTHDAYCARDS} component={() => <UploadBirthdayCardsPage />}/>
             <Route exact path={routes.UPLOADTHANKYOUCARDS} component={() => <UploadThankYouCardsPage/>}/>
@@ -36,6 +44,9 @@ const App = () =>
             <Route exact path={routes.UPLOADHOLIDAYINVITATIONS} component={()=><UploadHolidayInvitationsPage/>}/>
             <Route exact path={routes.UPLOADBIRTHDAYINVITATIONS} component={()=><UploadBirthdayInvitationsPage/>}/>
             <Route exact path={routes.UPLOADWEDDINGINVITATIONS} component={()=><UploadWeddingInvitationsPage/>}/>
+
+
+            <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>
 
 
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />}/>

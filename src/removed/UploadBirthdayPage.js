@@ -17,7 +17,8 @@ import Chip from 'material-ui/Chip';
 import {CircularProgress} from 'material-ui/Progress';
 
 import withRoot from './withRoot';
-import saveImage from '../utils/saveImage';
+import {saveImage} from '../utils/firebaseImageApi';
+
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert';
