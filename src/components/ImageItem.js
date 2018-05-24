@@ -29,7 +29,29 @@ export default class ImageItem extends Component {
             });
 
         });
+        //delete images from updated db
 
+        var updatedCardsImagesRef = db.getUpdatedImagesRefByTCategoryAndType(category);
+        // var self = this;
+        updatedCardsImagesRef.child(imageId).remove().then(function (res) {//delete image node from database
+            if (!res) {
+                alert('The Updated images of ' + fileName + ', id is ' + imageId + ' is deleted!'+res);
+
+            }
+             // Create a reference to the file to delete
+            // var desertRef = storage.getImagesByCategoryAndType(category, type).child(fileName);//delete image from storage as well.
+            // // Delete the file
+            // desertRef.delete().then(function () {
+            //     // File deleted successfully
+            //     self.setState({isDeleted: ' is Deleted'})
+            // }).catch(function (error) {
+            //     // Uh-oh, an error occurred!
+            // });
+
+        }).catch(function (error) {
+                // Uh-oh, an error occurred!
+            console.log('Not exist!!')
+            });
     }
 
     render() {

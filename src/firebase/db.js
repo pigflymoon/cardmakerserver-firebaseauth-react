@@ -69,6 +69,11 @@ export const getImagesRefByTCategoryAndType = (category, imageType) => {
     return db.ref().child(`${category}/${imageType}`);
 }
 
+export const getUpdatedImagesRefByTCategoryAndType = (category) => {
+    console.log('db imageType is ', category)
+    return db.ref().child(`updated${category}`);
+}
+
 
 export const getImagesDataByTCategoryAndType = (category, imageType) => {
     console.log('db imageType is ', category, imageType)

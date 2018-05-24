@@ -103,7 +103,7 @@ export default class UploadPanel extends Component {
 
     }
 
-    getDownloadUrl = (uploadImagesRef, snapshot) => {//db,
+    getDownloadUrl = (uploadImagesRef,dbUpdatedImagesRef, snapshot) => {//db,
         if (snapshot.downloadURL !== null) {
             var downloadUrl = snapshot.downloadURL;
             var newImageKey = uploadImagesRef.push().key;
@@ -112,12 +112,16 @@ export default class UploadPanel extends Component {
                 downloadUrl: downloadUrl,
                 name: saveFilename
             });
+            dbUpdatedImagesRef.child(newImageKey + '_image').set({
+                downloadUrl: downloadUrl,
+                name: saveFilename
+            });
         } else {
             this.setState({uploading: false, uploadStatus: 'Download url is not ready!'});
         }
     }
 
-    fileUpload = (file, imagesRef, uploadImagesRef) => {//file,storage,db
+    fileUpload = (file, imagesRef, uploadImagesRef,dbUpdatedImagesRef) => {//file,storage,db
         var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1];
 
         var task = saveImage(file, filename, imagesRef)
@@ -125,7 +129,7 @@ export default class UploadPanel extends Component {
 
         task.then(function (snapshot) {
             console.log('snapshot is ', snapshot)
-            self.getDownloadUrl(uploadImagesRef, snapshot);//db
+            self.getDownloadUrl(uploadImagesRef,dbUpdatedImagesRef, snapshot);//category-type-db, updated-db
 
         })
             .then(function () {
@@ -149,6 +153,8 @@ export default class UploadPanel extends Component {
     filesUpload = (files, category, imageType) => {
         var imagesRef = storage.getImagesByCategoryAndType(category, imageType);
         var uploadImagesRef = db.getImagesRefByTCategoryAndType(category, imageType);
+        var dbUpdatedImagesRef = db.getUpdatedImagesRefByTCategoryAndType(category)
+
         // var imagesRef = storage.getBirthdayImages();//storage
         // var uploadImagesRef = db.getBirthdayImages();//db
 
@@ -156,7 +162,7 @@ export default class UploadPanel extends Component {
 
         if (files) {
             for (let file of files) {
-                this.fileUpload(file, imagesRef, uploadImagesRef);//every file
+                this.fileUpload(file, imagesRef, uploadImagesRef,dbUpdatedImagesRef);//every file
             }
         } else {
             console.log('no file')
