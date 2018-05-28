@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import {firebase} from '../firebase/index';
+import { firebase } from '../firebase';
 import * as routes from '../constants/routes';
 
 const withAuthorization = (authCondition) => (Component) => {

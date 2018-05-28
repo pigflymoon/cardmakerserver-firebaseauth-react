@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {firebase} from '../firebase/index';
+import {firebase} from '../firebase';
 
 
 const withAuthentication = (AuthComponent) => {
@@ -25,7 +25,7 @@ const withAuthentication = (AuthComponent) => {
         }
 
         componentDidMount() {
-            console.log('Sign out called???',this.props)
+            console.log('Sign out called???')
             var self = this;
             firebase.auth.onAuthStateChanged(authUser => {
                 console.log('auth user in authentication is :', authUser)

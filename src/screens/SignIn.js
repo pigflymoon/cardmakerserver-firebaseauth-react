@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 
 import {SignUpLink} from './SignUp';
 import {PasswordForgetLink} from '../components/PasswordForget';
-import {auth} from '../firebase/index';
+import {auth} from '../firebase';
 import * as routes from '../constants/routes';
 
 const SignInPage = ({history}) => {
@@ -47,10 +47,12 @@ class SignInForm extends Component {
 
         auth.doSignInWithEmailAndPassword(email, password)
             .then(() => {
+            console.log('called sign in*************')
                 this.setState(() => ({...INITIAL_STATE}));
-                history.push(routes.PAID_IMAGES);
+                history.push(routes.ACCOUNT);
             })
             .catch(error => {
+                console.log('error',error)
                 this.setState(byPropKey('error', error));
             });
 
