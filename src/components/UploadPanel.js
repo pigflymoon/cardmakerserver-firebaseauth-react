@@ -153,12 +153,7 @@ export default class UploadPanel extends Component {
     filesUpload = (files, category, imageType) => {
         var imagesRef = storage.getImagesByCategoryAndType(category, imageType);
         var uploadImagesRef = db.getImagesRefByTCategoryAndType(category, imageType);
-        var dbUpdatedImagesRef = db.getUpdatedImagesRefByTCategoryAndType(category)
-
-        // var imagesRef = storage.getBirthdayImages();//storage
-        // var uploadImagesRef = db.getBirthdayImages();//db
-
-        // var newPostKey = firebaseApp.database().ref().child('images').push().key;
+        var dbUpdatedImagesRef = db.getUpdatedImagesRefByTCategoryAndType(category);
 
         if (files) {
             for (let file of files) {
