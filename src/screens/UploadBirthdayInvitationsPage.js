@@ -81,7 +81,7 @@ class UploadBirthdayInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Holiday Invitation for {this.state.activeTab}
+                                Upload images of Birthday Invitation for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
