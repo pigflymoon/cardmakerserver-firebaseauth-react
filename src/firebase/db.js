@@ -34,7 +34,6 @@ export const onceGetImages = () =>
 
 // category
 // birthday
-
 export const getBirthdayImages = () =>
     db.ref().child("birthdayImages");
 
