@@ -31,7 +31,6 @@ export const getUploadImages = () =>
 
 export const onceGetImages = () =>
     db.ref('uploadImages').once('value');
-
 // category
 // birthday
 export const getBirthdayImages = () =>
