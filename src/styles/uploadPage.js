@@ -43,7 +43,7 @@ export const uploadStyles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
-        textTransform:'lowercase',
+        textTransform:'capitalize',
     },
     input: {
         display: 'none',

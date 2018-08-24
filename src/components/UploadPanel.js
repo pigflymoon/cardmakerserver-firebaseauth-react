@@ -16,18 +16,12 @@ export default class UploadPanel extends Component {
         super(props);
 
         this.state = {
-            // users: null,
-            // file: null,
-            // fileName: '',
             uploading: false,
-            // imagePreviewUrl: '',
             imagePreviewUrls: [],
-            // showUpload: false,
             open: false,
             activeTabIndex: this.props.activeTabIndex,
             imageCategory: this.props.imageCategory,
             activeTab: this.props.activeTab,
-            // mobileOpen: false,
             choseFiles: null,
             uploadStatus: 'Please choose file to upload',
         };
@@ -103,7 +97,7 @@ export default class UploadPanel extends Component {
 
     }
 
-    getDownloadUrl = (uploadImagesRef,dbUpdatedImagesRef, snapshot) => {//db,
+    getDownloadUrl = (uploadImagesRef, dbUpdatedImagesRef, snapshot) => {//db,
         if (snapshot.downloadURL !== null) {
             var downloadUrl = snapshot.downloadURL;
             var newImageKey = uploadImagesRef.push().key;
@@ -121,7 +115,7 @@ export default class UploadPanel extends Component {
         }
     }
 
-    fileUpload = (file, imagesRef, uploadImagesRef,dbUpdatedImagesRef) => {//file,storage,db
+    fileUpload = (file, imagesRef, uploadImagesRef, dbUpdatedImagesRef) => {//file,storage,db
         var filename = (file.name).match(/^.*?([^\\/.]*)[^\\/]*$/)[1];
 
         var task = saveImage(file, filename, imagesRef)
@@ -129,7 +123,7 @@ export default class UploadPanel extends Component {
 
         task.then(function (snapshot) {
             console.log('snapshot is ', snapshot)
-            self.getDownloadUrl(uploadImagesRef,dbUpdatedImagesRef, snapshot);//category-type-db, updated-db
+            self.getDownloadUrl(uploadImagesRef, dbUpdatedImagesRef, snapshot);//category-type-db, updated-db
 
         })
             .then(function () {
@@ -157,7 +151,7 @@ export default class UploadPanel extends Component {
 
         if (files) {
             for (let file of files) {
-                this.fileUpload(file, imagesRef, uploadImagesRef,dbUpdatedImagesRef);//every file
+                this.fileUpload(file, imagesRef, uploadImagesRef, dbUpdatedImagesRef);//every file
             }
         } else {
             console.log('no file')
@@ -167,13 +161,23 @@ export default class UploadPanel extends Component {
 
     render() {
         const {classes} = this.props;
-        console.log('props is ', this.props)
+        const {
+            activeTabIndex,
+            activeTab,
+            imageCategory,
+            choseFiles,
+            imagePreviewUrls,
+            uploading,
+            uploadStatus
+        } = this.state;
+        console.log('************ activeTab is *********', activeTab)
+        let tabButtonName = activeTab.replace(/([a-z])([A-Z])/g, '$1 $2');
 
         return (
             <Paper className={classes.paperContainer}>
                 <div className="content">
-                    Content for the tab: {this.state.activeTabIndex}
-                    --{this.state.activeTab}
+                    Content for the tab: {activeTabIndex}
+                    --{activeTab}
                 </div>
                 <input
                     accept="image/*"
@@ -181,25 +185,25 @@ export default class UploadPanel extends Component {
                     id="raised-button-file"
                     multiple
                     type="file"
-                    onChange={(e) => this.handleAddImage(e, this.state.activeTab)}
+                    onChange={(e) => this.handleAddImage(e, activeTab)}
                 />
                 <label htmlFor="raised-button-file">
                     <Button component="span" className={classes.button} color="default">
-                        Choose Image for {this.state.activeTab}
+                        Choose Image for {tabButtonName}
                         <AddToPhotos className={classes.rightIcon}/>
                     </Button>
                 </label>
                 <label htmlFor="raised-button-file">
                     <Button type="submit"
-                            onClick={(e) => this.handleUpload(e, this.state.imageCategory, this.state.activeTab)}
+                            onClick={(e) => this.handleUpload(e, imageCategory, activeTab)}
                             className={classes.button}
                             color="default">
-                        Upload for {this.state.activeTab}
+                        Upload for {tabButtonName}
                         <FileUpload className={classes.rightIcon}/>
                     </Button>
                 </label>
                 <div className={classes.filesWrapper}>
-                    {this.state.choseFiles ? (this.state.choseFiles).map((file, index) => {
+                    {choseFiles ? choseFiles.map((file, index) => {
                             return (
                                 <Chip
                                     label={file.name}
@@ -214,7 +218,7 @@ export default class UploadPanel extends Component {
 
                 <div className="imgPreview">
 
-                    {this.state.imagePreviewUrls ? (this.state.imagePreviewUrls).map((image, index) => {
+                    {imagePreviewUrls ? imagePreviewUrls.map((image, index) => {
                             return (
                                 <div key={index}><img src={image} width={50}/></div>
                             )
@@ -222,8 +226,8 @@ export default class UploadPanel extends Component {
                 </div>
 
 
-                {this.state.uploading ? <CircularProgress className={classes.progress}/>
-                    : <Typography>{this.state.uploadStatus}</Typography>}
+                {uploading ? <CircularProgress className={classes.progress}/>
+                    : <Typography>{uploadStatus}</Typography>}
 
             </Paper>
         );

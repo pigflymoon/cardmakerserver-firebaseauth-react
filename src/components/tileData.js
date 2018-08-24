@@ -11,6 +11,7 @@ import SendIcon from 'material-ui-icons/Send';
 import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
+import CalendarIcon from 'material-ui-icons/PermContactCalendar'
 
 export const mailFolderListItems = (
     <div>
@@ -32,7 +33,12 @@ export const mailFolderListItems = (
             </ListItemIcon>
             <ListItemText primary="Thank You Cards"/>
         </ListItem>
-
+        <ListItem component={Link} to="upload-occasionsCards" button>
+            <ListItemIcon>
+                <CalendarIcon />
+            </ListItemIcon>
+            <ListItemText primary="Occasions Cards"/>
+        </ListItem>
     </div>
 );
 
