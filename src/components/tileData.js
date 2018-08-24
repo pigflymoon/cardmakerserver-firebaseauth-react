@@ -48,13 +48,13 @@ export const otherMailFolderListItems = (
             <ListItemIcon>
                 <DeleteIcon />
             </ListItemIcon>
-            <ListItemText primary="birthday Invitations"/>
+            <ListItemText primary="Birthday Invitations"/>
         </ListItem>
         <ListItem component={Link} to="upload-weddingInvitations" button>
             <ListItemIcon>
                 <ReportIcon />
             </ListItemIcon>
-            <ListItemText primary="wedding Invitations"/>
+            <ListItemText primary="Wedding Invitations"/>
         </ListItem>
     </div>
 );

@@ -6,13 +6,13 @@ import {
 
 import Navigation from './Navigation';
 
-import UploadHolidayCardsPage from '../screens/UploadHolidayCardsPage';
-import UploadBirthdayCardsPage from '../screens/UploadBirthdayCardsPage';
-import UploadThankYouCardsPage from '../screens/UploadThankYouCardsPage';
+import UploadHolidayCardsPage from '../screens/cards/UploadHolidayCardsPage';
+import UploadBirthdayCardsPage from '../screens/cards/UploadBirthdayCardsPage';
+import UploadThankYouCardsPage from '../screens/cards/UploadThankYouCardsPage';
 
-import UploadHolidayInvitationsPage from '../screens/UploadHolidayInvitationsPage';
-import UploadBirthdayInvitationsPage from '../screens/UploadBirthdayInvitationsPage';
-import UploadWeddingInvitationsPage from '../screens/UploadWeddingInvitationsPage';
+import UploadHolidayInvitationsPage from '../screens/invitations/UploadHolidayInvitationsPage';
+import UploadBirthdayInvitationsPage from '../screens/invitations/UploadBirthdayInvitationsPage';
+import UploadWeddingInvitationsPage from '../screens/invitations/UploadWeddingInvitationsPage';
 
 import DeleteHolidayCardsPage from '../screens/delete/DeleteHolidayCardsPage';
 import DeleteBirthdayCardsPage from '../screens/delete/DeleteBirthdayCardsPage';

@@ -13,17 +13,17 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../components/withAuthorization';
-import withRoot from '../components/withRoot';
+import withAuthorization from '../../components/withAuthorization';
+import withRoot from '../../components/withRoot';
 
-import SimpleSnackbar from '../widgets/snackBar';
-import AlertDialog from '../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../components/tileData';
-import {uploadStyles} from '../styles/uploadPage';
-import UploadPanel from '../components/UploadPanel';
+import SimpleSnackbar from '../../widgets/snackBar';
+import AlertDialog from '../../widgets/alert'
+import {mailFolderListItems, otherMailFolderListItems} from '../../components/tileData';
+import {uploadStyles} from '../../styles/uploadPage';
 
+import UploadPanel from '../../components/UploadPanel';
 
-class UploadWeddingInvitationsPage extends Component {
+class UploadThankYouCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -31,16 +31,15 @@ class UploadWeddingInvitationsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'invitations',
-            activeTab: 'invitation',
+            imageCategory: 'cards',
+            activeTab: 'general',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-
-        let tabs = ["invitation", "saveTheDate", "rsvp"];
+        let tabs = ["general", "birthday", "wedding"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -81,7 +80,7 @@ class UploadWeddingInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Wedding Invitation for {this.state.activeTab}
+                                Upload images of Thank You Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,9 +120,9 @@ class UploadWeddingInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Invitations"/>
-                                <Tab label="Save The Date"/>
-                                <Tab label="RSVP"/>
+                                <Tab label="General"/>
+                                <Tab label="Birthday"/>
+                                <Tab label="Wedding"/>
                             </Tabs>
 
                         </Paper>
@@ -145,5 +144,5 @@ class UploadWeddingInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadWeddingInvitationsPage = withRoot(withStyles(uploadStyles)(UploadWeddingInvitationsPage));
-export default withAuthorization(authCondition)(UploadWeddingInvitationsPage);
+UploadThankYouCardsPage = withRoot(withStyles(uploadStyles)(UploadThankYouCardsPage));
+export default withAuthorization(authCondition)(UploadThankYouCardsPage);

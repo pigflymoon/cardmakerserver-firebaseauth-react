@@ -13,17 +13,17 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../components/withAuthorization';
-import withRoot from '../components/withRoot';
+import withAuthorization from '../../components/withAuthorization';
+import withRoot from '../../components/withRoot';
 
-import SimpleSnackbar from '../widgets/snackBar';
-import AlertDialog from '../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../components/tileData';
-import {uploadStyles} from '../styles/uploadPage';
-import UploadPanel from '../components/UploadPanel';
+import SimpleSnackbar from '../../widgets/snackBar';
+import AlertDialog from '../../widgets/alert'
+import {mailFolderListItems, otherMailFolderListItems} from '../../components/tileData';
+import {uploadStyles} from '../../styles/uploadPage';
+import UploadPanel from '../../components/UploadPanel';
 
 
-class UploadBirthdayInvitationsPage extends Component {
+class UploadHolidayInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +32,7 @@ class UploadBirthdayInvitationsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'invitations',
-            activeTab: 'kids',
+            activeTab: 'christmas',
             mobileOpen: false,
         };
     }
@@ -40,7 +40,7 @@ class UploadBirthdayInvitationsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["kids", "women", "men"];
+        let tabs = ["christmas", "newYear", "easter"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -81,7 +81,7 @@ class UploadBirthdayInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Birthday Invitation for {this.state.activeTab}
+                                Upload images of Holiday Invitation for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,9 +121,9 @@ class UploadBirthdayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Kids and baby"/>
-                                <Tab label="Women's"/>
-                                <Tab label="Men's"/>
+                                <Tab label="Christmas"/>
+                                <Tab label="New Year"/>
+                                <Tab label="Easter"/>
                             </Tabs>
 
                         </Paper>
@@ -145,5 +145,5 @@ class UploadBirthdayInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadBirthdayInvitationsPage = withRoot(withStyles(uploadStyles)(UploadBirthdayInvitationsPage));
-export default withAuthorization(authCondition)(UploadBirthdayInvitationsPage);
+UploadHolidayInvitationsPage = withRoot(withStyles(uploadStyles)(UploadHolidayInvitationsPage));
+export default withAuthorization(authCondition)(UploadHolidayInvitationsPage);
