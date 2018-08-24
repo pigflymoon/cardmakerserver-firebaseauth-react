@@ -64,9 +64,12 @@ class UploadOccasionsCardsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
         let tabs = CategoryConfig.cards.occasions;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+        });
+        console.log('############## tabsName is :', tabsName)
 
         const drawer = (
             <div>
@@ -77,7 +80,6 @@ class UploadOccasionsCardsPage extends Component {
                 <List>{otherMailFolderListItems}</List>
             </div>
         );
-
 
         return (
             <div className={classes.root}>
@@ -126,8 +128,7 @@ class UploadOccasionsCardsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                {tabs.map((tab, index) => {
-                                    tab = tab.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+                                {tabsName.map((tab, index) => {
                                     return (
                                         <Tab label={tab} key={index} style={tabStyle.title}/>
                                     )

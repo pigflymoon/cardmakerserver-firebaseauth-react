@@ -170,7 +170,6 @@ export default class UploadPanel extends Component {
             uploading,
             uploadStatus
         } = this.state;
-        console.log('************ activeTab is *********', activeTab)
         let tabButtonName = activeTab.replace(/([a-z])([A-Z])/g, '$1 $2');
 
         return (
