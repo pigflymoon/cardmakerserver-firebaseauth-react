@@ -138,7 +138,6 @@ class UploadOccasionsCardsPage extends Component {
                         </Paper>
                         <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
                                      onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
