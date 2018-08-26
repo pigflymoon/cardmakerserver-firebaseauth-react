@@ -27,7 +27,7 @@ import tabStyle from '../../styles/tab';
 
 import UploadPanel from '../../components/UploadPanel';
 
-class UploadCongratulationsCardsPage extends Component {
+class UploadPartyInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -35,15 +35,15 @@ class UploadCongratulationsCardsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'cards',
-            activeTab: 'graduation',
+            imageCategory: 'invitations',
+            activeTab: 'anniversary',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-        let tabs = CategoryConfig.cards.congratulations;
+        let tabs = CategoryConfig.invitations.party;
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -64,7 +64,7 @@ class UploadCongratulationsCardsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        let tabs = CategoryConfig.cards.congratulations;
+        let tabs = CategoryConfig.invitations.party;
         let tabsName = tabs.map((tab) => {
             return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
 
@@ -88,7 +88,7 @@ class UploadCongratulationsCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of congratulations Cards for {this.state.activeTab}
+                                Upload images of Party invitations for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -154,5 +154,5 @@ class UploadCongratulationsCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadCongratulationsCardsPage = withRoot(withStyles(uploadStyles)(UploadCongratulationsCardsPage));
-export default withAuthorization(authCondition)(UploadCongratulationsCardsPage);
+UploadPartyInvitationsPage = withRoot(withStyles(uploadStyles)(UploadPartyInvitationsPage));
+export default withAuthorization(authCondition)(UploadPartyInvitationsPage);

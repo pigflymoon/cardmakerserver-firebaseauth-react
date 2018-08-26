@@ -36,6 +36,8 @@ export const UPLOADHOLIDAYINVITATIONS = '/upload-holidayInvitations';
 export const UPLOADBIRTHDAYINVITATIONS = '/upload-birthdayInvitations';
 export const UPLOADWEDDINGINVITATIONS = '/upload-weddingInvitations';
 
+export const UPLOADPARTYINVITATIONS = '/upload-partyInvitations';
+
 export const ALLIMAGES = '/all-images';
 /**
  * DELETE images

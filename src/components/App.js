@@ -21,6 +21,8 @@ import UploadThoughtsFeelingsCardsPage from '../screens/cards/UploadThoughtsFeel
 import UploadHolidayInvitationsPage from '../screens/invitations/UploadHolidayInvitationsPage';
 import UploadBirthdayInvitationsPage from '../screens/invitations/UploadBirthdayInvitationsPage';
 import UploadWeddingInvitationsPage from '../screens/invitations/UploadWeddingInvitationsPage';
+//Party invitations
+import UploadPartyInvitationsPage from '../screens/invitations/UploadPartyInvitationsPage';
 
 
 import DeleteHolidayCardsPage from '../screens/delete/DeleteHolidayCardsPage';
@@ -65,6 +67,7 @@ const App = () =>
             <Route exact path={routes.UPLOADHOLIDAYINVITATIONS} component={() => <UploadHolidayInvitationsPage/>}/>
             <Route exact path={routes.UPLOADBIRTHDAYINVITATIONS} component={() => <UploadBirthdayInvitationsPage/>}/>
             <Route exact path={routes.UPLOADWEDDINGINVITATIONS} component={() => <UploadWeddingInvitationsPage/>}/>
+            <Route exact path={routes.UPLOADPARTYINVITATIONS} component={() => <UploadPartyInvitationsPage/>}/>
 
 
             <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>
