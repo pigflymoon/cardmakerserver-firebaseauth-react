@@ -23,7 +23,7 @@ import UploadBirthdayInvitationsPage from '../screens/invitations/UploadBirthday
 import UploadWeddingInvitationsPage from '../screens/invitations/UploadWeddingInvitationsPage';
 //Party invitations
 import UploadPartyInvitationsPage from '../screens/invitations/UploadPartyInvitationsPage';
-
+import UploadAnnouncementInvitationsPage from '../screens/invitations/UploadAnnouncementInvitationsPage';
 
 import DeleteHolidayCardsPage from '../screens/delete/DeleteHolidayCardsPage';
 import DeleteBirthdayCardsPage from '../screens/delete/DeleteBirthdayCardsPage';
@@ -68,6 +68,8 @@ const App = () =>
             <Route exact path={routes.UPLOADBIRTHDAYINVITATIONS} component={() => <UploadBirthdayInvitationsPage/>}/>
             <Route exact path={routes.UPLOADWEDDINGINVITATIONS} component={() => <UploadWeddingInvitationsPage/>}/>
             <Route exact path={routes.UPLOADPARTYINVITATIONS} component={() => <UploadPartyInvitationsPage/>}/>
+            <Route exact path={routes.UPLOADANNOUNCEMENTINVITATIONS}
+                   component={() => <UploadAnnouncementInvitationsPage/>}/>
 
 
             <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>

@@ -15,7 +15,7 @@ import CalendarIcon from 'material-ui-icons/PermContactCalendar'
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import MoodIcon from 'material-ui-icons/Mood';
 import UpdateIcon from 'material-ui-icons/Update';
-
+import AnnouncementIcon from 'material-ui-icons/Announcement';
 export const mailFolderListItems = (
     <div>
         <ListItem component={Link} to="upload-holidayCards" button>
@@ -82,6 +82,12 @@ export const otherMailFolderListItems = (
                 <UpdateIcon />
             </ListItemIcon>
             <ListItemText primary="Party Invitations"/>
+        </ListItem>
+        <ListItem component={Link} to="upload-announcementInvitations" button>
+            <ListItemIcon>
+                <AnnouncementIcon />
+            </ListItemIcon>
+            <ListItemText primary="Announcement Invitations"/>
         </ListItem>
     </div>
 );

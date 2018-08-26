@@ -28,7 +28,7 @@ export const UPLOADTHANKYOUCARDS = '/upload-thankyouCards'
 
 export const UPLOADOCCASIONSCARDS = '/upload-occasionsCards'
 
-export const UPLOADCONGRATULATIONSCARDS ='/upload-congratulationsCards';
+export const UPLOADCONGRATULATIONSCARDS = '/upload-congratulationsCards';
 export const UPLOADTHOUGHTSFEELINGS = '/upload-thoughtsFeelingsCards';
 
 
@@ -37,6 +37,7 @@ export const UPLOADBIRTHDAYINVITATIONS = '/upload-birthdayInvitations';
 export const UPLOADWEDDINGINVITATIONS = '/upload-weddingInvitations';
 
 export const UPLOADPARTYINVITATIONS = '/upload-partyInvitations';
+export const UPLOADANNOUNCEMENTINVITATIONS = '/upload-announcementInvitations';
 
 export const ALLIMAGES = '/all-images';
 /**
