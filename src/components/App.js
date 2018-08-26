@@ -13,7 +13,8 @@ import UploadThankYouCardsPage from '../screens/cards/UploadThankYouCardsPage';
 //Occasions
 import UploadOccasionsCardsPage from '../screens/cards/UploadOccasionsCardsPage';
 
-
+//Congratulations
+import UploadCongratulationsCardsPage from '../screens/cards/UploadCongratulationsCardsPage';
 
 import UploadHolidayInvitationsPage from '../screens/invitations/UploadHolidayInvitationsPage';
 import UploadBirthdayInvitationsPage from '../screens/invitations/UploadBirthdayInvitationsPage';
@@ -54,6 +55,7 @@ const App = () =>
 
             <Route exact path={routes.UPLOADOCCASIONSCARDS} component={() => <UploadOccasionsCardsPage/>}/>
 
+            <Route exact path={routes.UPLOADCONGRATULATIONSCARDS} component={() => <UploadCongratulationsCardsPage/>}/>
 
 
 
