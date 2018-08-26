@@ -18,7 +18,7 @@ import withRoot from '../../components/withRoot';
 
 import SimpleSnackbar from '../../widgets/snackBar';
 import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/tileData';
+import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
 import {uploadStyles} from '../../styles/uploadPage';
 
 import UploadPanel from '../../components/UploadPanel';

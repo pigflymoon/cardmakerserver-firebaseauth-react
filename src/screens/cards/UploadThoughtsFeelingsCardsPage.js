@@ -18,12 +18,16 @@ import withRoot from '../../components/withRoot';
 
 import SimpleSnackbar from '../../widgets/snackBar';
 import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
+
+import {mailFolderListItems, otherMailFolderListItems} from '../../components/SideBar';
+import {CategoryConfig} from '../../constants/CategoryConfig';
+
 import {uploadStyles} from '../../styles/uploadPage';
+import tabStyle from '../../styles/tab';
 
 import UploadPanel from '../../components/UploadPanel';
 
-class UploadBirthdayCardsPage extends Component {
+class UploadThoughtsFeelingsCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,15 +36,14 @@ class UploadBirthdayCardsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'cards',
-            activeTab: 'kids',
+            activeTab: 'cheerUp',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-
-        let tabs = ["kids", "forHer", "forHim"];
+        let tabs = CategoryConfig.cards.thoughtsFeelings;
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -61,8 +64,13 @@ class UploadBirthdayCardsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
+        let tabs = CategoryConfig.cards.thoughtsFeelings;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+        });
+        console.log('############## tabsName is :', tabsName)
+
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
@@ -73,7 +81,6 @@ class UploadBirthdayCardsPage extends Component {
             </div>
         );
 
-
         return (
             <div className={classes.root}>
 
@@ -81,7 +88,7 @@ class UploadBirthdayCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Birthday Cards for  {this.state.activeTab}
+                                Upload images of Thoughts & Feelings Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,15 +128,17 @@ class UploadBirthdayCardsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Kids"/>
-                                <Tab label="For Her"/>
-                                <Tab label="For Him"/>
+                                {tabsName.map((tab, index) => {
+                                    return (
+                                        <Tab label={tab} key={index} style={tabStyle.title}/>
+                                    )
+                                })}
+
                             </Tabs>
 
                         </Paper>
                         <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
                                      onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
@@ -145,5 +154,5 @@ class UploadBirthdayCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadBirthdayCardsPage = withRoot(withStyles(uploadStyles)(UploadBirthdayCardsPage));
-export default withAuthorization(authCondition)(UploadBirthdayCardsPage);
+UploadThoughtsFeelingsCardsPage = withRoot(withStyles(uploadStyles)(UploadThoughtsFeelingsCardsPage));
+export default withAuthorization(authCondition)(UploadThoughtsFeelingsCardsPage);

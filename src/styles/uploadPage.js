@@ -1,4 +1,4 @@
-const drawerWidth = 240;
+const drawerWidth = 360;
 export const uploadStyles = theme => ({
     root: {
         width: '100%',

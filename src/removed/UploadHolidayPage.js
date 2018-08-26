@@ -21,7 +21,7 @@ import {saveImage} from '../utils/firebaseImageApi';
 
 import SimpleSnackbar from '../widgets/snackBar';
 import AlertDialog from '../widgets/alert';
-const drawerWidth = 240;
+const drawerWidth = 360;
 
 const styles = theme => ({
     root: {

@@ -29,6 +29,8 @@ export const UPLOADTHANKYOUCARDS = '/upload-thankyouCards'
 export const UPLOADOCCASIONSCARDS = '/upload-occasionsCards'
 
 export const UPLOADCONGRATULATIONSCARDS ='/upload-congratulationsCards';
+export const UPLOADTHOUGHTSFEELINGS = '/upload-thoughtsFeelingsCards';
+
 
 export const UPLOADHOLIDAYINVITATIONS = '/upload-holidayInvitations';
 export const UPLOADBIRTHDAYINVITATIONS = '/upload-birthdayInvitations';

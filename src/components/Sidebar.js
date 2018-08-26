@@ -13,6 +13,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 import CalendarIcon from 'material-ui-icons/PermContactCalendar'
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
+import MoodIcon from 'material-ui-icons/Mood';
 
 export const mailFolderListItems = (
     <div>
@@ -45,6 +46,12 @@ export const mailFolderListItems = (
                 <ThumbUpIcon />
             </ListItemIcon>
             <ListItemText primary="Congratulations Cards"/>
+        </ListItem>
+        <ListItem component={Link} to="upload-thoughtsFeelingsCards" button>
+            <ListItemIcon>
+                <MoodIcon />
+            </ListItemIcon>
+            <ListItemText primary="ThoughtsFeelings Cards"/>
         </ListItem>
     </div>
 );

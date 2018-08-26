@@ -15,6 +15,8 @@ import UploadOccasionsCardsPage from '../screens/cards/UploadOccasionsCardsPage'
 
 //Congratulations
 import UploadCongratulationsCardsPage from '../screens/cards/UploadCongratulationsCardsPage';
+//Thoughts and Feelings
+import UploadThoughtsFeelingsCardsPage from '../screens/cards/UploadThoughtsFeelingsCardsPage';
 
 import UploadHolidayInvitationsPage from '../screens/invitations/UploadHolidayInvitationsPage';
 import UploadBirthdayInvitationsPage from '../screens/invitations/UploadBirthdayInvitationsPage';
@@ -57,11 +59,12 @@ const App = () =>
 
             <Route exact path={routes.UPLOADCONGRATULATIONSCARDS} component={() => <UploadCongratulationsCardsPage/>}/>
 
+            <Route exact path={routes.UPLOADTHOUGHTSFEELINGS} component={() => <UploadThoughtsFeelingsCardsPage/>}/>
 
 
-            <Route exact path={routes.UPLOADHOLIDAYINVITATIONS} component={()=><UploadHolidayInvitationsPage/>}/>
-            <Route exact path={routes.UPLOADBIRTHDAYINVITATIONS} component={()=><UploadBirthdayInvitationsPage/>}/>
-            <Route exact path={routes.UPLOADWEDDINGINVITATIONS} component={()=><UploadWeddingInvitationsPage/>}/>
+            <Route exact path={routes.UPLOADHOLIDAYINVITATIONS} component={() => <UploadHolidayInvitationsPage/>}/>
+            <Route exact path={routes.UPLOADBIRTHDAYINVITATIONS} component={() => <UploadBirthdayInvitationsPage/>}/>
+            <Route exact path={routes.UPLOADWEDDINGINVITATIONS} component={() => <UploadWeddingInvitationsPage/>}/>
 
 
             <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>
