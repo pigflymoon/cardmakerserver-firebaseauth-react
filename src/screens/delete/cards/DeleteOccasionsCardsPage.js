@@ -13,17 +13,20 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/ImageListNav';
-import {uploadStyles} from '../../styles/uploadPage';
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
+import {deleteCardsListItems, otherMailFolderListItems} from '../../../components/DeleteSidebar';
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
 
-import DeletePanel from '../../components/DeletePanel';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
 
-class DeleteHolidayCardsPage extends Component {
+import DeletePanel from '../../../components/DeletePanel';
+
+class DeleteOccasionsCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +35,7 @@ class DeleteHolidayCardsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'cards',
-            activeTab: 'christmas',
+            activeTab: 'anniversary',
             mobileOpen: false,
         };
     }
@@ -40,7 +43,8 @@ class DeleteHolidayCardsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["christmas", "newYear", "easter"];
+        let tabs = CategoryConfig.cards.occasions;
+
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -49,7 +53,6 @@ class DeleteHolidayCardsPage extends Component {
             }
 
         }
-        // this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
@@ -61,15 +64,16 @@ class DeleteHolidayCardsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
+        let tabs = CategoryConfig.cards.occasions;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+        });
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{deleteCardsListItems}</List>
             </div>
         );
 
@@ -81,7 +85,7 @@ class DeleteHolidayCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Delete images of Holiday Cards for  {this.state.activeTab} from Database and Storage
+                                Delete images of Occasions Cards for  {this.state.activeTab} from Database and Storage
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,16 +125,16 @@ class DeleteHolidayCardsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Christmas"/>
-                                <Tab label="New Year"/>
-                                <Tab label="Easter"/>
+                                {tabsName.map((tab, index) => {
+                                    return (
+                                        <Tab label={tab} key={index} style={tabStyle.title}/>
+                                    )
+                                })}
                             </Tabs>
 
                         </Paper>
                         <DeletePanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
-                                     onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
                 </div>
@@ -145,5 +149,5 @@ class DeleteHolidayCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-DeleteHolidayCardsPage = withRoot(withStyles(uploadStyles)(DeleteHolidayCardsPage));
-export default withAuthorization(authCondition)(DeleteHolidayCardsPage);
+DeleteOccasionsCardsPage = withRoot(withStyles(uploadStyles)(DeleteOccasionsCardsPage));
+export default withAuthorization(authCondition)(DeleteOccasionsCardsPage);

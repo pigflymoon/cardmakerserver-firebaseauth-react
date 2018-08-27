@@ -13,21 +13,103 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
+import {uploadCardsListItems} from '../../../components/UploadSidebar';
+import {uploadStyles} from '../../../styles/uploadPage';
+import UploadPanel from '../../../components/UploadPanel';
 
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
-import {CategoryConfig} from '../../constants/CategoryConfig';
+const drawerWidth = 240;
 
-import {uploadStyles} from '../../styles/uploadPage';
-import tabStyle from '../../styles/tab';
+const styles = theme => ({
+    root: {
+        width: '100%',
+        // height: 430,
+        minHeight: 430,
+        marginTop: theme.spacing.unit * 3,
+        zIndex: 1,
+        overflow: 'hidden',
+    },
+    appFrame: {
+        position: 'relative',
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+    },
+    appBar: {
+        position: 'absolute',
+        width: `calc(100% - ${drawerWidth}px)`,
+    },
+    'appBar-left': {
+        marginLeft: drawerWidth,
+    },
+    'appBar-right': {
+        marginRight: drawerWidth,
+    },
+    // drawerPaper: {
+    //     position: 'relative',
+    //     // height: '100%',
+    //     width: drawerWidth,
+    // },
+    drawerHeader: theme.mixins.toolbar,
+    content: {
+        backgroundColor: theme.palette.background.default,
+        width: '100%',
+        padding: theme.spacing.unit * 3,
+        height: 'calc(100% - 56px)',
+        marginTop: 56,
+        [theme.breakpoints.up('sm')]: {
+            height: 'calc(100% - 64px)',
+            marginTop: 64,
+        },
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
+    filesWrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        marginTop: 20,
+    },
+    file: {
+        margin: 4,
+        fontSize: 14,
+    },
+    progress: {
+        margin: `0 ${theme.spacing.unit * 2}px`,
+    },
+    imgPreview: {
+        height: 'auto',
+    },
+    navIconHide: {
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        },
+    },
+    drawerPaper: {
+        width: drawerWidth,
+        [theme.breakpoints.up('md')]: {
+            position: 'relative',
+        },
+    },
+    paperContainer: {
+        padding: 20,
+    }
 
-import UploadPanel from '../../components/UploadPanel';
 
-class UploadAnnouncementInvitationsPage extends Component {
+});
+
+
+class UploadHolidayCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -35,15 +117,16 @@ class UploadAnnouncementInvitationsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'invitations',
-            activeTab: 'birth',
+            imageCategory: 'cards',
+            activeTab: 'christmas',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-        let tabs = CategoryConfig.invitations.announcement;
+
+        let tabs = ["christmas", "newYear", "easter"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -64,22 +147,17 @@ class UploadAnnouncementInvitationsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        let tabs = CategoryConfig.invitations.announcement;
-        let tabsName = tabs.map((tab) => {
-            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
-
-        });
-        console.log('############## tabsName is :', tabsName)
-
+        // const {anchor} = this.state;
+        console.log('props is ', this.props)
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadCardsListItems}</List>
+
             </div>
         );
+
 
         return (
             <div className={classes.root}>
@@ -88,7 +166,7 @@ class UploadAnnouncementInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Announcement invitations for {this.state.activeTab}
+                                Upload images of Holiday Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -128,17 +206,15 @@ class UploadAnnouncementInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                {tabsName.map((tab, index) => {
-                                    return (
-                                        <Tab label={tab} key={index} style={tabStyle.title}/>
-                                    )
-                                })}
-
+                                <Tab label="Christmas"/>
+                                <Tab label="New Year"/>
+                                <Tab label="Easter"/>
                             </Tabs>
 
                         </Paper>
                         <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
+
                                      onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
@@ -154,5 +230,5 @@ class UploadAnnouncementInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadAnnouncementInvitationsPage = withRoot(withStyles(uploadStyles)(UploadAnnouncementInvitationsPage));
-export default withAuthorization(authCondition)(UploadAnnouncementInvitationsPage);
+UploadHolidayCardsPage = withRoot(withStyles(uploadStyles)(UploadHolidayCardsPage));
+export default withAuthorization(authCondition)(UploadHolidayCardsPage);

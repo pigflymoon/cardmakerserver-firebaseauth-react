@@ -13,17 +13,20 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/ImageListNav';
-import {uploadStyles} from '../../styles/uploadPage';
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
+import {deleteCardsListItems, otherMailFolderListItems} from '../../../components/DeleteSidebar';
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
 
-import DeletePanel from '../../components/DeletePanel';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
 
-class DeleteBirthdayInvitationsPage extends Component {
+import DeletePanel from '../../../components/DeletePanel';
+
+class DeleteThankYouCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -31,8 +34,8 @@ class DeleteBirthdayInvitationsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'invitations',
-            activeTab: 'kids',
+            imageCategory: 'cards',
+            activeTab: 'general',
             mobileOpen: false,
         };
     }
@@ -40,7 +43,8 @@ class DeleteBirthdayInvitationsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["kids", "women", "men"];
+        let tabs = CategoryConfig.cards.thankYou;
+
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -49,7 +53,6 @@ class DeleteBirthdayInvitationsPage extends Component {
             }
 
         }
-        // this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
@@ -61,15 +64,16 @@ class DeleteBirthdayInvitationsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
+        let tabs = CategoryConfig.cards.thankYou;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+        });
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{deleteCardsListItems}</List>
             </div>
         );
 
@@ -81,7 +85,7 @@ class DeleteBirthdayInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Delete images of Birthday Invitations for  {this.state.activeTab} from Database and Storage
+                                Delete images of Thank You Cards for  {this.state.activeTab} from Database and Storage
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,16 +125,16 @@ class DeleteBirthdayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Kids and baby"/>
-                                <Tab label="Women's"/>
-                                <Tab label="Men's"/>
+                                {tabsName.map((tab, index) => {
+                                    return (
+                                        <Tab label={tab} key={index} style={tabStyle.title}/>
+                                    )
+                                })}
                             </Tabs>
 
                         </Paper>
                         <DeletePanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
-                                     onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
                 </div>
@@ -145,5 +149,5 @@ class DeleteBirthdayInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-DeleteBirthdayInvitationsPage = withRoot(withStyles(uploadStyles)(DeleteBirthdayInvitationsPage));
-export default withAuthorization(authCondition)(DeleteBirthdayInvitationsPage);
+DeleteThankYouCardsPage = withRoot(withStyles(uploadStyles)(DeleteThankYouCardsPage));
+export default withAuthorization(authCondition)(DeleteThankYouCardsPage);

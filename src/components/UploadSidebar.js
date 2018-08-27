@@ -16,76 +16,76 @@ import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import MoodIcon from 'material-ui-icons/Mood';
 import UpdateIcon from 'material-ui-icons/Update';
 import AnnouncementIcon from 'material-ui-icons/Announcement';
-export const mailFolderListItems = (
+export const uploadCardsListItems = (
     <div>
         <ListItem component={Link} to="upload-holidayCards" button>
             <ListItemIcon>
-                <InboxIcon />
+                <InboxIcon style={{color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="Holiday Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-birthdayCards" button>
             <ListItemIcon>
-                <StarIcon />
+                <StarIcon style={{color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="Birthday Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-thankyouCards" button>
             <ListItemIcon>
-                <SendIcon />
+                <SendIcon style={{color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="Thank You Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-occasionsCards" button>
             <ListItemIcon>
-                <CalendarIcon />
+                <CalendarIcon style={{color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="Occasions Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-congratulationsCards" button>
             <ListItemIcon>
-                <ThumbUpIcon />
+                <ThumbUpIcon style={{color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="Congratulations Cards"/>
         </ListItem>
         <ListItem component={Link} to="upload-thoughtsFeelingsCards" button>
             <ListItemIcon>
-                <MoodIcon />
+                <MoodIcon style={{color:'green'}}/>
             </ListItemIcon>
             <ListItemText primary="ThoughtsFeelings Cards"/>
         </ListItem>
     </div>
 );
 
-export const otherMailFolderListItems = (
+export const uploadInvitationsListItems = (
     <div>
         <ListItem component={Link} to="upload-holidayInvitations" button>
             <ListItemIcon>
-                <MailIcon />
+                <MailIcon style={{color:'blue'}}/>
             </ListItemIcon>
             <ListItemText primary="Holiday Invitations"/>
         </ListItem>
         <ListItem component={Link} to="upload-birthdayInvitations" button>
             <ListItemIcon>
-                <DeleteIcon />
+                <DeleteIcon style={{color:'blue'}}/>
             </ListItemIcon>
             <ListItemText primary="Birthday Invitations"/>
         </ListItem>
         <ListItem component={Link} to="upload-weddingInvitations" button>
             <ListItemIcon>
-                <ReportIcon />
+                <ReportIcon style={{color:'blue'}}/>
             </ListItemIcon>
             <ListItemText primary="Wedding Invitations"/>
         </ListItem>
         <ListItem component={Link} to="upload-partyInvitations" button>
             <ListItemIcon>
-                <UpdateIcon />
+                <UpdateIcon style={{color:'blue'}}/>
             </ListItemIcon>
             <ListItemText primary="Party Invitations"/>
         </ListItem>
         <ListItem component={Link} to="upload-announcementInvitations" button>
             <ListItemIcon>
-                <AnnouncementIcon />
+                <AnnouncementIcon style={{color:'blue'}}/>
             </ListItemIcon>
             <ListItemText primary="Announcement Invitations"/>
         </ListItem>

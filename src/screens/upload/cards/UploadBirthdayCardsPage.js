@@ -13,17 +13,17 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/ImageListNav';
-import {uploadStyles} from '../../styles/uploadPage';
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
+import {uploadCardsListItems} from '../../../components/UploadSidebar';
+import {uploadStyles} from '../../../styles/uploadPage';
 
-import DeletePanel from '../../components/DeletePanel';
+import UploadPanel from '../../../components/UploadPanel';
 
-class DeleteThankYouCardsPage extends Component {
+class UploadBirthdayCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +32,7 @@ class DeleteThankYouCardsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'cards',
-            activeTab: 'general',
+            activeTab: 'kids',
             mobileOpen: false,
         };
     }
@@ -40,7 +40,7 @@ class DeleteThankYouCardsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["general", "birthday", "wedding"];
+        let tabs = ["kids", "forHer", "forHim"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -67,9 +67,8 @@ class DeleteThankYouCardsPage extends Component {
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadCardsListItems}</List>
+
             </div>
         );
 
@@ -81,7 +80,7 @@ class DeleteThankYouCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Delete images of Thank You Cards for  {this.state.activeTab} from Database and Storage
+                                Upload images of Birthday Cards for  {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,13 +120,13 @@ class DeleteThankYouCardsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="General"/>
-                                <Tab label="Birthday"/>
-                                <Tab label="Wedding"/>
+                                <Tab label="Kids"/>
+                                <Tab label="For Her"/>
+                                <Tab label="For Him"/>
                             </Tabs>
 
                         </Paper>
-                        <DeletePanel classes={classes} imageCategory={this.state.imageCategory}
+                        <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
 
                                      onHandleUploadStatus={this.handleUploadStatus}
@@ -145,5 +144,5 @@ class DeleteThankYouCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-DeleteThankYouCardsPage = withRoot(withStyles(uploadStyles)(DeleteThankYouCardsPage));
-export default withAuthorization(authCondition)(DeleteThankYouCardsPage);
+UploadBirthdayCardsPage = withRoot(withStyles(uploadStyles)(UploadBirthdayCardsPage));
+export default withAuthorization(authCondition)(UploadBirthdayCardsPage);

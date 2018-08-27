@@ -13,15 +13,18 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/ImageListNav';
-import {uploadStyles} from '../../styles/uploadPage';
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
+import {deleteInvitationsListItems} from '../../../components/DeleteSidebar';
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
 
-import DeletePanel from '../../components/DeletePanel';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
+
+import DeletePanel from '../../../components/DeletePanel';
 
 class DeleteHolidayInvitationsPage extends Component {
     constructor(props) {
@@ -40,7 +43,8 @@ class DeleteHolidayInvitationsPage extends Component {
     handleChange = (event, value) => {
         this.setState({open: false});
 
-        let tabs = ["kids", "women", "men"];
+        let tabs = CategoryConfig.invitations.holiday;
+
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -49,7 +53,6 @@ class DeleteHolidayInvitationsPage extends Component {
             }
 
         }
-        // this.setState({activeTabIndex: value});
     };
 
     handleDrawerToggle = () => {
@@ -61,15 +64,16 @@ class DeleteHolidayInvitationsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
+        let tabs = CategoryConfig.invitations.holiday;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+        });
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{deleteInvitationsListItems}</List>
             </div>
         );
 
@@ -121,16 +125,16 @@ class DeleteHolidayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Christmas"/>
-                                <Tab label="New Year"/>
-                                <Tab label="Easter"/>
+                                {tabsName.map((tab, index) => {
+                                    return (
+                                        <Tab label={tab} key={index} style={tabStyle.title}/>
+                                    )
+                                })}
                             </Tabs>
 
                         </Paper>
                         <DeletePanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
-                                     onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
                 </div>

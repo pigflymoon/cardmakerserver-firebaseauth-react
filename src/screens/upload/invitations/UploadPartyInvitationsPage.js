@@ -13,17 +13,21 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
-import {uploadStyles} from '../../styles/uploadPage';
-import UploadPanel from '../../components/UploadPanel';
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
 
+import {uploadInvitationsListItems} from '../../../components/UploadSidebar';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
 
-class UploadHolidayInvitationsPage extends Component {
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
+
+import UploadPanel from '../../../components/UploadPanel';
+
+class UploadPartyInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -32,15 +36,14 @@ class UploadHolidayInvitationsPage extends Component {
             open: false,
             activeTabIndex: 0,
             imageCategory: 'invitations',
-            activeTab: 'christmas',
+            activeTab: 'anniversary',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-
-        let tabs = ["christmas", "newYear", "easter"];
+        let tabs = CategoryConfig.invitations.party;
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -61,18 +64,20 @@ class UploadHolidayInvitationsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
+        let tabs = CategoryConfig.invitations.party;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+        });
+        console.log('############## tabsName is :', tabsName)
+
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadInvitationsListItems}</List>
             </div>
         );
-
 
         return (
             <div className={classes.root}>
@@ -81,7 +86,7 @@ class UploadHolidayInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Holiday Invitation for {this.state.activeTab}
+                                Upload images of Party Invitations for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,15 +126,17 @@ class UploadHolidayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Christmas"/>
-                                <Tab label="New Year"/>
-                                <Tab label="Easter"/>
+                                {tabsName.map((tab, index) => {
+                                    return (
+                                        <Tab label={tab} key={index} style={tabStyle.title}/>
+                                    )
+                                })}
+
                             </Tabs>
 
                         </Paper>
                         <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
                                      onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
@@ -145,5 +152,5 @@ class UploadHolidayInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadHolidayInvitationsPage = withRoot(withStyles(uploadStyles)(UploadHolidayInvitationsPage));
-export default withAuthorization(authCondition)(UploadHolidayInvitationsPage);
+UploadPartyInvitationsPage = withRoot(withStyles(uploadStyles)(UploadPartyInvitationsPage));
+export default withAuthorization(authCondition)(UploadPartyInvitationsPage);

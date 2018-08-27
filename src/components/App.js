@@ -6,40 +6,45 @@ import {
 
 import Navigation from './Navigation';
 
-import UploadHolidayCardsPage from '../screens/cards/UploadHolidayCardsPage';
-import UploadBirthdayCardsPage from '../screens/cards/UploadBirthdayCardsPage';
-import UploadThankYouCardsPage from '../screens/cards/UploadThankYouCardsPage';
+import UploadHolidayCardsPage from '../screens/upload/cards/UploadHolidayCardsPage';
+import UploadBirthdayCardsPage from '../screens/upload/cards/UploadBirthdayCardsPage';
+import UploadThankYouCardsPage from '../screens/upload/cards/UploadThankYouCardsPage';
 
 //Occasions
-import UploadOccasionsCardsPage from '../screens/cards/UploadOccasionsCardsPage';
+import UploadOccasionsCardsPage from '../screens/upload/cards/UploadOccasionsCardsPage';
 
 //Congratulations
-import UploadCongratulationsCardsPage from '../screens/cards/UploadCongratulationsCardsPage';
+import UploadCongratulationsCardsPage from '../screens/upload/cards/UploadCongratulationsCardsPage';
 //Thoughts and Feelings
-import UploadThoughtsFeelingsCardsPage from '../screens/cards/UploadThoughtsFeelingsCardsPage';
+import UploadThoughtsFeelingsCardsPage from '../screens/upload/cards/UploadThoughtsFeelingsCardsPage';
 
-import UploadHolidayInvitationsPage from '../screens/invitations/UploadHolidayInvitationsPage';
-import UploadBirthdayInvitationsPage from '../screens/invitations/UploadBirthdayInvitationsPage';
-import UploadWeddingInvitationsPage from '../screens/invitations/UploadWeddingInvitationsPage';
+import UploadHolidayInvitationsPage from '../screens/upload/invitations/UploadHolidayInvitationsPage';
+import UploadBirthdayInvitationsPage from '../screens/upload/invitations/UploadBirthdayInvitationsPage';
+import UploadWeddingInvitationsPage from '../screens/upload/invitations/UploadWeddingInvitationsPage';
 //Party invitations
-import UploadPartyInvitationsPage from '../screens/invitations/UploadPartyInvitationsPage';
-import UploadAnnouncementInvitationsPage from '../screens/invitations/UploadAnnouncementInvitationsPage';
-
-import DeleteHolidayCardsPage from '../screens/delete/DeleteHolidayCardsPage';
-import DeleteBirthdayCardsPage from '../screens/delete/DeleteBirthdayCardsPage';
-import DeleteThankYouCardsPage from '../screens/delete/DeleteThankYouCardsPage';
-
-import DeleteHolidayInvitationsPage from '../screens/delete/DeleteHolidayInvitationsPage';
-import DeleteBirthdayInvitationsPage from '../screens/delete/DeleteBirthdayInvitationsPage';
-import DeleteWeddingInvitationsPage from '../screens/delete/DeleteWeddingInvitationsPage';
+import UploadPartyInvitationsPage from '../screens/upload/invitations/UploadPartyInvitationsPage';
+import UploadAnnouncementInvitationsPage from '../screens/upload/invitations/UploadAnnouncementInvitationsPage';
+//Delete cards
+import DeleteHolidayCardsPage from '../screens/delete/cards/DeleteHolidayCardsPage';
+import DeleteBirthdayCardsPage from '../screens/delete/cards/DeleteBirthdayCardsPage';
+import DeleteThankYouCardsPage from '../screens/delete/cards/DeleteThankYouCardsPage';
+import DeleteOccasionsCardsPage from '../screens/delete/cards/DeleteOccasionsCardsPage';
+import DeleteCongratulationsCardsPage from '../screens/delete/cards/DeleteCongratulationsCardsPage';
+import DeleteThoughtsFeelingsCardsPage from '../screens/delete/cards/DeleteThoughtsFeelingsCardsPage';
+//Delete invitations
+import DeleteHolidayInvitationsPage from '../screens/delete/invitations/DeleteHolidayInvitationsPage';
+import DeleteBirthdayInvitationsPage from '../screens/delete/invitations/DeleteBirthdayInvitationsPage';
+import DeleteWeddingInvitationsPage from '../screens/delete/invitations/DeleteWeddingInvitationsPage';
+import DeleteAnnouncementInvitationsPage from '../screens/delete/invitations/DeleteAnnouncementInvitationsPage';
+import DeletePartyInvitationsPage from '../screens/delete/invitations/DeletePartyInvitationsPage';
 
 import SignUpPage from '../screens/SignUp';
 import SignInPage from '../screens/SignIn';
 import PasswordForgetPage from '../components/PasswordForget';
 import AccountPage from '../screens/Account';
-import ImagesListPage from '../screens/DeleteImages';
+// import ImagesListPage from '../screens/DeleteImages';
 
-import AllImagesPage from '../screens/AllImagesPage';
+// import AllImagesPage from '../screens/AllImagesPage';
 import withAuthentication from './withAuthentication';
 import * as routes from '../constants/routes';
 
@@ -49,9 +54,7 @@ const App = () =>
             <Navigation />
 
             <hr/>
-            <Route exact path={routes.DATABASE} component={() => <ImagesListPage />} {...this.props} />
 
-            <Route exact path={routes.ALLIMAGES} component={() => <AllImagesPage />}/>
 
             <Route exact path={routes.UPLOADHOLIDAYCARDS} component={() => <UploadHolidayCardsPage />}/>
             <Route exact path={routes.UPLOADBIRTHDAYCARDS} component={() => <UploadBirthdayCardsPage />}/>
@@ -75,10 +78,15 @@ const App = () =>
             <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>
             <Route exact path={routes.DELETEBIRTHDAYCARDS} component={() => <DeleteBirthdayCardsPage />}/>
             <Route exact path={routes.DELETETHANKYOUCARDS} component={() => <DeleteThankYouCardsPage />}/>
+            <Route exact path={routes.DELETEOCCASIONSCARDS} component={() => <DeleteOccasionsCardsPage />}/>
+            <Route exact path={routes.DELETECONGRATULATIONSCARDS} component={() => <DeleteCongratulationsCardsPage />}/>
+            <Route exact path={routes.DELETETHOUGHTSFEELINGS} component={() => <DeleteThoughtsFeelingsCardsPage />}/>
 
             <Route exact path={routes.DELETEHOLIDAYINVITATIONS} component={() => <DeleteHolidayInvitationsPage />}/>
             <Route exact path={routes.DELETEBIRTHDAYINVITATIONS} component={() => <DeleteBirthdayInvitationsPage />}/>
             <Route exact path={routes.DELETEWEDDINGINVITATIONS} component={() => <DeleteWeddingInvitationsPage />}/>
+            <Route exact path={routes.DELETEANNOUNCEMENTINVITATIONS} component={() => <DeleteAnnouncementInvitationsPage />}/>
+            <Route exact path={routes.DELETEPARTYINVITATIONS} component={() => <DeletePartyInvitationsPage />}/>
 
 
             <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />}/>

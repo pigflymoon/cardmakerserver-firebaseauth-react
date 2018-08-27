@@ -13,21 +13,21 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
 
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
-import {CategoryConfig} from '../../constants/CategoryConfig';
+import {uploadCardsListItems} from '../../../components/UploadSidebar';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
 
-import {uploadStyles} from '../../styles/uploadPage';
-import tabStyle from '../../styles/tab';
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
 
-import UploadPanel from '../../components/UploadPanel';
+import UploadPanel from '../../../components/UploadPanel';
 
-class UploadPartyInvitationsPage extends Component {
+class UploadThoughtsFeelingsCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -35,15 +35,15 @@ class UploadPartyInvitationsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'invitations',
-            activeTab: 'anniversary',
+            imageCategory: 'cards',
+            activeTab: 'cheerUp',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-        let tabs = CategoryConfig.invitations.party;
+        let tabs = CategoryConfig.cards.thoughtsFeelings;
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -64,7 +64,7 @@ class UploadPartyInvitationsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        let tabs = CategoryConfig.invitations.party;
+        let tabs = CategoryConfig.cards.thoughtsFeelings;
         let tabsName = tabs.map((tab) => {
             return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
 
@@ -75,9 +75,7 @@ class UploadPartyInvitationsPage extends Component {
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadCardsListItems}</List>
             </div>
         );
 
@@ -88,7 +86,7 @@ class UploadPartyInvitationsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Party invitations for {this.state.activeTab}
+                                Upload images of Thoughts & Feelings Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -154,5 +152,5 @@ class UploadPartyInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadPartyInvitationsPage = withRoot(withStyles(uploadStyles)(UploadPartyInvitationsPage));
-export default withAuthorization(authCondition)(UploadPartyInvitationsPage);
+UploadThoughtsFeelingsCardsPage = withRoot(withStyles(uploadStyles)(UploadThoughtsFeelingsCardsPage));
+export default withAuthorization(authCondition)(UploadThoughtsFeelingsCardsPage);

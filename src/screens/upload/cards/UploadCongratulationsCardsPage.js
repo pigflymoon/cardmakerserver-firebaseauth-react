@@ -13,17 +13,21 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
-import {uploadStyles} from '../../styles/uploadPage';
-import UploadPanel from '../../components/UploadPanel';
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
 
+import {uploadCardsListItems} from '../../../components/UploadSidebar';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
 
-class UploadBirthdayInvitationsPage extends Component {
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
+
+import UploadPanel from '../../../components/UploadPanel';
+
+class UploadCongratulationsCardsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -31,16 +35,15 @@ class UploadBirthdayInvitationsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'invitations',
-            activeTab: 'kids',
+            imageCategory: 'cards',
+            activeTab: 'graduation',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-
-        let tabs = ["kids", "women", "men"];
+        let tabs = CategoryConfig.cards.congratulations;
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -61,27 +64,26 @@ class UploadBirthdayInvitationsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        // const {anchor} = this.state;
-        console.log('props is ', this.props)
+        let tabs = CategoryConfig.cards.congratulations;
+        let tabsName = tabs.map((tab) => {
+            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
+        });
+
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadCardsListItems}</List>
             </div>
         );
 
-
         return (
             <div className={classes.root}>
-
                 <div className={classes.appFrame}>
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Birthday Invitation for {this.state.activeTab}
+                                Upload images of Congratulations Cards for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -121,15 +123,17 @@ class UploadBirthdayInvitationsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                <Tab label="Kids and baby"/>
-                                <Tab label="Women's"/>
-                                <Tab label="Men's"/>
+                                {tabsName.map((tab, index) => {
+                                    return (
+                                        <Tab label={tab} key={index} style={tabStyle.title}/>
+                                    )
+                                })}
+
                             </Tabs>
 
                         </Paper>
                         <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
-
                                      onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
@@ -145,5 +149,5 @@ class UploadBirthdayInvitationsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadBirthdayInvitationsPage = withRoot(withStyles(uploadStyles)(UploadBirthdayInvitationsPage));
-export default withAuthorization(authCondition)(UploadBirthdayInvitationsPage);
+UploadCongratulationsCardsPage = withRoot(withStyles(uploadStyles)(UploadCongratulationsCardsPage));
+export default withAuthorization(authCondition)(UploadCongratulationsCardsPage);

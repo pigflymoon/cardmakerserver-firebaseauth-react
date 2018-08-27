@@ -13,21 +13,17 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
+import {uploadInvitationsListItems} from '../../../components/UploadSidebar';
+import {uploadStyles} from '../../../styles/uploadPage';
+import UploadPanel from '../../../components/UploadPanel';
 
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
-import {CategoryConfig} from '../../constants/CategoryConfig';
 
-import {uploadStyles} from '../../styles/uploadPage';
-import tabStyle from '../../styles/tab';
-
-import UploadPanel from '../../components/UploadPanel';
-
-class UploadThoughtsFeelingsCardsPage extends Component {
+class UploadBirthdayInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -35,15 +31,16 @@ class UploadThoughtsFeelingsCardsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'cards',
-            activeTab: 'cheerUp',
+            imageCategory: 'invitations',
+            activeTab: 'kids',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-        let tabs = CategoryConfig.cards.thoughtsFeelings;
+
+        let tabs = ["kids", "women", "men"];
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -64,22 +61,16 @@ class UploadThoughtsFeelingsCardsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        let tabs = CategoryConfig.cards.thoughtsFeelings;
-        let tabsName = tabs.map((tab) => {
-            return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
-
-        });
-        console.log('############## tabsName is :', tabsName)
-
+        // const {anchor} = this.state;
+        console.log('props is ', this.props)
         const drawer = (
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadInvitationsListItems}</List>
             </div>
         );
+
 
         return (
             <div className={classes.root}>
@@ -88,7 +79,7 @@ class UploadThoughtsFeelingsCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Thoughts & Feelings Cards for {this.state.activeTab}
+                                Upload images of Birthday Invitations for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -128,17 +119,15 @@ class UploadThoughtsFeelingsCardsPage extends Component {
                                 textColor="primary"
                                 onChange={this.handleChange}
                             >
-                                {tabsName.map((tab, index) => {
-                                    return (
-                                        <Tab label={tab} key={index} style={tabStyle.title}/>
-                                    )
-                                })}
-
+                                <Tab label="Kids and baby"/>
+                                <Tab label="Women's"/>
+                                <Tab label="Men's"/>
                             </Tabs>
 
                         </Paper>
                         <UploadPanel classes={classes} imageCategory={this.state.imageCategory}
                                      activeTabIndex={this.state.activeTabIndex} activeTab={this.state.activeTab}
+
                                      onHandleUploadStatus={this.handleUploadStatus}
                         />
                     </main>
@@ -154,5 +143,5 @@ class UploadThoughtsFeelingsCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadThoughtsFeelingsCardsPage = withRoot(withStyles(uploadStyles)(UploadThoughtsFeelingsCardsPage));
-export default withAuthorization(authCondition)(UploadThoughtsFeelingsCardsPage);
+UploadBirthdayInvitationsPage = withRoot(withStyles(uploadStyles)(UploadBirthdayInvitationsPage));
+export default withAuthorization(authCondition)(UploadBirthdayInvitationsPage);

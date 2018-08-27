@@ -27,19 +27,20 @@ Navigation.contextTypes = {
 };
 
 const NavigationAuth = (userAndrole) => {
-    console.log('userAndrole is ', userAndrole, 'userAndrole.email', userAndrole.email)
     return (
         <ul>
-            <li><Link to={routes.DELETEHOLIDAYCARDS}>Show All Card Images list</Link></li>
-            <li><Link to={routes.DELETEHOLIDAYINVITATIONS}>Show All Invitations Images list</Link></li>
-
             <li><Link to={routes.UPLOADHOLIDAYCARDS}>Upload images for Cards</Link></li>
             <li><Link to={routes.UPLOADHOLIDAYINVITATIONS}>Upload images for Invitations</Link></li>
+
+            <li><Link to={routes.DELETEHOLIDAYCARDS}>Delete images from Cards list</Link></li>
+            <li><Link to={routes.DELETEHOLIDAYINVITATIONS}>Delete images from Invitations list</Link></li>
+
 
             <li><Link to={routes.ACCOUNT}>Account</Link></li>
             <li><SignOutButton email={userAndrole.email} role={userAndrole.role}/></li>
         </ul>
     )
+    console.log('userAndrole is ', userAndrole, 'userAndrole.email', userAndrole.email)
 }
 
 

@@ -13,21 +13,21 @@ import List from 'material-ui/List';
 
 import Hidden from 'material-ui/Hidden';
 
-import withAuthorization from '../../components/withAuthorization';
-import withRoot from '../../components/withRoot';
+import withAuthorization from '../../../components/withAuthorization';
+import withRoot from '../../../components/withRoot';
 
-import SimpleSnackbar from '../../widgets/snackBar';
-import AlertDialog from '../../widgets/alert'
+import SimpleSnackbar from '../../../widgets/snackBar';
+import AlertDialog from '../../../widgets/alert'
 
-import {mailFolderListItems, otherMailFolderListItems} from '../../components/Sidebar';
-import {CategoryConfig} from '../../constants/CategoryConfig';
+import {uploadInvitationsListItems} from '../../../components/UploadSidebar';
+import {CategoryConfig} from '../../../constants/CategoryConfig';
 
-import {uploadStyles} from '../../styles/uploadPage';
-import tabStyle from '../../styles/tab';
+import {uploadStyles} from '../../../styles/uploadPage';
+import tabStyle from '../../../styles/tab';
 
-import UploadPanel from '../../components/UploadPanel';
+import UploadPanel from '../../../components/UploadPanel';
 
-class UploadOccasionsCardsPage extends Component {
+class UploadAnnouncementInvitationsPage extends Component {
     constructor(props) {
         super(props);
 
@@ -35,15 +35,15 @@ class UploadOccasionsCardsPage extends Component {
             uploading: false,
             open: false,
             activeTabIndex: 0,
-            imageCategory: 'cards',
-            activeTab: 'anniversary',
+            imageCategory: 'invitations',
+            activeTab: 'birth',
             mobileOpen: false,
         };
     }
 
     handleChange = (event, value) => {
         this.setState({open: false});
-        let tabs = CategoryConfig.cards.occasions;
+        let tabs = CategoryConfig.invitations.announcement;
         for (let tab of tabs) {
             let tabValue = tabs[value];
             if (tab == tabValue) {
@@ -64,7 +64,7 @@ class UploadOccasionsCardsPage extends Component {
 
     render() {
         const {classes} = this.props;
-        let tabs = CategoryConfig.cards.occasions;
+        let tabs = CategoryConfig.invitations.announcement;
         let tabsName = tabs.map((tab) => {
             return tab.replace(/([a-z])([A-Z])/g, '$1 $2');
 
@@ -75,9 +75,7 @@ class UploadOccasionsCardsPage extends Component {
             <div>
                 <div className={classes.toolbar}/>
                 <Divider />
-                <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+                <List>{uploadInvitationsListItems}</List>
             </div>
         );
 
@@ -88,7 +86,7 @@ class UploadOccasionsCardsPage extends Component {
                     <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
                         <Toolbar>
                             <Typography variant="title" color="inherit" noWrap>
-                                Upload images of Occasions Cards for {this.state.activeTab}
+                                Upload images of Announcement Invitations for {this.state.activeTab}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -154,5 +152,5 @@ class UploadOccasionsCardsPage extends Component {
 const authCondition = (authUser) => !!authUser;
 
 
-UploadOccasionsCardsPage = withRoot(withStyles(uploadStyles)(UploadOccasionsCardsPage));
-export default withAuthorization(authCondition)(UploadOccasionsCardsPage);
+UploadAnnouncementInvitationsPage = withRoot(withStyles(uploadStyles)(UploadAnnouncementInvitationsPage));
+export default withAuthorization(authCondition)(UploadAnnouncementInvitationsPage);
