@@ -102,14 +102,41 @@ export default class UploadPanel extends Component {
             var downloadUrl = snapshot.downloadURL;
             var newImageKey = uploadImagesRef.push().key;
             var saveFilename = snapshot.metadata.name;
+
+            dbUpdatedImagesRef.once('value').then((snapshot) => {
+                var updatedChildrenTotal = snapshot.numChildren();
+                console.log('upcated children are :', updatedChildrenTotal);
+                if (updatedChildrenTotal <= 9) {
+                    dbUpdatedImagesRef.child(newImageKey + '_image').set({
+                        downloadUrl: downloadUrl,
+                        name: saveFilename
+                    });
+                } else {
+                    var query = dbUpdatedImagesRef.orderByKey().limitToFirst(1);
+                    query.once("value")
+                        .then(function (snapshot) {
+                            if (snapshot.val()) {
+                                var key = Object.keys(snapshot.val())[0];
+                                console.log('key is :', key);
+                                dbUpdatedImagesRef.child(key).remove().then(function () {
+                                    dbUpdatedImagesRef.child(newImageKey + '_image').set({
+                                        downloadUrl: downloadUrl,
+                                        name: saveFilename
+                                    });
+                                }).catch(function (error) {
+                                    console.log("Remove failed: " + error.message)
+                                });
+                            }
+                        });
+                }
+
+            });
+
             uploadImagesRef.child(newImageKey + '_image').set({
                 downloadUrl: downloadUrl,
                 name: saveFilename
             });
-            dbUpdatedImagesRef.child(newImageKey + '_image').set({
-                downloadUrl: downloadUrl,
-                name: saveFilename
-            });
+
         } else {
             this.setState({uploading: false, uploadStatus: 'Download url is not ready!'});
         }
@@ -148,6 +175,7 @@ export default class UploadPanel extends Component {
         var imagesRef = storage.getImagesByCategoryAndType(category, imageType);
         var uploadImagesRef = db.getImagesRefByTCategoryAndType(category, imageType);
         var dbUpdatedImagesRef = db.getUpdatedImagesRefByTCategoryAndType(category);
+
 
         if (files) {
             for (let file of files) {
