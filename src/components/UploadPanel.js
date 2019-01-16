@@ -107,17 +107,26 @@ export default class UploadPanel extends Component {
                 var updatedChildrenTotal = snapshot.numChildren();
                 console.log('upcated children are :', updatedChildrenTotal);
                 if (updatedChildrenTotal <= 9) {
+                    uploadImagesRef.child(newImageKey + '_image').set({
+                        downloadUrl: downloadUrl,
+                        name: saveFilename
+                    });
                     dbUpdatedImagesRef.child(newImageKey + '_image').set({
                         downloadUrl: downloadUrl,
                         name: saveFilename
                     });
                 } else {
+                    uploadImagesRef.child(newImageKey + '_image').set({
+                        downloadUrl: downloadUrl,
+                        name: saveFilename
+                    });
                     var query = dbUpdatedImagesRef.orderByKey().limitToFirst(1);
                     query.once("value")
                         .then(function (snapshot) {
                             if (snapshot.val()) {
                                 var key = Object.keys(snapshot.val())[0];
-                                console.log('key is :', key);
+                                console.log('key is :', key,'saved in database');
+
                                 dbUpdatedImagesRef.child(key).remove().then(function () {
                                     dbUpdatedImagesRef.child(newImageKey + '_image').set({
                                         downloadUrl: downloadUrl,
@@ -132,10 +141,7 @@ export default class UploadPanel extends Component {
 
             });
 
-            uploadImagesRef.child(newImageKey + '_image').set({
-                downloadUrl: downloadUrl,
-                name: saveFilename
-            });
+
 
         } else {
             this.setState({uploading: false, uploadStatus: 'Download url is not ready!'});
