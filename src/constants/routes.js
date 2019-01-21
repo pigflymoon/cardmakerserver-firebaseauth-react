@@ -38,6 +38,9 @@ export const UPLOADWEDDINGINVITATIONS = '/upload-weddingInvitations';
 export const UPLOADPARTYINVITATIONS = '/upload-partyInvitations';
 export const UPLOADANNOUNCEMENTINVITATIONS = '/upload-announcementInvitations';
 
+export const UPLOADGALLERY = '/upload-gallery';
+
+
 // export const ALLIMAGES = '/all-images';
 /**
  * DELETE images

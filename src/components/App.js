@@ -24,6 +24,8 @@ import UploadWeddingInvitationsPage from '../screens/upload/invitations/UploadWe
 //Party invitations
 import UploadPartyInvitationsPage from '../screens/upload/invitations/UploadPartyInvitationsPage';
 import UploadAnnouncementInvitationsPage from '../screens/upload/invitations/UploadAnnouncementInvitationsPage';
+//Sample for Gallery
+import UploadGalleryPage from '../screens/upload/gallery/UploadGalleryPage';
 //Delete cards
 import DeleteHolidayCardsPage from '../screens/delete/cards/DeleteHolidayCardsPage';
 import DeleteBirthdayCardsPage from '../screens/delete/cards/DeleteBirthdayCardsPage';
@@ -73,6 +75,8 @@ const App = () =>
             <Route exact path={routes.UPLOADPARTYINVITATIONS} component={() => <UploadPartyInvitationsPage/>}/>
             <Route exact path={routes.UPLOADANNOUNCEMENTINVITATIONS}
                    component={() => <UploadAnnouncementInvitationsPage/>}/>
+            <Route exact path={routes.UPLOADGALLERY}
+                   component={() => <UploadGalleryPage/>}/>
 
 
             <Route exact path={routes.DELETEHOLIDAYCARDS} component={() => <DeleteHolidayCardsPage />}/>

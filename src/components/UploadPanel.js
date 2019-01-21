@@ -80,6 +80,9 @@ export default class UploadPanel extends Component {
     }
 
     handleUpload = (e, category, imageType) => {
+        console.log('category is :',category);
+        console.log('imageType is :',imageType);
+
         e.preventDefault();
         console.log('choseFiles length', this.state.choseFiles)
         if (!(this.state.choseFiles) || this.state.choseFiles.length < 1) {
@@ -154,6 +157,7 @@ export default class UploadPanel extends Component {
         var task = saveImage(file, filename, imagesRef)
         var self = this;
 
+        console.log('dbUpdatedImagesRef is :',dbUpdatedImagesRef);
         task.then(function (snapshot) {
             console.log('snapshot is ', snapshot)
             self.getDownloadUrl(uploadImagesRef, dbUpdatedImagesRef, snapshot);//category-type-db, updated-db
@@ -204,6 +208,7 @@ export default class UploadPanel extends Component {
             uploading,
             uploadStatus
         } = this.state;
+        console.log('imageCategory is :',imageCategory,'activeTab is :',activeTab);
         let tabButtonName = activeTab.replace(/([a-z])([A-Z])/g, '$1 $2');
 
         return (

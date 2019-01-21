@@ -16,6 +16,17 @@ import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import MoodIcon from 'material-ui-icons/Mood';
 import UpdateIcon from 'material-ui-icons/Update';
 import AnnouncementIcon from 'material-ui-icons/Announcement';
+
+export const uploadGalleryListItems = (
+    <div>
+        <ListItem component={Link} to="upload-Gallery" button>
+            <ListItemIcon>
+                <StarIcon style={{color:'green'}}/>
+            </ListItemIcon>
+            <ListItemText primary="Gallery"/>
+        </ListItem>
+    </div>
+)
 export const uploadCardsListItems = (
     <div>
         <ListItem component={Link} to="upload-holidayCards" button>
